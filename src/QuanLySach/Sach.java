@@ -6,16 +6,26 @@ public class Sach {
     private String maSach;
     private String tenSach;
     private String maTacGia;
+    private String maNXB;
     private String theLoai;
     private double donGiaBan;
     private int soLuongSachHienCo;
 
-    public Sach() {}
+    public Sach() {
+        maSach = "";
+        tenSach = "";
+        maTacGia = "";
+        maNXB = "";
+        theLoai = "";
+        donGiaBan = 0;
+        soLuongSachHienCo = 0;
+    }
 
-    public Sach(String maSach, String tenSach, String maTacGia, String theLoai, double donGiaBan, int soLuongSachHienCo) {
+    public Sach(String maSach, String tenSach, String maTacGia, String maNXB, String theLoai, double donGiaBan, int soLuongSachHienCo) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.maTacGia = maTacGia;
+        this.maNXB = maNXB;
         this.theLoai = theLoai;
         this.donGiaBan = donGiaBan;
         this.soLuongSachHienCo = soLuongSachHienCo;
@@ -43,6 +53,14 @@ public class Sach {
 
     public void setMaTacGia(String maTacGia) {
         this.maTacGia = maTacGia;
+    }
+
+    public String getMaNXB() {
+        return maNXB;
+    }
+
+    public void setMaNXB(String maNXB) {
+        this.maNXB = maNXB;
     }
 
     public String getTheLoai() {
@@ -77,6 +95,8 @@ public class Sach {
         tenSach = sc.nextLine();
         System.out.print("Nhap ma tac gia: ");
         maTacGia = sc.nextLine();
+        System.out.print("Nhap ma NXB: ");
+        maNXB = sc.nextLine();
         System.out.print("Nhap the loai: ");
         theLoai = sc.nextLine();
         System.out.print("Nhap don gia ban: ");
@@ -88,4 +108,5 @@ public class Sach {
     public void xuat() {
         System.out.println("Ma sach: " + maSach + " | Ten sach: " + tenSach + " | Ma tac gia: " + maTacGia + " | The loai: " + theLoai + " | Don gia ban: " + donGiaBan + " | So luong sach hien co: " + soLuongSachHienCo);
     }
+
 }

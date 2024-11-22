@@ -6,10 +6,14 @@ public class SachThamKhao extends Sach {
     private String linhVuc;
     private int doTuoi;
 
-    public SachThamKhao() {}
+    public SachThamKhao() {
+        super();
+        linhVuc = "";
+        doTuoi = 0;
+    }
 
-    public SachThamKhao(String maSach, String tenSach, String maTacGia, String theLoai, double donGiaBan, int soLuongSachHienCo, String linhVuc, int doTuoi) {
-        super(maSach, tenSach, maTacGia, theLoai, donGiaBan, soLuongSachHienCo);
+    public SachThamKhao(String maSach, String tenSach, String maTacGia, String maNXB ,String theLoai, double donGiaBan, int soLuongSachHienCo, String linhVuc, int doTuoi) {
+        super(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
         this.linhVuc = linhVuc;
         this.doTuoi = doTuoi;
     }

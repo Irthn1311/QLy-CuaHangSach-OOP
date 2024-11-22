@@ -5,10 +5,13 @@ import java.util.Scanner;
 public class SachChuyenNganh extends Sach {
     private String monChuyenNganh;
 
-    public SachChuyenNganh() {}
+    public SachChuyenNganh() {
+        super();
+        monChuyenNganh = "";
+    }
 
-    public SachChuyenNganh(String maSach, String tenSach, String maTacGia, String theLoai, double donGiaBan, int soLuongSachHienCo, String monChuyenNganh) {
-        super(maSach, tenSach, maTacGia, theLoai, donGiaBan, soLuongSachHienCo);
+    public SachChuyenNganh(String maSach, String tenSach, String maTacGia, String maNXB, String theLoai, double donGiaBan, int soLuongSachHienCo, String monChuyenNganh) {
+        super(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
         this.monChuyenNganh = monChuyenNganh;
     }
 
