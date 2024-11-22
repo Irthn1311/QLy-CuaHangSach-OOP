@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.Period;
 
+import Interface.CRUD;
+
 public class DSTacGia implements CRUD {
     Scanner sc = new Scanner(System.in);
     TacGia[] TG;

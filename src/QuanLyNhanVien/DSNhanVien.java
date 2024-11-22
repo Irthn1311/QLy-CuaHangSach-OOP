@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Scanner;
 
+import Interface.CRUD;
+
 public class DSNhanVien implements CRUD {
     NhanVien[] run;
     Scanner sc=new Scanner(System.in);
