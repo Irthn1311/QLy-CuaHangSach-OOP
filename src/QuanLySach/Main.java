@@ -1,49 +1,57 @@
 package QuanLySach;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String fileName = "sach.dat";
-        BinaryFileSach binaryFileSach = new BinaryFileSach();
-
-        // Tạo các đối tượng Sach và gán giá trị
-        Sach sach1 = new Sach();
-        sach1.setMaSach("S001");
-        sach1.setTenSach("Lập Trình Java");
-        sach1.setMaTacGia("TG001");
-        sach1.setMaNXB("NXB001");
-        sach1.setTheLoai("Giáo Trình");
-        sach1.setDonGiaBan(50000);
-        sach1.setSoLuongSachHienCo(100);
-
-        SachChuyenNganh sach2 = new SachChuyenNganh();
-        sach2.setMaSach("S002");
-        sach2.setTenSach("Lập Trình C++");
-        sach2.setMaTacGia("TG002");
-        sach2.setMaNXB("NXB002");
-        sach2.setTheLoai("Chuyen nganh");
-        sach2.setDonGiaBan(60000);
-        sach2.setSoLuongSachHienCo(150);
-        sach2.setMonChuyenNganh("Khoa Học Máy Tính");
-
-        SachThamKhao sach3 = new SachThamKhao();
-        sach3.setMaSach("S003");
-        sach3.setTenSach("Lập Trình Python");
-        sach3.setMaTacGia("TG003");
-        sach3.setMaNXB("NXB003");
-        sach3.setTheLoai("Tham Khao");
-        sach3.setDonGiaBan(70000);
-        sach3.setSoLuongSachHienCo(200);
-        sach3.setLinhVuc("Tu Nhien");
-        sach3.setDoTuoi(18);
-
-        // Ghi các đối tượng vào file
-        binaryFileSach.writeFile(fileName, sach1);
-        binaryFileSach.writeFile(fileName, sach2);
-        binaryFileSach.writeFile(fileName, sach3);
-
-        // Đọc các đối tượng từ file và hiển thị thông tin
-        binaryFileSach.readFile(fileName);
+        DSSach sach = new DSSach();
+        sach.docFile();
+        int option;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Menu");
+            System.out.println("1. Thêm sách");
+            System.out.println("2. Xem danh sách sách");
+            System.out.println("3. Thống kê");
+            System.out.println("4. Tìm kiếm");
+            System.out.println("5. Sửa");
+            System.out.println("6. Xóa");
+            System.out.println("7. Lưu vào file");
+            System.out.println("0. Thoát");
+            System.out.print("Nhập lựa chọn của bạn: ");
+            option = sc.nextInt();
+            sc.nextLine(); // Đọc ký tự newline còn lại
+            switch (option) {
+                case 1:
+                    sach.them();
+                    break;
+                case 2:
+                    sach.xem();
+                    break;
+                case 3:
+                    sach.thongke();
+                    break;
+                case 4:
+                    sach.timkiem();
+                    break;
+                case 5:
+                    sach.sua();
+                    break;
+                case 6:
+                    sach.xoa();
+                    break;
+                case 7:
+                    sach.ghiFile();
+                    break;
+                case 0:
+                    System.out.println("Thoát chương trình");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
+                    break;
+            }
+        } while (option != 0);
+        sc.close();
     }
 }

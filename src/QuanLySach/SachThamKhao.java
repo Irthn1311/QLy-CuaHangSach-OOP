@@ -44,10 +44,8 @@ public class SachThamKhao extends Sach {
         doTuoi = sc.nextInt();
     }
 
-    @Override
-    public void xuat() {
+    @Override public void xuat() {
         super.xuat();
-        System.out.println("Linh vuc: " + linhVuc);
-        System.out.println("Do tuoi: " + doTuoi);
+        System.out.println("\n Linh vuc: " + linhVuc + "| Do tuoi: " + doTuoi);
     }
 }

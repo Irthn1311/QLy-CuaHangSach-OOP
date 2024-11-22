@@ -97,8 +97,6 @@ public class Sach {
         maTacGia = sc.nextLine();
         System.out.print("Nhap ma NXB: ");
         maNXB = sc.nextLine();
-        System.out.print("Nhap the loai: ");
-        theLoai = sc.nextLine();
         System.out.print("Nhap don gia ban: ");
         donGiaBan = sc.nextDouble();
         System.out.print("Nhap so luong sach hien co: ");

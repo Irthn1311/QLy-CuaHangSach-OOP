@@ -1,3 +1,5 @@
+package Interface;
+
 public interface CRUD {
     void xem();
     void them();

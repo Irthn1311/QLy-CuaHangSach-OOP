@@ -22,18 +22,17 @@ public class SachChuyenNganh extends Sach {
     public void setMonChuyenNganh(String monChuyenNganh) {
         this.monChuyenNganh = monChuyenNganh;
     }
-    @SuppressWarnings("resource")
-    @Override
-    public void nhap() {
+    
+    @Override public void nhap() {
         super.nhap();
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap mon chuyen nganh: ");
         monChuyenNganh = sc.nextLine();
     }
 
-    @Override
-    public void xuat() {
+    @Override public void xuat() {
         super.xuat();
-        System.out.println("Mon chuyen nganh: " + monChuyenNganh);
+        System.out.print("\n mon chuyen nganh: " + monChuyenNganh);
     }
 }
