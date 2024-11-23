@@ -56,7 +56,7 @@ public class DSSach implements CRUD {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("\nLua Chọn Thống Kê:");
+            System.out.println("\nLựa Chọn Thống Kê:");
             System.out.println("1. Thống Kê Số Lượng Sách Theo Thể Loại");
             System.out.println("2. Thống Kê Số Lượng Sách Theo Tác Giả");
             System.out.println("3. Thống Kê Số Lượng Sách Theo Nhà Xuất Bản");
@@ -139,7 +139,7 @@ public class DSSach implements CRUD {
                     }
                     break;
                 case 4:
-                    System.out.print("\nNhập Giá Trị x: ");
+                    System.out.print("\nNhập Giá Tiền Cần Thống Kê: ");
                     double x = sc.nextDouble();
                     sc.nextLine();
                     int countOver = 0;
