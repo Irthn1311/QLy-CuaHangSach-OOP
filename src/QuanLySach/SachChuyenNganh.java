@@ -1,5 +1,3 @@
-package QuanLySach;
-
 import java.util.Scanner;
 
 public class SachChuyenNganh extends Sach {

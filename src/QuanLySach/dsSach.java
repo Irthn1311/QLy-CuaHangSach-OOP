@@ -1,174 +1,103 @@
-package QuanLySach;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
-
-import Interface.CRUD;
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class DSSach implements CRUD {
-    private Sach[] dsSach = new Sach[100];
-    private int soLuong = 0;
+    Sach[] run;
+    Scanner sc=new Scanner(System.in);
+    private int size=3;
 
-    @Override
-    public void them() {
-		@SuppressWarnings("resource")
-        Scanner sc = new Scanner(System.in);
-        if (soLuong >= dsSach.length) {
-            System.out.println("Danh sách sách đã đầy!");
-            return;
-        }
-        System.out.println("Thể loại sách: ");
-        String theLoai = sc.nextLine();
-
-        Sach sach;
-        if (theLoai.equalsIgnoreCase("Chuyen Nganh")) {
-            sach = new SachChuyenNganh();
-        } else if (theLoai.equalsIgnoreCase("Tham Khao")) {
-            sach = new SachThamKhao();
-        } else {
-            sach = new Sach();
-        }
-		sach.setTheLoai(theLoai);
-        sach.nhap();
-        dsSach[soLuong++] = sach;
-        System.out.println("Thêm sách thành công!");
+    public DSSach(){
+        run= new Sach[3];
+        run[0] = new Sach("S001", "Luoc Su Loai Nguoi","TG001","NXB001","Lich Su va Triet Hoc",13000.0,100);
+        run[1] = new SachThamKhao("S002", "Dac Nhan Tam","TG002","NXB001","Ky Nang Song",15000.0,87,"Ky Nang Xa Hoi,Tam Ly Hoc, Lanh Dao Va Quan Ly",16);
+        run[2] = new SachChuyenNganh("S003", "Giai Tich","TG003","NXB002","Toan Hoc Va Giai Tich",20000.0,99,"Toan Hoc");
     }
 
     @Override
     public void xem() {
-        if (soLuong > 0) {
-            for (int i = 0; i < soLuong; i++) {
-                dsSach[i].xuat();
-                System.out.println("\n");
+        boolean checks=false;
+        System.out.print("\nThong Tin Cua Nhan Vien");
+        for(Sach s: run){
+            if( s !=null){
+                s.xuat();
+                checks=true;
             }
-        } else {
-            System.out.println("\nKhông có quyền sách nào trong danh sách!!!");
+        }
+        if(!checks){
+            System.out.print("\nKhông có quyền sách nào trong danh sách!!!");
         }
     }
 
     @Override
-    public void thongke() {
-		@SuppressWarnings("resource")
-        Scanner sc = new Scanner(System.in);
-        int choice;
-        do {
-            System.out.println("\nLựa Chọn Thống Kê:");
-            System.out.println("1. Thống Kê Số Lượng Sách Theo Thể Loại");
-            System.out.println("2. Thống Kê Số Lượng Sách Theo Tác Giả");
-            System.out.println("3. Thống Kê Số Lượng Sách Theo Nhà Xuất Bản");
-            System.out.println("4. Thống Kê Số Lượng Sách Theo Giá Bán");
-            System.out.println("0. Thoát");
-            System.out.print("\nLua Chọn Của Bạn: ");
-            choice = sc.nextInt();
-            sc.nextLine();
-            switch (choice) {
-                case 1:
-                    String[] theLoaiCount = new String[100];
-                    int[] countTheLoai = new int[100];
-                    int countTL = 0;
-                    for (int i = 0; i < soLuong; i++) {
-                        boolean found = false;
-                        for (int j = 0; j < countTL; j++) {
-                            if (dsSach[i].getTheLoai().equalsIgnoreCase(theLoaiCount[j])) {
-                                countTheLoai[j]++;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            theLoaiCount[countTL] = dsSach[i].getTheLoai();
-                            countTheLoai[countTL] = 1;
-                            countTL++;
-                        }
-                    }
-                    System.out.println("\nThống Kê Số Lượng Sách Theo Thể Loại:");
-                    for (int i = 0; i < countTL; i++) {
-                        System.out.println(theLoaiCount[i] + ": " + countTheLoai[i]);
-                    }
-                    break;
-                case 2:
-                    String[] tacGiaCount = new String[100];
-                    int[] countTacGia = new int[100];
-                    int countTG = 0;
-                    for (int i = 0; i < soLuong; i++) {
-                        boolean found = false;
-                        for (int j = 0; j < countTG; j++) {
-                            if (dsSach[i].getMaTacGia().equalsIgnoreCase(tacGiaCount[j])) {
-                                countTacGia[j]++;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            tacGiaCount[countTG] = dsSach[i].getMaTacGia();
-                            countTacGia[countTG] = 1;
-                            countTG++;
-                        }
-                    }
-                    System.out.println("\nThống Kê Số Lượng Sách Theo Tác Giả:");
-                    for (int i = 0; i < countTG; i++) {
-                        System.out.println(tacGiaCount[i] + ": " + countTacGia[i]);
-                    }
-                    break;
-                case 3:
-                    String[] nxbCount = new String[100];
-                    int[] countNXB = new int[100];
-                    int countNxb = 0;
-                    for (int i = 0; i < soLuong; i++) {
-                        boolean found = false;
-                        for (int j = 0; j < countNxb; j++) {
-                            if (dsSach[i].getMaNXB().equalsIgnoreCase(nxbCount[j])) {
-                                countNXB[j]++;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            nxbCount[countNxb] = dsSach[i].getMaNXB();
-                            countNXB[countNxb] = 1;
-                            countNxb++;
-                        }
-                    }
-                    System.out.println("\nThống Kê Số Lượng Sách Theo Nhà Xuất Bản:");
-                    for (int i = 0; i < countNxb; i++) {
-                        System.out.println(nxbCount[i] + ": " + countNXB[i]);
-                    }
-                    break;
-                case 4:
-                    System.out.print("\nNhập Giá Tiền Cần Thống Kê: ");
-                    double x = sc.nextDouble();
-                    sc.nextLine();
-                    int countOver = 0;
-                    int countUnder = 0;
-                    for (int i = 0; i < soLuong; i++) {
-                        if (dsSach[i].getDonGiaBan() > x) {
-                            countOver++;
-                        }
-                        if (dsSach[i].getDonGiaBan() < x) {
-                            countUnder++;
-                        }
-                    }
-                    System.out.println("\nSố Lượng Sách Có Giá Trên " + x + ": " + countOver);
-                    System.out.println("Số Lượng Sách Có Giá Dưới " + x + ": " + countUnder);
-                    break;
-                case 0:
-                    System.out.println("Thoát thành công.");
-                    break;
-                default:
-                    System.out.println("\nNhập Sai! Vui Lòng Nhập Lại.");
-                    break;
+    public void them(){
+        for(int i=0;i<run.length;i++){
+            if(run[i]==null){
+                run[i]=new Sach();
+                run[i].nhap();
+                size++;
+                return;
             }
-        } while (choice != 0);
+        }
+        if(size==run.length){
+            Sach[] newRun= new Sach[run.length+1];
+            for(int i=0;i<run.length;i++){
+                if(run[i]!= null){
+                    newRun[i]=run[i];
+                }
+            }
+            run=newRun;
+        }
+        run[size]=new Sach();
+        run[size].nhap();
+        size++;
     }
+
+    @Override
+    public void sua() {
+        boolean bookFound=false;
+        System.out.print("\nNhap Ma Sach Can Sua: ");
+        String checked = sc.nextLine();
+        for(Sach s: run){
+            if(s !=null && checked.equals(s.getMaSach())){
+                s.nhap();
+                bookFound=true;
+                break;
+            }
+        }
+        if (!bookFound) {
+            System.out.print("\nKHONG TIM THAY MA NHAN VIEN: "+checked);
+        } else {
+            System.out.print("\nCHINH SUA THONG TIN NHAN VIENTHANH CONG!!!");
+        } 
+    }
+
+    @Override
+    public void xoa(){
+        boolean bookFound=false;
+        System.out.print("\nNhap Ma Sach Can Xoa: ");
+        String checked=sc.nextLine();
+        for(int i=0;i<run.length;i++){
+            if(run[i]!=null && checked.equals(run[i].getMaSach())){
+                run[i]=null;
+                bookFound=true;
+                size--;
+                break;
+            }
+        }
+        if (!bookFound) {
+            System.out.print("\nKHONG TIM THAY MA SACH: "+checked);
+        } else {
+            System.out.print("\nXOA THONG TIN SACH THANH CONG!!!");
+        } 
+    }   
 
     @Override
     public void timkiem() {
 		@SuppressWarnings("resource")
-        Scanner sc = new Scanner(System.in);
         int find;
         do {
             System.out.println("\nLua Chọn Tìm Kiếm:");
@@ -184,9 +113,9 @@ public class DSSach implements CRUD {
                     boolean bookFound1 = false;
                     System.out.print("\nNhập Mã Sách Cần Tìm Kiếm: ");
                     String checked1 = sc.nextLine();
-                    for (int i = 0; i < soLuong; i++) {
-                        if (dsSach[i] != null && checked1.equals(dsSach[i].getMaSach())) {
-                            dsSach[i].xuat();
+                    for (int i = 0; i < run.length; i++) {
+                        if (run[i] != null && checked1.equals(run[i].getMaSach())) {
+                            run[i].xuat();
                             bookFound1 = true;
                             break;
                         }
@@ -199,9 +128,9 @@ public class DSSach implements CRUD {
                     boolean bookFound2 = false;
                     System.out.print("\nNhập Tên Sách Cần Tìm Kiếm: ");
                     String checked2 = sc.nextLine().toLowerCase();
-                    for (int i = 0; i < soLuong; i++) {
-                        if (dsSach[i] != null && dsSach[i].getTenSach().toLowerCase().contains(checked2)) {
-                            dsSach[i].xuat();
+                    for (int i = 0; i < run.length; i++) {
+                        if (run[i] != null && run[i].getTenSach().toLowerCase().contains(checked2)) {
+                            run[i].xuat();
                             bookFound2 = true;
                         }
                     }
@@ -211,11 +140,11 @@ public class DSSach implements CRUD {
                     break;
                 case 3:
                     boolean bookFound3 = false;
-                    System.out.print("\nNhập Tác Giả Cần Tìm Kiếm: ");
+                    System.out.print("\nNhập  Mã Tác Giả Cần Tìm Kiếm: ");
                     String checked3 = sc.nextLine().toLowerCase();
-                    for (int i = 0; i < soLuong; i++) {
-                        if (dsSach[i] != null && dsSach[i].getMaTacGia().toLowerCase().contains(checked3)) {
-                            dsSach[i].xuat();
+                    for (int i = 0; i < run.length; i++) {
+                        if (run[i] != null && run[i].getMaTacGia().toLowerCase().contains(checked3)) {
+                            run[i].xuat();
                             bookFound3 = true;
                         }
                     }
@@ -234,102 +163,215 @@ public class DSSach implements CRUD {
     }
 
     @Override
-    public void sua() {
+    public void thongke() {
 		@SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
-        boolean bookFound = false;
-        System.out.print("\nNhập Mã Sách Cần Sửa: ");
-        String checked = sc.nextLine();
-        for (int i = 0; i < soLuong; i++) {
-            if (dsSach[i] != null && checked.equals(dsSach[i].getMaSach())) {
-                dsSach[i].nhap();
-                bookFound = true;
-                System.out.println("\nChỉnh Sửa Thông Tin Sách Thành Công!!!");
-                break;
+        int choice;
+        do {
+            System.out.println("\nLua Chon Thong Ke:");
+            System.out.println("1. Thong Ke So Luong Sach Theo The Loai");
+            System.out.println("2. Thong Ke So Luong Sach Theo Tac Gia");
+            System.out.println("3. Thong Ke So Luong Sach Theo Nha Xuat an");
+            System.out.println("4. Thong Ke So Luong Sach Theo Gia Ban");
+            System.out.println("0. Thoát");
+            System.out.print("\nLua Chon Cua Ban: ");
+            choice = sc.nextInt();
+            sc.nextLine(); 
+            switch (choice) {
+                case 1:
+                    String[] theloai= new String[100];
+                    int[] soluongTL=new int[100];
+                    int visitTL=0;
+                    for(int i=0;i<run.length;i++){
+                        if (run[i]!=null){
+                            boolean find=false;
+                            for (int j=0;j<visitTL;j++){
+                                if(run[i].getTheLoai().equalsIgnoreCase(theloai[j])){
+                                    soluongTL[j]++;
+                                    find=true;
+                                    break;
+                                }
+                            }
+                            if(!find){
+                                theloai[visitTL]=run[i].getTheLoai();
+                                soluongTL[visitTL]=1;
+                                visitTL++;
+                            }
+                        }
+                    }
+                    System.out.println("\nThống Kê Số Lượng Sách Theo Thể Loại:");
+                    for (int i = 0; i < visitTL; i++) {
+                        System.out.println(theloai[i] + ": " + soluongTL[i]);
+                    }
+                    break;
+
+                    
+                case 2:
+                    String[] tacgia = new String[100];
+                    int[] soluongTG = new int[100];
+                    int visitTG = 0;
+                    for (int i = 0; i < run.length; i++) {
+                        if(run[i] !=null){
+                            boolean find = false;
+                            for (int j = 0; j < visitTG; j++) {
+                                if (run[i]!=null && run[i].getMaTacGia().equalsIgnoreCase(tacgia[j])) {
+                                    soluongTG[j]++;
+                                    find = true;
+                                    break;
+                                }
+                            }
+                            if (!find) {
+                                tacgia[visitTG] = run[i].getMaTacGia();
+                                soluongTG[visitTG] = 1;
+                                visitTG++;
+                            }
+                        }
+                    }
+                    System.out.println("\nThống Kê Số Lượng Sách Theo Tác Giả:");
+                    for (int i = 0; i < visitTG; i++) {
+                        System.out.println(tacgia[i] + ": " + soluongTG[i]);
+                    }
+                    break;
+                case 3:
+                    String[] nxb = new String[100];
+                    int[] soLuongNXB = new int[100];
+                    int visitNXB = 0;
+                    for (int i = 0; i < run.length; i++) {
+                        if(run[i]!=null){
+                            boolean find = false;
+                            for (int j = 0; j < visitNXB; j++) {
+                                if (run[i]!=null && run[i].getMaNXB().equalsIgnoreCase(nxb[j])) {
+                                    soLuongNXB[j]++;
+                                    find = true;
+                                    break;
+                                }
+                            }
+                            if (!find) {
+                                nxb[visitNXB] = run[i].getMaNXB();
+                                soLuongNXB[visitNXB] = 1;
+                                visitNXB++;
+                            }
+                        }
+                    }
+                    System.out.println("\nThống Kê Số Lượng Sách Theo Nhà Xuất Bản:");
+                    for (int i = 0; i < visitNXB; i++) {
+                        System.out.println(nxb[i] + ": " + soLuongNXB[i]);
+                    }
+                    break;
+                case 4:
+                    System.out.print("\nNhập Giá Tiền Cần Thống Kê: ");
+                    double x = sc.nextDouble();
+                    sc.nextLine();
+                    int countOver = 0;
+                    int countUnder = 0;
+                    for (int i = 0; i < run.length; i++) {
+                        if(run[i] !=null){
+                            if (run[i].getDonGiaBan() > x) {
+                                countOver++;
+                            }
+                            if (run[i].getDonGiaBan() < x) {
+                                countUnder++;
+                            }
+                        }    
+                    }
+                    System.out.println("\nSố Lượng Sách Có Giá Trên " + x + ": " + countOver);
+                    System.out.println("Số Lượng Sách Có Giá Dưới " + x + ": " + countUnder);
+                    break;
+                case 0:
+                    System.out.println("Thoát thành công.");
+                    break;
+                default:
+                    System.out.println("\nNhập Sai! Vui Lòng Nhập Lại.");
+                    break;
             }
-        }
-        if (!bookFound) {
-            System.out.print("\nKhông Tìm Thấy Mã Sách: " + checked);
-        }
+        } while (choice != 0);
     }
+
+    
 
     @Override
     public void docFile() {
-		String fileName = "sach.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader("data/" + fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] info = line.split("\\|");
-                String maSach = info[0].trim();
-                String tenSach = info[1].trim();
-                String maTacGia = info[2].trim();
-                String maNXB = info[3].trim();
-                String theLoai = info[4].trim();
-                double donGiaBan = Double.parseDouble(info[5].trim());
-                int soLuongSachHienCo = Integer.parseInt(info[6].trim());
-
-                Sach sach;
-                if (theLoai.equalsIgnoreCase("Chuyen Nganh")) {
-                    String monChuyenNganh = info[7].trim();
-                    sach = new SachChuyenNganh(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, monChuyenNganh);
-                } else if (theLoai.equalsIgnoreCase("Tham Khao")) {
-                    String linhVuc = info[7].trim();
-                    int doTuoi = Integer.parseInt(info[8].trim());
-                    sach = new SachThamKhao(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, linhVuc, doTuoi);
-                } else {
-                    sach = new Sach(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
-                }
-                dsSach[soLuong++] = sach;
+        File readf = new File("sach.txt");
+        try {
+            if (!readf.exists()) {
+                System.out.print("FILE MOI DA DUOC TAO");
+                readf.createNewFile();
             }
-            System.out.println("Đọc file thành công!");
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
+            try (BufferedReader br = Files.newBufferedReader(readf.toPath(), StandardCharsets.UTF_8)) {
+                boolean empty = true;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    empty = false;
+                    String[] info = line.split("\\|");
+                    if (info.length == 7 || info.length == 8 || info.length == 9) {
+                        String maSach = info[0].trim();
+                        String tenSach = info[1].trim();
+                        String maTacGia = info[2].trim();
+                        String maNXB = info[3].trim();
+                        String theLoai = info[4].trim();
+                        Double donGiaBan = Double.parseDouble(info[5].trim());
+                        int soLuongSachHienCo = Integer.parseInt(info[6].trim());
+                        
+                        String monChuyenNganh = null;
+                        String linhVuc = null;
+                        int doTuoi = 0;
+    
+                        if (info.length == 8) {
+                            monChuyenNganh = info[7].trim();
+                        }
+    
+
+                        if (info.length == 9) {
+                            linhVuc = info[7].trim(); 
+                            doTuoi = Integer.parseInt(info[8].trim()); 
+                        }
+    
+                        if (size == run.length) {
+                            Sach[] newRun = new Sach[run.length + 1];
+                            for(int j=0;j<run.length;j++){
+                                if(run[j]!=null){
+                                    newRun[j]=run[j];
+                                }
+                            }
+                            run = newRun;
+                        }
+    
+                        if (info.length == 7) {
+                            run[size] = new Sach(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
+                        } else if (info.length == 8) {
+                            run[size] = new SachChuyenNganh(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, monChuyenNganh);
+                        } else if (info.length == 9) {
+                            run[size] = new SachThamKhao(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, linhVuc, doTuoi);
+                        }
+    
+                        size++; 
+                    } else {
+                        System.out.println("Dữ liệu không hợp lệ: " + line);
+                    }
+                }
+    
+                if (empty) {
+                    System.out.println("\nFILE RONG");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
+    
     @Override
     public void ghiFile() {
-		String fileName = "sach.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/" + fileName))) {
-            for (int i = 0; i < soLuong; i++) {
-                if (dsSach[i] != null) {
-                    bw.write(dsSach[i].getMaSach() + "|" + dsSach[i].getTenSach() + "|" + dsSach[i].getMaTacGia() + "|" +
-                             dsSach[i].getMaNXB() + "|" + dsSach[i].getTheLoai() + "|" + dsSach[i].getDonGiaBan() + "|" +
-                             dsSach[i].getSoLuongSachHienCo());
-                    if (dsSach[i] instanceof SachChuyenNganh) {
-                        bw.write("|" + ((SachChuyenNganh) dsSach[i]).getMonChuyenNganh());
-                    } else if (dsSach[i] instanceof SachThamKhao) {
-                        bw.write("|" + ((SachThamKhao) dsSach[i]).getLinhVuc() + "|" + ((SachThamKhao) dsSach[i]).getDoTuoi());
-                    } else {
-                        bw.write("| |0");
-                    }
-                    bw.write("\n");
-                }
-            }
-            System.out.println("Ghi file thành công!");
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
+        try {
+            PrintWriter pw=new PrintWriter("NhanVien_Input.txt");
+            for(Sach s:run){
+                String line=s.getMaSach() + " | " + s.getTenSach() + " | " + s.getMaTacGia() + " | " + s.getMaNXB() + " | "
+                + s.getTheLoai() + " | " + s.getDonGiaBan() + " | " + s.getSoLuongSachHienCo();
+                pw.println(line);
+            }            
+            pw.flush();
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    public void xoa() {
-		@SuppressWarnings("resource")
-        Scanner sc = new Scanner(System.in);
-        boolean bookFound = false;
-        System.out.print("\nNhập Mã Sách Cần Xóa: ");
-        String checked = sc.nextLine();
-        for (int i = 0; i < soLuong; i++) {
-            if (dsSach[i] != null && checked.equals(dsSach[i].getMaSach())) {
-                dsSach[i] = dsSach[soLuong - 1];
-                dsSach[soLuong - 1] = null;
-                soLuong--;
-                bookFound = true;
-                System.out.println("\nXóa Thông Tin Sách Thành Công!!!");
-                break;
-            }
-        }
-        if (!bookFound) {
-            System.out.print("\nKhông Tìm Thấy Mã Sách: " + checked);
-        }
-    }
+    }  
 }
