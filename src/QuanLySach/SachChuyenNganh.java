@@ -33,6 +33,6 @@ public class SachChuyenNganh extends Sach {
 
     @Override public void xuat() {
         super.xuat();
-        System.out.print("\n mon chuyen nganh: " + monChuyenNganh);
+        System.out.printf("| Mon chuyen nganh %-10s ",monChuyenNganh);
     }
 }
