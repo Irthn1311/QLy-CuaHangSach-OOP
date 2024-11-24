@@ -1,3 +1,5 @@
+package QuanLySach;
+
 import java.io.BufferedReader;
 import java.util.Scanner;
 import java.io.File;
@@ -5,12 +7,14 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class DSSach implements CRUD {
+import interfaces.CRUD;
+
+public class dsSach implements CRUD {
     Sach[] run;
     Scanner sc=new Scanner(System.in);
     private int size=3;
 
-    public DSSach(){
+    public dsSach(){
         run= new Sach[3];
         run[0] = new Sach("S001", "Luoc Su Loai Nguoi","TG001","NXB001","Lich Su va Triet Hoc",13000.0,100);
         run[1] = new SachThamKhao("S002", "Dac Nhan Tam","TG002","NXB001","Ky Nang Song",15000.0,87,"Ky Nang Xa Hoi,Tam Ly Hoc, Lanh Dao Va Quan Ly",16);
