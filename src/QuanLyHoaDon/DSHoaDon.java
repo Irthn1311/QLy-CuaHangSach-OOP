@@ -1,393 +1,399 @@
-package src.QuanLyHoaDon;
+    package src.QuanLyHoaDon;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Scanner;
-import Interface.CRUD;
+    import java.io.BufferedReader;
+    import java.io.File;
+    import java.io.PrintWriter;
+    import java.nio.charset.StandardCharsets;
+    import java.nio.file.Files;
+    import java.time.LocalDate;
+    import java.time.format.DateTimeFormatter;
+    import java.util.Arrays;
+    import java.util.Scanner;
+    import Interface.CRUD;
 
-public class DSHoaDon implements CRUD{
-     HoaDon[] DSHD;
-    private int size = 3;
-//    private final int MAX_SIZE = 100;
+    public class DSHoaDon implements CRUD{
+        HoaDon[] dsHoaDon;
+        ChiTietHoaDon[] dsChiTietHoaDon;
+        private int size;
 
-    Scanner sc = new Scanner(System.in);
-    private static final DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        Scanner sc = new Scanner(System.in);
+        private static final DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public DSHoaDon()
-    {
-        DSHD = new HoaDon[size];
-        DSHD[0] = new HoaDon("HD001", "KH001", "NV001", LocalDate.parse("22-11-2024", sdf), 1000000.0, 500000.0, 500000.0);
-        DSHD[1] = new HoaDon("HD002", "KH002", "NV002", LocalDate.parse("23-11-2024", sdf), 2000000.0, 1000000.0, 1000000.0);
-        DSHD[2] = new HoaDon("HD003", "KH003", "NV003", LocalDate.parse("24-11-2024", sdf), 3000000.0, 2000000.0, 1000000.0);
-    }
-
-    @Override
-    public void xem() {
-        System.out.println("Thong tin hoa don");
-        for(HoaDon hoadon : DSHD)
-            if(hoadon != null)
-                hoadon.Xuat();
-    }
-
-    @Override
-    public void them() {
-        for(int i=0; i< DSHD.length; i++)
+        public void nhapDSHoaDon()
         {
-            if(DSHD[i] == null)
+            System.out.print("Nhap so luong hoa don:");
+            size = sc.nextInt();
+            dsHoaDon = new HoaDon[size];
+            dsChiTietHoaDon = new ChiTietHoaDon[size];
+            for(int i=0; i<size; i++)
             {
-                DSHD[i] = new HoaDon();
-                DSHD[i].Nhap();
-                size++;
-                return;
+                System.out.println();
+                System.out.println("Nhap thong tin hoa don thu " + (i+1));
+                dsHoaDon[i] = new HoaDon();
+                dsChiTietHoaDon[i] = new ChiTietHoaDon();
+                dsHoaDon[i].Nhap();
+                dsChiTietHoaDon[i].Nhap();
             }
         }
 
-        DSHD = Arrays.copyOf(DSHD,DSHD.length+1);
-        DSHD[size] = new HoaDon();
-        DSHD[size].Nhap();
-        size++;
-    }
-
-
-    @Override
-    public void sua()
-    {
-        boolean payFind = false;
-        System.out.print("Nhap ma hoa don can sua: ");
-        String a = sc.nextLine();
-        for(int i=0; i<DSHD.length; i++)
-        {
-            if(DSHD[i] != null && a.equals(DSHD[i].getmaHD()))
+        @Override
+        public void xem() {
+            System.out.println("Thong tin hoa don");
+            if(size == 0)
             {
-                DSHD[i].Nhap();
-                payFind = true;
-                break;
+                System.out.println("Khong co hoa don.");
+            } else {
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.printf("| %-12s | %-15s | %-15s | %-18s | %-10s | %-10s | %-10s |\n","  Ma hoa don", "  Ma khach hang", "  Ma nhan vien", "  Ngay tao hoa don", " Tong tien", " Tien nhan", " Tien thoi");
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                for(int i=0; i<size; i++)
+                {
+                    if(dsChiTietHoaDon[i] != null && dsChiTietHoaDon[i].getmaHD().equals(dsHoaDon[i].getmaHD()))
+                    {
+                        dsHoaDon[i].settongTien(dsChiTietHoaDon[i].getthanhTien());
+                        dsHoaDon[i].settienThoi(dsHoaDon[i].gettienNhan() - dsHoaDon[i].gettongTien());
+                    }
+                    dsHoaDon[i].Xuat();
+                }
             }
         }
 
-        if(!payFind)
-        {
-            System.out.println("Khong tim thay ma hoa don can sua.");
-        }
-        else
-        {
-            System.out.print("Da sua xong.");
-        }
-    }
+        @Override
+        public void them() {
 
-    @Override
-    public void xoa()
-    {
-        boolean payFind = false;
-        System.out.print("Nhap ma hoa don can xoa: ");
-        String a = sc.nextLine();
-        for(int i=0; i<DSHD.length; i++)
-        {
-            if(DSHD[i] != null && a.equals(DSHD[i].getmaHD()))
+            if(size == dsHoaDon.length)
             {
-                System.arraycopy(DSHD, i + 1, DSHD, i, size - i - 1);
-                DSHD[size - 1] = null;
-                size--;
-                payFind = true;
-                break;
+                dsHoaDon = Arrays.copyOf(dsHoaDon,dsHoaDon.length+1);
+                dsChiTietHoaDon = Arrays.copyOf(dsChiTietHoaDon, dsChiTietHoaDon.length + 1);
             }
+
+            dsHoaDon[size] = new HoaDon();
+            dsChiTietHoaDon[size] = new ChiTietHoaDon();
+            dsHoaDon[size].Nhap();
+            dsChiTietHoaDon[size].Nhap();
+            size++;
         }
 
-        if(!payFind)
-        {
-            System.out.println("Khong tim thay ma hoa don can xoa.");
-        } else {
-            System.out.println("Da xoa xong.");
-        }
-    }
 
-    @Override
-    public void timkiem()
-    {
-        while (true)
-        {
-            System.out.println("0. Ket thuc.");
-            System.out.println("1. Tim kiem hoa don.");
-            System.out.println("2. Tim kiem theo ma khach hang.");
-            System.out.println("3. Tim kiem theo ma nhan vien.");
-            System.out.print("Nhap lua chon: ");
-            int luaChon = sc.nextInt();
+        @Override
+        public void sua() {
+            boolean payFind = false;
+            System.out.print("Nhap ma hoa don can sua: ");
             sc.nextLine();
-            switch (luaChon)
-            {
-                case 0:
-                    return;
-                case 1:
-                    boolean findCodeHD = false;
-                    System.out.print("Nhap ma hoa don cam tim: ");
-                    String find = sc.nextLine();
-                    for(int i=0; i<DSHD.length; i++)
-                    {
-                        if(DSHD[i] != null && find.equals(DSHD[i].getmaHD()))
-                        {
-                            DSHD[i].Xuat();
-                            findCodeHD = true;
-                            break;
-                        }
-                    }
+            String a = sc.nextLine().trim();
+            for (int i = 0; i < dsHoaDon.length; i++) {
+                if (dsHoaDon[i] != null && a.equals(dsHoaDon[i].getmaHD()))
+                {
+                    System.out.println("Nhap lai thong tin hoa don: ");
+                    sc.nextLine();
+                    dsHoaDon[i].Nhap();
+                    dsChiTietHoaDon[i].Nhap();
+                    payFind = true;
+                    break;
+                }
+            }
 
-                    if(!findCodeHD)
-                    {
-                        System.out.println("Khong tim thay ma hoa don." + find);
-                    }
-                    System.in.read();
-                    break;
-                case 2:
-                    boolean findCustomer = false;
-                    System.out.print("Nhap ma khach hang can tim: ");
-                    String find1 = sc.nextLine();
-                    for(int i=0; i<DSHD.length; i++)
-                    {
-                        if(DSHD[i] != null && find1.equals(DSHD[i].getmaKH()))
-                        {
-                            DSHD[i].Xuat();
-                            findCustomer = true;
-                            break;
-                        }
-                    }
-
-                    if(!findCustomer)
-                    {
-                        System.out.println("Khong tim thay hoa don cua ma khach hang: " + find1);
-                    }
-                    System.in.read();
-                    break;
-                case 3:
-                    boolean findStaff = false;
-                    System.out.println("Nhap ma nhan vien can tim: ");
-                    String find2 = sc.nextLine();
-                    for(int i=0; i<DSHD.length; i++)
-                    {
-                        if(DSHD[i] != null && find2.equals(DSHD[i].getmaNV()))
-                        {
-                            DSHD[i].Xuat();
-                            findStaff = true;
-                            break;
-                        }
-                    }
-
-                    if(!findStaff)
-                    {
-                        System.out.println("Khong tim thay hoa don cua ma nhan vien: " + find2);
-                    }
-                    System.in.read();
-                    break;
-                default:
-                    System.out.println("Nhap sai! Ban vui long nhap dung.");
-                    break;
+            if (!payFind) {
+                System.out.println("Khong tim thay ma hoa don can sua.");
+            } else {
+                System.out.println("Da sua xong.");
             }
         }
-    }
 
-    @Override
-    public void thongke() {
-        while(true)
+        @Override
+        public void xoa()
         {
-            System.out.println("Chon tieu chi thong ke:");
-            System.out.println("0. Ket thuc.");
-            System.out.println("1. Theo ma nhan vien.");
-            System.out.println("2. Theo ma khach hang.");
-            System.out.println("3. Từ ngay A đến ngay B.");
-            System.out.println("4. Theo quy.");
-            System.out.print("Lua chon cua ban: ");
-            int luachon = sc.nextInt();
+            boolean payFind = false;
+            System.out.print("Nhap ma hoa don can xoa: ");
             sc.nextLine();
-            switch (luachon)
+            String a = sc.nextLine();
+            for(int i=0; i<dsHoaDon.length; i++)
             {
-                case 0:
-                    return;
-
-                case 1:
-                    System.out.print("Nhap ma nhan vien: ");
-                    String findStaff = sc.nextLine();
-                    System.out.println("Hoa don lap boi ma nhan vien: " + findStaff);
-                    for(int i=0; i< DSHD.length; i++)
-                    {
-                        if(DSHD[i] != null && findStaff.equals(DSHD[i].getmaNV()))
-                        {
-                            DSHD[i].Xuat();
-                        }
-                    }
-                    System.in.read();
+                if(dsHoaDon[i] != null && a.equals(dsHoaDon[i].getmaHD()))
+                {
+                    System.arraycopy(dsHoaDon, i + 1, dsHoaDon, i, size - i - 1);
+                    dsHoaDon[size - 1] = null;
+                    size--;
+                    payFind = true;
                     break;
+                }
+            }
 
-                case 2:
-                    //boolean
-                    System.out.print("Nhap ma khac hang: ");
-                    String findCustomer = sc.nextLine();
-                    System.out.println("Hoa don cua ma khach hang: " + findCustomer);
-                    for(int i=0; i< DSHD.length; i++)
-                    {
-                        if(DSHD[i] != null && findCustomer.equals(DSHD[i].getmaKH()))
+            if(!payFind)
+            {
+                System.out.println("Khong tim thay ma hoa don can xoa.");
+            } else {
+                System.out.println("Da xoa xong.");
+            }
+        }
+
+        @Override
+        public void timkiem()
+        {
+            while (true)
+            {
+                System.out.println("0. Ket thuc.");
+                System.out.println("1. Tim kiem hoa don.");
+                System.out.println("2. Tim kiem theo ma khach hang.");
+                System.out.println("3. Tim kiem theo ma nhan vien.");
+                System.out.print("Nhap lua chon: ");
+                int luaChon = sc.nextInt();
+                sc.nextLine();
+                switch (luaChon)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        boolean findCodeHD = false;
+                        System.out.print("Nhap ma hoa don cam tim: ");
+                        String find = sc.nextLine();
+                        for(int i=0; i<dsHoaDon.length; i++)
                         {
-                            DSHD[i].Xuat();
-                        }
-                    }
-                    break;
-
-                case 3:
-                    System.out.print("Nhap ngay bat dau (dd-MM-yyyy): ");
-                    String ngayBatDauStr = sc.nextLine();
-                    System.out.print("Nhap ngay ket thuc (dd-MM-yyyy): ");
-                    String ngayKetThucStr = sc.nextLine();
-
-                    try {
-                        LocalDate ngayBatDau = LocalDate.parse(ngayBatDauStr, sdf);
-                        LocalDate ngayKetThuc = LocalDate.parse(ngayKetThucStr, sdf);
-
-                        System.out.println("Hoa don tu ngay " + ngayBatDau + " den ngay " + ngayKetThuc + ":");
-                        for (int i = 0; i < DSHD.length; i++) {
-                            if (DSHD[i] != null &&
-                                    (DSHD[i].getngayTaoHD().isEqual(ngayBatDau) || DSHD[i].getngayTaoHD().isAfter(ngayBatDau)) &&
-                                    (DSHD[i].getngayTaoHD().isEqual(ngayKetThuc) || DSHD[i].getngayTaoHD().isBefore(ngayKetThuc))) {
-                                DSHD[i].Xuat();
+                            if(dsHoaDon[i] != null && find.equals(dsHoaDon[i].getmaHD()))
+                            {
+                                dsHoaDon[i].Xuat();
+                                findCodeHD = true;
+                                break;
                             }
                         }
-                    } catch (Exception e) {
-                        System.out.println("Ngay nhap khong hop le!");
-                    }
-                    break;
-                case 4:
-                    double quy1=0.0, quy2=0.0, quy3=0.0, quy4=0.0, tongQuy= 0.0;
-                    for(int j=1; j<=4; j++)
-                    {
-                       double tongTienMotQuy = 0.0;
-                       for(int i=0; i<DSHD.length; i++)
-                       {
-                           if(DSHD[i] != null)
-                           {
-                               int month = DSHD[i].getngayTaoHD().getMonthValue();
-                               int quyHD = (month - 1)/3 + 1;
 
-                               if(quyHD == j)
-                               {
-                                   tongTienMotQuy += DSHD[i].gettongTien();
-                               }
-                           }
-                       }
+                        if(!findCodeHD)
+                        {
+                            System.out.println("Khong tim thay ma hoa don." + find);
+                        }
+                        break;
+                    case 2:
+                        boolean findCustomer = false;
+                        System.out.print("Nhap ma khach hang can tim: ");
+                        String find1 = sc.nextLine();
+                        for(int i=0; i<dsHoaDon.length; i++)
+                        {
+                            if(dsHoaDon[i] != null && find1.equals(dsHoaDon[i].getmaKH()))
+                            {
+                                dsHoaDon[i].Xuat();
+                                findCustomer = true;
+                                break;
+                            }
+                        }
 
-                       if(j == 1)
-                           quy1 = tongTienMotQuy;
-                       else if(j == 2)
-                           quy2 = tongTienMotQuy;
-                       else if(j ==3)
-                           quy3 = tongTienMotQuy;
-                       else if(j ==4)
-                           quy4 = tongTienMotQuy;
+                        if(!findCustomer)
+                        {
+                            System.out.println("Khong tim thay hoa don cua ma khach hang: " + find1);
+                        }
+                        break;
+                    case 3:
+                        boolean findStaff = false;
+                        System.out.println("Nhap ma nhan vien can tim: ");
+                        String find2 = sc.nextLine();
+                        for(int i=0; i<dsHoaDon.length; i++)
+                        {
+                            if(dsHoaDon[i] != null && find2.equals(dsHoaDon[i].getmaNV()))
+                            {
+                                dsHoaDon[i].Xuat();
+                                findStaff = true;
+                                break;
+                            }
+                        }
 
-                   }
-                    tongQuy = quy1 + quy2 + quy3 + quy4;
-                    System.out.printf("--------------------------------------------------------------");
-                    System.out.printf("|Quy 1: %-10s | Quy 2: %-10s | Quy 3: %-10s | Quy 4: %-10s | Tong cong: %-15s|\n",quy1,quy2,quy3,quy4,tongQuy);
+                        if(!findStaff)
+                        {
+                            System.out.println("Khong tim thay hoa don cua ma nhan vien: " + find2);
+                        }
+                        break;
+                    default:
+                        System.out.println("Nhap sai! Ban vui long nhap dung.");
+                        break;
+                }
             }
         }
-    }
 
-    @Override
-    public void docFile() {
-        File file = new File("HoaDon_Input.txt");
+        @Override
+        public void thongke() {
+            while(true)
+            {
+                System.out.println("Chon tieu chi thong ke:");
+                System.out.println("0. Ket thuc.");
+                System.out.println("1. Theo ma nhan vien.");
+                System.out.println("2. Theo ma khach hang.");
+                System.out.println("3. Từ ngay A đến ngay B.");
+                System.out.println("4. Theo quy.");
+                System.out.print("Lua chon cua ban: ");
+                int luachon = sc.nextInt();
+                sc.nextLine();
+                switch (luachon)
+                {
+                    case 0:
+                        return;
 
-        try {
-            if (!file.exists()) {
-                System.out.println("File mới đã được tạo.");
-                file.createNewFile();
-            }
+                    case 1:
+                        System.out.print("Nhap ma nhan vien: ");
+                        String findStaff = sc.nextLine();
+                        System.out.println("Hoa don lap boi ma nhan vien: " + findStaff);
+                        for(int i=0; i< dsHoaDon.length; i++)
+                        {
+                            if(dsHoaDon[i] != null && findStaff.equals(dsHoaDon[i].getmaNV()))
+                            {
+                                dsHoaDon[i].Xuat();
+                            }
+                        }
+                        break;
 
-            try (BufferedReader br = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
-                String line;
-                boolean isEmpty = true;
+                    case 2:
+                        //boolean
+                        System.out.print("Nhap ma khac hang: ");
+                        String findCustomer = sc.nextLine();
+                        System.out.println("Hoa don cua ma khach hang: " + findCustomer);
+                        for(int i=0; i< dsHoaDon.length; i++)
+                        {
+                            if(dsHoaDon[i] != null && findCustomer.equals(dsHoaDon[i].getmaKH()))
+                            {
+                                dsHoaDon[i].Xuat();
+                            }
+                        }
+                        break;
 
-                while ((line = br.readLine()) != null) {
-                    isEmpty = false;
-                    String[] data = line.split(",");
+                    case 3:
+                        System.out.print("Nhap ngay bat dau (dd-MM-yyyy): ");
+                        String ngayBatDauStr = sc.nextLine();
+                        System.out.print("Nhap ngay ket thuc (dd-MM-yyyy): ");
+                        String ngayKetThucStr = sc.nextLine();
 
-                    if (data.length == 7) {
                         try {
-                            String maHD = data[0].trim();
-                            String maKH = data[1].trim();
-                            String maNV = data[2].trim();
-                            LocalDate ngayTaoHD = LocalDate.parse(data[3].trim(), sdf);
-                            double tongTien = Double.parseDouble(data[4].trim());
-                            double tienDaThu = Double.parseDouble(data[5].trim());
-                            double tienConLai = Double.parseDouble(data[6].trim());
+                            LocalDate ngayBatDau = LocalDate.parse(ngayBatDauStr, sdf);
+                            LocalDate ngayKetThuc = LocalDate.parse(ngayKetThucStr, sdf);
 
-                            // Tạo một hóa đơn mới với dữ liệu đọc được
-                            HoaDon hoaDon = new HoaDon(maHD, maKH, maNV, ngayTaoHD, tongTien, tienDaThu, tienConLai);
+                            System.out.println("Hoa don tu ngay " + ngayBatDau + " den ngay " + ngayKetThuc + ":");
+                            double tongTien = 0.0;
 
-                            // Thêm vào mảng DSHD
-                            boolean add = false;
-                            for (int i = 0; i < DSHD.length; i++) {
-                                if (DSHD[i] == null) {
-                                    DSHD[i] = hoaDon;
-                                    add = true;
-                                    break;
+                            for (int i = 0; i < size; i++) {
+                                if (dsHoaDon[i] != null &&
+                                        (dsHoaDon[i].getngayTaoHD().isEqual(ngayBatDau) || dsHoaDon[i].getngayTaoHD().isAfter(ngayBatDau)) &&
+                                        (dsHoaDon[i].getngayTaoHD().isEqual(ngayKetThuc) || dsHoaDon[i].getngayTaoHD().isBefore(ngayKetThuc))) {
+                                    tongTien += dsHoaDon[i].gettongTien();
                                 }
                             }
 
-                            if (!add) {
-                                // Nếu mảng DSHD đầy, thì mở rộng mảng và thêm hóa đơn mới vào
-                                DSHD = Arrays.copyOf(DSHD, DSHD.length + 1);
-                                DSHD[DSHD.length - 1] = hoaDon;
-                            }
+                            System.out.println("Tong tien tu ngay " + ngayBatDau + " den ngay " + ngayKetThuc + " la: " + tongTien);
+
                         } catch (Exception e) {
-                            System.out.println("Dữ liệu không hợp lệ trong dòng: " + line);
+                            System.out.println("Ngay nhap khong hop le!");
                         }
-                    } else {
-                        System.out.println("Dữ liệu không hợp lệ trong dòng: " + line);
+                        break;
+                    case 4:
+                        double quy1=0.0, quy2=0.0, quy3=0.0, quy4=0.0, tongQuy= 0.0;
+                        for(int j=1; j<=4; j++)
+                        {
+                           double tongTienMotQuy = 0.0;
+                           for(int i=0; i<dsHoaDon.length; i++)
+                           {
+                               if(dsHoaDon[i] != null)
+                               {
+                                   int month = dsHoaDon[i].getngayTaoHD().getMonthValue();
+                                   int quyHD = (month - 1)/3 + 1;
+
+                                   if(quyHD == j)
+                                   {
+                                       tongTienMotQuy += dsHoaDon[i].gettongTien();
+                                   }
+                               }
+                           }
+
+                           if(j == 1)
+                               quy1 = tongTienMotQuy;
+                           else if(j == 2)
+                               quy2 = tongTienMotQuy;
+                           else if(j ==3)
+                               quy3 = tongTienMotQuy;
+                           else if(j ==4)
+                               quy4 = tongTienMotQuy;
+
+                       }
+                        tongQuy = quy1 + quy2 + quy3 + quy4;
+                        System.out.println("------------------------------------------------------------------------------------------------");
+                        System.out.printf("| %-15s | %-15s | %-15s | %-15s | %-20s |\n","Quy 1", "Quy 2", "Quy 3", "Quy 4", "Tong cong");
+                        System.out.println("------------------------------------------------------------------------------------------------");
+                        System.out.printf("| %-15.2f | %-15.2f | %-15.2f | %-15.2f | %-20.2f |\n",quy1, quy2, quy3, quy4, tongQuy);
+                        System.out.println("------------------------------------------------------------------------------------------------");
+
+                }
+            }
+        }
+
+        @Override
+        public void docFile() {
+            try {
+                BufferedReader br = Files.newBufferedReader(new File("src/QuanLyHoaDon/HoaDon_Input.txt").toPath(), StandardCharsets.UTF_8);
+                String line;
+                size = 0;
+
+                // Đọc từng dòng trong file và lưu vào dsHoaDon
+                while ((line = br.readLine()) != null) {
+                    String[] fields = line.split(",");
+                    if (fields.length == 7) {
+                        HoaDon hoaDon = new HoaDon();
+                        hoaDon.setmaHD(fields[0]);
+                        hoaDon.setmaKH(fields[1]);
+                        hoaDon.setmaNV(fields[2]);
+                        hoaDon.setngayTaoHD(LocalDate.parse(fields[3], sdf));
+                        hoaDon.settongTien(Double.parseDouble(fields[4]));
+                        hoaDon.settienNhan(Double.parseDouble(fields[5]));
+                        hoaDon.settienThoi(Double.parseDouble(fields[6]));
+
+                        // Thêm hoaDon vào dsHoaDon
+                        if (size == dsHoaDon.length) {
+                            dsHoaDon = Arrays.copyOf(dsHoaDon, size + 1); // Tăng kích thước mảng nếu cần
+                        }
+                        dsHoaDon[size++] = hoaDon;
                     }
                 }
 
-                if (isEmpty) {
-                    System.out.println("File rỗng.");
-                }
+                br.close();
+                System.out.println("Đọc file thành công!");
 
             } catch (Exception e) {
-                System.out.println("Đọc file không thành công: ");
+                System.out.println("Lỗi khi đọc file: " + e.getMessage());
             }
-
-        } catch (Exception e) {
-             e.printStackTrace();
         }
-    }
 
-    @Override
-    public void ghiFile() {
-        try {
-            PrintWriter pw = new PrintWriter("HoaDon_Input.txt", "UTF-8");
 
-            // Duyệt qua danh sách hóa đơn và ghi vào file
-            for (HoaDon hoaDon : DSHD) {
-                if (hoaDon != null) {
-                    // Ghi hóa đơn với định dạng CSV
-                    pw.println(String.join(",",
-                            hoaDon.getmaHD(),
-                            hoaDon.getmaKH(),
-                            hoaDon.getmaNV(),
-                            hoaDon.getngayTaoHD().format(sdf),
-                            String.valueOf(hoaDon.gettongTien()),
-                            String.valueOf(hoaDon.gettienNhan()),
-                            String.valueOf(hoaDon.gettienThoi())
-                    ));
+        public void ghiFile() {
+            try {
+                for (int i = 0; i < size; i++) {
+                    if (dsHoaDon[i] != null) {
+                        if (dsChiTietHoaDon[i] != null && dsChiTietHoaDon[i].getmaHD().equals(dsHoaDon[i].getmaHD())) {
+                            dsHoaDon[i].settongTien(dsChiTietHoaDon[i].getthanhTien());
+                        } else {
+                            dsHoaDon[i].settongTien(0.0);
+                        }
+
+                        dsHoaDon[i].settienThoi(dsHoaDon[i].gettienNhan() - dsHoaDon[i].gettongTien());
+                    }
                 }
+
+                // Tiến hành ghi file
+                PrintWriter pw = new PrintWriter("src/QuanLyHoaDon/HoaDon_Input.txt", "UTF-8");
+
+                for (HoaDon hoaDon : dsHoaDon) {
+                    if (hoaDon != null) {
+                        pw.println(String.join(",",
+                                hoaDon.getmaHD(),
+                                hoaDon.getmaKH(),
+                                hoaDon.getmaNV(),
+                                hoaDon.getngayTaoHD().format(sdf),
+                                String.valueOf(hoaDon.gettongTien()),
+                                String.valueOf(hoaDon.gettienNhan()),
+                                String.valueOf(hoaDon.gettienThoi())
+                        ));
+                    }
+                }
+
+                pw.close();
+                System.out.println("Ghi file thành công!");
+
+            } catch (Exception e) {
+                System.out.println("Lỗi khi ghi file: " + e.getMessage());
             }
-
-            pw.close();
-            System.out.println("Ghi file thành công!");
-
-        } catch (Exception e) {
-            System.out.println("Lỗi khi ghi file: " + e.getMessage());
         }
-    }
 
-}
+
+    }

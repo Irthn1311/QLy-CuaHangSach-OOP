@@ -15,42 +15,41 @@
                 System.out.println("1. Xem Hoa Don.");
                 System.out.println("2. Them Hoa Don.");
                 System.out.println("3. Sua Hoa Don.");
-                System.out.println("4. Tim Kiem Hoa Don.");
-                System.out.println("5. Thong Ke Hoa Don.");
-                System.out.println("6. Doc Du Lieu File");
-                System.out.println("7. Ghi du lieu File.");
-                System.out.println("Nhap lua chon cua ban: ");
+                System.out.println("4. Xoa Hoa Don.");
+                System.out.println("5. Tim Kiem Hoa Don.");
+                System.out.println("6. Thong Ke Hoa Don.");
+                System.out.println("7. Doc Du Lieu File");
+                System.out.println("8. Ghi du lieu File.");
+                System.out.print("Nhap lua chon cua ban: ");
                 luachon = sc.nextInt();
+                sc.nextLine();
                 switch (luachon)
                 {
                     case 0:
                         return;
                     case 1:
                         quanLiHoaDon.xem();
-                        System.in.read();
+                        break;
                     case 2:
                         quanLiHoaDon.them();
-                        System.in.read();
                         break;
                     case 3:
                         quanLiHoaDon.sua();
-                        System.in.read();
                         break;
                     case 4:
-                        quanLiHoaDon.timkiem();
-                        System.in.read();
+                        quanLiHoaDon.xoa();
                         break;
                     case 5:
-                        quanLiHoaDon.thongke();
-                        System.in.read();
+                        quanLiHoaDon.timkiem();
                         break;
                     case 6:
-                        quanLiHoaDon.docFile();
-                        System.in.read();
+                        quanLiHoaDon.thongke();
                         break;
                     case 7:
+                        quanLiHoaDon.docFile();
+                        break;
+                    case 8:
                         quanLiHoaDon.ghiFile();
-                        System.in.read();
                         break;
                     default:
                         System.out.println("Nhap sai! Vui long nhap dung.");
