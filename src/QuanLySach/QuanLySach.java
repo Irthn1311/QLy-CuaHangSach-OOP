@@ -1,6 +1,8 @@
+package QuanLySach;
+
 import java.util.Scanner;
 public class QuanLySach {
-    DSSach quanlysach = new DSSach();
+    dsSach quanlysach = new dsSach();
     Scanner sc = new Scanner(System.in);
     public void menu() {
         int choice;

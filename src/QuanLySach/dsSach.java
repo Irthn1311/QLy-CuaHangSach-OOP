@@ -1,3 +1,5 @@
+package QuanLySach;
+
 import java.io.BufferedReader;
 import java.util.Scanner;
 import java.io.File;
@@ -5,12 +7,14 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class DSSach implements CRUD {
+import Interface.CRUD;
+
+public class dsSach implements CRUD {
     Sach[] run;
     Scanner sc=new Scanner(System.in);
     private int size=3;
 
-    public DSSach(){
+    public dsSach(){
         run= new Sach[3];
         run[0] = new Sach("S001", "Luoc Su Loai Nguoi","TG001","NXB001","Lich Su va Triet Hoc",13000.0,100);
         run[1] = new SachThamKhao("S002", "Dac Nhan Tam","TG002","NXB001","Ky Nang Song",15000.0,87,"Ky Nang Xa Hoi,Tam Ly Hoc, Lanh Dao Va Quan Ly",16);
@@ -20,7 +24,7 @@ public class DSSach implements CRUD {
     @Override
     public void xem() {
         boolean checks=false;
-        System.out.print("\nThong Tin Cua Nhan Vien");
+        System.out.print("\nThông Tin Sách");
         for(Sach s: run){
             if( s !=null){
                 s.xuat();
@@ -33,25 +37,38 @@ public class DSSach implements CRUD {
     }
 
     @Override
-    public void them(){
-        for(int i=0;i<run.length;i++){
-            if(run[i]==null){
-                run[i]=new Sach();
+    public void them() {
+        System.out.println("Thể loại sách: ");
+        String theLoai = sc.nextLine();
+    
+        Sach sach;
+        if (theLoai.equalsIgnoreCase("Chuyen Nganh")) {
+            sach = new SachChuyenNganh();
+        } else if (theLoai.equalsIgnoreCase("Tham Khao")) {
+            sach = new SachThamKhao();
+        } else {
+            sach = new Sach();
+        }
+        sach.setTheLoai(theLoai);
+    
+        for (int i = 0; i < run.length; i++) {
+            if (run[i] == null) {
+                run[i] = sach;
                 run[i].nhap();
                 size++;
                 return;
             }
         }
-        if(size==run.length){
-            Sach[] newRun= new Sach[run.length+1];
-            for(int i=0;i<run.length;i++){
-                if(run[i]!= null){
-                    newRun[i]=run[i];
+        if (size == run.length) {
+            Sach[] newRun = new Sach[run.length + 1];
+            for (int i = 0; i < run.length; i++) {
+                if (run[i] != null) {
+                    newRun[i] = run[i];
                 }
             }
-            run=newRun;
+            run = newRun;
         }
-        run[size]=new Sach();
+        run[size] = sach;
         run[size].nhap();
         size++;
     }
@@ -69,9 +86,9 @@ public class DSSach implements CRUD {
             }
         }
         if (!bookFound) {
-            System.out.print("\nKHONG TIM THAY MA NHAN VIEN: "+checked);
+            System.out.print("\nKHONG TIM THAY MA SACH: "+checked);
         } else {
-            System.out.print("\nCHINH SUA THONG TIN NHAN VIENTHANH CONG!!!");
+            System.out.print("\nCHINH SUA THONG TIN SACH THANH CONG!!!");
         } 
     }
 
@@ -303,7 +320,7 @@ public class DSSach implements CRUD {
                 while ((line = br.readLine()) != null) {
                     empty = false;
                     String[] info = line.split("\\|");
-                    if (info.length == 7 || info.length == 8 || info.length == 9) {
+                    if (info.length >= 7) {
                         String maSach = info[0].trim();
                         String tenSach = info[1].trim();
                         String maTacGia = info[2].trim();
@@ -311,40 +328,31 @@ public class DSSach implements CRUD {
                         String theLoai = info[4].trim();
                         Double donGiaBan = Double.parseDouble(info[5].trim());
                         int soLuongSachHienCo = Integer.parseInt(info[6].trim());
-                        
-                        String monChuyenNganh = null;
-                        String linhVuc = null;
-                        int doTuoi = 0;
     
-                        if (info.length == 8) {
-                            monChuyenNganh = info[7].trim();
-                        }
-    
-
-                        if (info.length == 9) {
-                            linhVuc = info[7].trim(); 
-                            doTuoi = Integer.parseInt(info[8].trim()); 
+                        Sach sach;
+                        if (theLoai.equalsIgnoreCase("Chuyen Nganh")) {
+                            String monChuyenNganh = info[7].trim();
+                            sach = new SachChuyenNganh(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, monChuyenNganh);
+                        } else if (theLoai.equalsIgnoreCase("Tham Khao")) {
+                            String linhVuc = info[7].trim();
+                            int doTuoi = Integer.parseInt(info[8].trim());
+                            sach = new SachThamKhao(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, linhVuc, doTuoi);
+                        } else {
+                            sach = new Sach(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
                         }
     
                         if (size == run.length) {
                             Sach[] newRun = new Sach[run.length + 1];
-                            for(int j=0;j<run.length;j++){
-                                if(run[j]!=null){
-                                    newRun[j]=run[j];
+                            for (int j = 0; j < run.length; j++) {
+                                if (run[j] != null) {
+                                    newRun[j] = run[j];
                                 }
                             }
                             run = newRun;
                         }
     
-                        if (info.length == 7) {
-                            run[size] = new Sach(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
-                        } else if (info.length == 8) {
-                            run[size] = new SachChuyenNganh(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, monChuyenNganh);
-                        } else if (info.length == 9) {
-                            run[size] = new SachThamKhao(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, linhVuc, doTuoi);
-                        }
-    
-                        size++; 
+                        run[size] = sach;
+                        size++;
                     } else {
                         System.out.println("Dữ liệu không hợp lệ: " + line);
                     }

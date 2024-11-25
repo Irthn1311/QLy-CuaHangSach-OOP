@@ -1,3 +1,4 @@
+package QuanLySach;
 
 import java.util.Scanner;
 
@@ -17,21 +18,12 @@ public class SachThamKhao extends Sach {
         this.doTuoi = doTuoi;
     }
 
-    public String getLinhVuc() {
-        return linhVuc;
-    }
+    public String getLinhVuc() {return linhVuc;}
+    public int getDoTuoi() {return doTuoi;}
 
-    public void setLinhVuc(String linhVuc) {
-        this.linhVuc = linhVuc;
-    }
-
-    public int getDoTuoi() {
-        return doTuoi;
-    }
-
-    public void setDoTuoi(int doTuoi) {
-        this.doTuoi = doTuoi;
-    }
+    public void setLinhVuc(String linhVuc) {this.linhVuc = linhVuc;}
+    public void setDoTuoi(int doTuoi) {this.doTuoi = doTuoi;}
+    
     @SuppressWarnings("resource")
     @Override
     public void nhap() {
@@ -45,6 +37,6 @@ public class SachThamKhao extends Sach {
 
     @Override public void xuat() {
         super.xuat();
-        System.out.println("\n Linh vuc: " + linhVuc + "| Do tuoi: " + doTuoi);
+        System.out.printf("| Linh vuc: %-10s | Do tuoi: %-5d ",linhVuc, doTuoi);
     }
 }

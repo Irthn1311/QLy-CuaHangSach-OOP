@@ -302,20 +302,6 @@ public class DSKhachHang implements CRUD {
                         String gioitinh=info[4].trim();
                         String sdt=info[5].trim();
                         String diachi=info[6].trim();
-                        for(int i=0;i<KH.length;i++){
-                            if(KH[i]==null){
-                                KH[i]=new KhachHang();
-                                KH[i].setMaKH(maKH);
-                                KH[i].setHoKH(hoKH);
-                                KH[i].setTenKH(tenKH);
-                                KH[i].setNgaySinh(ngaySinhKH);
-                                KH[i].setGioiTinh(gioitinh);
-                                KH[i].setSDTKH(sdt);
-                                KH[i].setDiaChiKH(diachi);
-                                size++;
-                                return;
-                            }
-                        }
                         if(size==KH.length){
                             KhachHang[] newKH=new KhachHang[KH.length+1];
                             for(int j=0;j<KH.length;j++){
@@ -324,14 +310,7 @@ public class DSKhachHang implements CRUD {
                             }
                             KH=newKH;
                         }
-                        KH[size]=new KhachHang();
-                        KH[size].setMaKH(maKH);
-                        KH[size].setHoKH(hoKH);
-                        KH[size].setTenKH(tenKH);
-                        KH[size].setNgaySinh(ngaySinhKH);
-                        KH[size].setGioiTinh(gioitinh);
-                        KH[size].setSDTKH(sdt);
-                        KH[size].setDiaChiKH(diachi);
+                        KH[size]=new KhachHang(maKH,hoKH,tenKH,ngaySinhKH,gioitinh,sdt,diachi);
                         size++;
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
@@ -344,17 +323,20 @@ public class DSKhachHang implements CRUD {
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void ghiFile(){
         try {
-            PrintWriter pw=new PrintWriter("KhachHang_Input.txt","UTF-8");
-            System.out.print("\nNhap Thong Tin Vao File: ");
-            String text=sc.nextLine();
-            pw.print(text);
-            pw.flush();
+            PrintWriter pw=new PrintWriter("KhachHang_Output.txt","UTF-8");
+            
+            for(KhachHang khach: KH){
+                String line= "Ma Khach Hang: "+khach.getMaKH() + " | Ho Khach Hang: " + khach.getHoKH() + " | Ten Khach Hang: " + khach.getTenKH() + " | SDT: " + khach.getSDTKH()+ " | Ngay Sinh: " 
+                + khach.getNgaySinh()+ " | Gioi Tinh: " +khach.getGioiTinh()+ " | Dia Chi: " +khach.getDiaChiKH();
+                pw.println(line);
+                pw.flush();
+            }
+            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG ");
             pw.close();
         }catch (Exception e) {
             e.printStackTrace();

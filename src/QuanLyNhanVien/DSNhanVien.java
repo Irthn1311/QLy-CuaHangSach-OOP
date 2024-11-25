@@ -335,22 +335,6 @@ public class DSNhanVien implements CRUD {
                         String diaChiNV = info[7].trim();
                         Double luongNV = Double.parseDouble(info[8].trim());
 
-                        for(int i=0;i<run.length;i++){
-                            if(run[i]==null){
-                                run[i]= new NhanVien();
-                                run[i].setMaNV(maNV);
-                                run[i].setHoNV(hoNV);
-                                run[i].setTenNV(tenNV);
-                                run[i].setChucVu(chucVu);
-                                run[i].setNgaySinh(ngaySinh);
-                                run[i].setGioiTinh(gioiTinh);
-                                run[i].setSDTNV(sdtNV);
-                                run[i].setDiaChiNV(diaChiNV);
-                                run[i].setLuongNV(luongNV);
-                                size++;
-                                return;
-                            }
-                        }
                         if(size==run.length){
                             NhanVien[] newRun=new NhanVien[run.length+1];
                             for(int j=0;j<run.length;j++){
@@ -360,16 +344,7 @@ public class DSNhanVien implements CRUD {
                             }
                             run=newRun;
                         }
-                        run[size]= new NhanVien();
-                        run[size].setMaNV(maNV);
-                        run[size].setHoNV(hoNV);
-                        run[size].setTenNV(tenNV);
-                        run[size].setChucVu(chucVu);
-                        run[size].setNgaySinh(ngaySinh);
-                        run[size].setGioiTinh(gioiTinh);
-                        run[size].setSDTNV(sdtNV);
-                        run[size].setDiaChiNV(diaChiNV);
-                        run[size].setLuongNV(luongNV);
+                        run[size]= new NhanVien(maNV,hoNV,tenNV,chucVu,ngaySinh,gioiTinh,sdtNV,diaChiNV,luongNV);
                         size++;
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
@@ -387,10 +362,15 @@ public class DSNhanVien implements CRUD {
     @Override
     public void ghiFile(){
         try {
-            PrintWriter pw=new PrintWriter("NhanVien_Input.txt");
-            String text=sc.nextLine();
-            pw.print(text);
-            pw.flush();
+            PrintWriter pw=new PrintWriter("NhanVien_Output.txt");
+            for(NhanVien nv: run){
+                String line= "Ma Nhan Vien: "+nv.getMaNV() + " | Ho Nhan Vien: " + nv.getHoNV() + " | Ten Nhan Vien: " + nv.getTenNV() + " | Chuc Vu: " +nv.getChucVu()+ " | SDT: " 
+                            +nv.getSDTNV() + " | Ngay Sinh: " +nv.getNgaySinh() + " | Gioi Tinh: " +nv.getGioiTinh() + " | Dia Chi: " + nv.getDiaChiNV() + " | Luong: " +nv.getLuongNV();
+                pw.println(line);
+                pw.flush();
+            }
+            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
+            
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();
