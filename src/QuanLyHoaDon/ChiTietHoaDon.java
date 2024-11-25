@@ -1,4 +1,4 @@
-package src.QuanLyHoaDon;
+package QuanLyHoaDon;
 
 import java.util.Scanner;
 
@@ -71,3 +71,4 @@ public class ChiTietHoaDon {
 
     public double getthanhTien() {return this.soLuong * this.donGia;}
 }
+

@@ -1,4 +1,4 @@
-package src.QuanLyHoaDon;
+package QuanLyHoaDon;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -45,20 +45,20 @@ public class HoaDon {
 
     public void Nhap()
     {
-            System.out.print("Nhap ma hoa don: ");
-            maHD = sc.nextLine();
-            System.out.print("Nhap ma khach hang: ");
-            maKH = sc.nextLine();
-            System.out.print("Nhap ma nhan vien: ");
-            maNV = sc.nextLine();
-            System.out.print("Nhap ngay tao hoa don (dd-MM-yyyy): ");
-            String ngay = sc.nextLine();
-            ngayTaoHD = LocalDate.parse(ngay,sdf);
-            System.out.print("Nhap tien nhan: ");
-            tienNhan = sc.nextDouble();
-            sc.nextLine();
-            sc.nextLine();
-            System.out.println("");
+        System.out.print("Nhap ma hoa don: ");
+        maHD = sc.nextLine();
+        System.out.print("Nhap ma khach hang: ");
+        maKH = sc.nextLine();
+        System.out.print("Nhap ma nhan vien: ");
+        maNV = sc.nextLine();
+        System.out.print("Nhap ngay tao hoa don (dd-MM-yyyy): ");
+        String ngay = sc.nextLine();
+        ngayTaoHD = LocalDate.parse(ngay,sdf);
+        System.out.print("Nhap tien nhan: ");
+        tienNhan = sc.nextDouble();
+        sc.nextLine();
+        sc.nextLine();
+        System.out.println("");
     }
 
     public void Xuat()
