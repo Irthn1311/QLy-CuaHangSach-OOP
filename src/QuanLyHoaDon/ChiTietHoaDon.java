@@ -1,4 +1,4 @@
-package src.QuanLyHoaDon;
+package QuanLyHoaDon;
 
 import java.util.Scanner;
 
@@ -16,21 +16,22 @@ public class ChiTietHoaDon {
         maHD = "";
         maSach = "";
         soLuong = 0;
-        donGia = 0;
-        thanhTien = 0;
+        donGia = 0.0;
+        thanhTien = 0.0;
     }
 
-    public ChiTietHoaDon(String maHD, String maSach, int soLuong, double donGia, double thanhTien)
+    public ChiTietHoaDon(String maHD, String maSach, int soLuong, double donGia)
     {
         this.maHD = maHD;
         this.maSach = maSach;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = thanhTien;
+        this.thanhTien = this.donGia * this.soLuong;
     }
 
     public void Nhap()
     {
+        System.out.println("================Bat dau nhap chi tiet hoa don.================");
         System.out.print("Nhap ma hoa don: ");
         maHD = sc.nextLine();
         System.out.print("Nhap ma sach: ");
@@ -39,6 +40,7 @@ public class ChiTietHoaDon {
         soLuong = sc.nextInt();
         System.out.print("Nhap don gia: ");
         donGia = sc.nextDouble();
+        sc.nextLine();
         thanhTien = soLuong * donGia;
     }
 
@@ -51,47 +53,22 @@ public class ChiTietHoaDon {
         System.out.println("Thanh tien: " + thanhTien);
     }
 
-    public void setmaHD(String maHD)
-    {
-        this.maHD = maHD;
-    }
+    public void setmaHD(String maHD) {this.maHD = maHD;}
 
-    public String getmaHD()
-    {
-        return this.maHD;
-    }
+    public String getmaHD() {return this.maHD;}
 
-    public void setmaSach(String maSach)
-    {
-        this.maSach = maSach;
-    }
+    public void setmaSach(String maSach) {this.maSach = maSach;}
 
-    public String getmaSach()
-    {
-        return this.maSach;
-    }
+    public String getmaSach() {return this.maSach;}
 
-    public void setsoLuong(int soLuong)
-    {
-        this.soLuong = soLuong;
-    }
+    public void setsoLuong(int soLuong){this.soLuong = soLuong;}
 
-    public int getsoLuong()
-    {
-        return this.soLuong;
-    }
+    public int getsoLuong() {return this.soLuong;}
 
-    public void setdonGia(double donGia)
-    {
-        this.donGia = donGia;
-    }
+    public void setdonGia(double donGia){this.donGia = donGia;}
 
-    public double getdonGia() {
-        return this.donGia;
-    }
+    public double getdonGia() {return this.donGia;}
 
-    public double getthanhTien()
-    {
-        return this.thanhTien;
-    }
+    public double getthanhTien() {return this.soLuong * this.donGia;}
 }
+
