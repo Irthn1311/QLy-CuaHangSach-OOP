@@ -83,12 +83,12 @@ public class NhaXuatBan {
     email=sc.nextLine();
    }
     public void xuatNXB() {
-        System.out.prrint() "QuanLyNhaXuatBan{" +
+        System.out.print( "QuanLyNhaXuatBan{" +
                 "maNXB='"+ maNXB + '\'' +
                 ", tenNXB='" + tenNXB + '\'' +
                 ", diaChiNXB='" + diaChiNXB + '\'' +
                 ", sdtNXB='" + sdtNXB + '\'' +
                 ", email='" + email + '\'' +
-                '}';
+                '}');
     }
 }

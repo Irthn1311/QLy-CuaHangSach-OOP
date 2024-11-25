@@ -218,17 +218,6 @@ public class DSTacGia implements CRUD {
                         String TenTG = info[1].trim();
                         String NamSinhTG = info[2].trim();
                         String QueQuanTG = info[3].trim();
-                        for (int i = 0; i < TG.length; i++) {
-                            if (TG[i]==null){
-                                TG[i] = new TacGia(); 
-                                TG[i].setMaTacGia(MaTG);
-                                TG[i].setTenTacGia(TenTG);
-                                TG[i].setNamSinhTG(NamSinhTG);
-                                TG[i].setQueQuan(QueQuanTG);
-                                size++;
-                                return;
-                            }
-                        }
                         if (size == TG.length) {
                             TacGia[] newTG = new TacGia[TG.length + 1];
                             for (int j = 0; j < TG.length; j++) {
@@ -238,11 +227,7 @@ public class DSTacGia implements CRUD {
                             }
                             TG = newTG;
                         }
-                        TG[size] = new TacGia();
-                        TG[size].setMaTacGia(MaTG);
-                        TG[size].setTenTacGia(TenTG);
-                        TG[size].setNamSinhTG(NamSinhTG);
-                        TG[size].setQueQuan(QueQuanTG);
+                        TG[size] = new TacGia(MaTG,TenTG,NamSinhTG,QueQuanTG);
                         size++;
                     } else {
                         System.out.println("Du Lieu Khong Hop Le: " + line);
@@ -259,11 +244,14 @@ public class DSTacGia implements CRUD {
     
     public void ghiFile(){
         try {
-            PrintWriter pw=new PrintWriter("TacGia_Input.txt","UTF-8");
-            System.out.println("\nNhap Du Lieu Ban Muon Them Vao File");
-            String text=sc.nextLine();
-            pw.print(text);
-            pw.flush();
+            PrintWriter pw=new PrintWriter("TacGia_Output.txt","UTF-8");
+            for(TacGia tacgia:TG){
+                String line= "Ma Tac Gia: "+ tacgia.getMaTacGia() + " | Ten Tac Gia: " +tacgia.getTenTacGia() + " | Nam Sinh: " +tacgia.getNamSinhTG()+ " | Que Quan: " +tacgia.getQueQuan();
+                pw.println(line);
+                pw.flush();
+            }
+            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
+           
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();
