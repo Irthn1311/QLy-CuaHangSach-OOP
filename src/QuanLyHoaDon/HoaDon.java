@@ -30,7 +30,7 @@ public class HoaDon {
         tienThoi = 0;
     }
 
-    public HoaDon(String maHD, String maKH, String maNV, LocalDate ngayTaoHD, double tienNhan, double tongTien, double tienThoi)
+    public HoaDon(String maHD, String maKH, String maNV, LocalDate ngayTaoHD, double tienNhan)
     {
         this.maHD = maHD;
         this.maKH = maKH;

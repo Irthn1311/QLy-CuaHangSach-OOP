@@ -20,7 +20,6 @@ public class QuanLiHoaDon {
             System.out.println("6. Thong Ke Hoa Don.");
             System.out.println("7. Doc Du Lieu File");
             System.out.println("8. Ghi du lieu File.");
-            System.out.println("9. Nhap Thong Tin Hoa Don.");
             System.out.print("Nhap lua chon cua ban: ");
             luachon = sc.nextInt();
             sc.nextLine();
@@ -52,8 +51,6 @@ public class QuanLiHoaDon {
                 case 8:
                     quanLiHoaDon.ghiFile();
                     break;
-                case 9:
-                    quanLiHoaDon.nhap();
                 default:
                     System.out.println("Nhap sai! Vui long nhap dung.");
                     break;

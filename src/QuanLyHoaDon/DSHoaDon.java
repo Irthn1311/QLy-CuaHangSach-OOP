@@ -14,28 +14,38 @@ import Interface.CRUD;
 public class DSHoaDon implements CRUD{
     HoaDon[] dsHoaDon;
     ChiTietHoaDon[] dsChiTietHoaDon;
-    private int size;
+    private int size = 2;
 
     Scanner sc = new Scanner(System.in);
     private static final DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-
-    @Override
-    public void nhap() {
-        System.out.print("Nhap so luong hoa don:");
-        size = sc.nextInt();
+    public DSHoaDon()
+    {
         dsHoaDon = new HoaDon[size];
         dsChiTietHoaDon = new ChiTietHoaDon[size];
-        for(int i=0; i<size; i++)
-        {
-            System.out.println();
-            System.out.println("Nhap thong tin hoa don thu " + (i+1));
-            dsHoaDon[i] = new HoaDon();
-            dsChiTietHoaDon[i] = new ChiTietHoaDon();
-            dsHoaDon[i].Nhap();
-            dsChiTietHoaDon[i].Nhap();
-        }
+        dsHoaDon[0] = new HoaDon("HD001","KH001","NV001",LocalDate.parse("12-11-2024",sdf),500000.0);
+        dsHoaDon[1] = new HoaDon("HD002","KH002","NV002",LocalDate.parse("23-11-2024",sdf),700000.0);
+
+        dsChiTietHoaDon[0] = new ChiTietHoaDon("HD001","S001",3,20000.0);
+        dsChiTietHoaDon[1] = new ChiTietHoaDon("HD002","KH002",2,50000);
     }
+
+//    @Override
+//    public void nhap() {
+//        System.out.print("Nhap so luong hoa don:");
+//        size = sc.nextInt();
+//        dsHoaDon = new HoaDon[size];
+//        dsChiTietHoaDon = new ChiTietHoaDon[size];
+//        for(int i=0; i<size; i++)
+//        {
+//            System.out.println();
+//            System.out.println("Nhap thong tin hoa don thu " + (i+1));
+//            dsHoaDon[i] = new HoaDon();
+//            dsChiTietHoaDon[i] = new ChiTietHoaDon();
+//            dsHoaDon[i].Nhap();
+//            dsChiTietHoaDon[i].Nhap();
+//        }
+//    }
 
     @Override
     public void xem() {
@@ -323,9 +333,14 @@ public class DSHoaDon implements CRUD{
     @Override
     public void docFile() {
         try {
+            // Kiểm tra nếu dsHoaDon chưa được khởi tạo thì khởi tạo với kích thước mặc định
+            if (dsHoaDon == null) {
+                dsHoaDon = new HoaDon[10]; // Kích thước khởi tạo ban đầu
+            }
+
             BufferedReader br = Files.newBufferedReader(new File("src/QuanLyHoaDon/HoaDon_Input.txt").toPath(), StandardCharsets.UTF_8);
             String line;
-            size = 0;
+            size = 0; // Reset lại size để đếm số lượng hóa đơn
 
             // Đọc từng dòng trong file và lưu vào dsHoaDon
             while ((line = br.readLine()) != null) {
@@ -336,15 +351,13 @@ public class DSHoaDon implements CRUD{
                     hoaDon.setmaKH(fields[1]);
                     hoaDon.setmaNV(fields[2]);
                     hoaDon.setngayTaoHD(LocalDate.parse(fields[3], sdf));
-                    hoaDon.settongTien(Double.parseDouble(fields[4]));
-                    hoaDon.settienNhan(Double.parseDouble(fields[5]));
-                    hoaDon.settienThoi(Double.parseDouble(fields[6]));
+                    hoaDon.settienNhan(Double.parseDouble(fields[5])); // Tiền nhận
 
-                    // Thêm hoaDon vào dsHoaDon
+                    // Tăng kích thước mảng nếu cần thiết
                     if (size == dsHoaDon.length) {
-                        dsHoaDon = Arrays.copyOf(dsHoaDon, size + 1); // Tăng kích thước mảng nếu cần
+                        dsHoaDon = Arrays.copyOf(dsHoaDon, size + 10); // Tăng thêm 10 phần tử mỗi lần mở rộng
                     }
-                    dsHoaDon[size++] = hoaDon;
+                    dsHoaDon[size++] = hoaDon; // Thêm hóa đơn vào mảng và tăng size
                 }
             }
 
@@ -355,6 +368,7 @@ public class DSHoaDon implements CRUD{
             System.out.println("Lỗi khi đọc file: " + e.getMessage());
         }
     }
+
 
 
     public void ghiFile() {
