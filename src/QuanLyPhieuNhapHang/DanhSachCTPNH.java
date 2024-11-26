@@ -14,8 +14,7 @@ public class DanhSachCTPNH implements CRUD {
         this.listPNH = new ChiTietPhieuNhapHang[100];  
         this.sc = new Scanner(System.in);
     }
-
-    public void showMenu() {
+        public void menu(){
         int choice;
         do {
             System.out.println("\n===== Menu Phieu Nhap Hang =====");
@@ -25,8 +24,6 @@ public class DanhSachCTPNH implements CRUD {
             System.out.println("4. Xoa Phieu Nhap Hang");
             System.out.println("5. Tim Kiem Phieu Nhap Hang");
             System.out.println("6. Thong Ke Phieu Nhap Hang");
-            System.out.println("7. Doc Tu File");
-            System.out.println("8. Ghi Ra File");
             System.out.println("0. Thoat");
             System.out.print("\n===============================");
             System.out.print("\nLua Chon Cua Ban: ");
@@ -139,6 +136,9 @@ public class DanhSachCTPNH implements CRUD {
                 totalValue += listPNH[i].getThanhTien();  
             }
         }
+        System.out.print("\n=================Bang thong ke==================");
+        System.out.print("\n1.");
+        System.out.print("\n");
         System.out.println("Tong gia tri cua tat ca phieu nhap hang: " + totalValue);
     }
 @Override
