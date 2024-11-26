@@ -71,7 +71,7 @@ public class ChiTietPhieuNhapHang {
         return thanhTien;
     }
 
-
+    @SuppressWarnings("resource")
     public void nhap() {
         Scanner sc = new Scanner(System.in);
 
