@@ -195,25 +195,31 @@ public class DanhSachNXB implements CRUD {
 }
     @Override
     public void thongke(){
+        Scanner sc=new Scanner(System.in);
+        while(true){
+        System.out.print("\n===============ThongkeNXB=================");
+        System.out.print("\n1.Liet ke nhung Nha Xuat Ban o HCM");
+        System.out.print("\n2.Moi nha xuat dieu co ma duy nhat hay khong");
+        System.out.print("\n==========================================");
+        System.out.print("\nNhap sua lua chon cua ban: ");
+        int choice=sc.nextInt();
+        switch (choice) {
+            case 1:
+                
+                break;
+        
+            default:
+                break;
+        }
+     }
         
     }
     @Override
     public void docFile() {
-        File file = new File("NXB.txt");
-        if (!file.exists()) {
-            try {
-                boolean created = file.createNewFile();
-                if (created) {
-                    System.out.println("\nFile NXB.txt was created!");
-                }
-            } catch (IOException e) {
-                System.out.println("\nError creating file: " + e.getMessage());
-            }
-        } else {
-            System.out.print("\nFile name: " + file.getName());
-            System.out.print("\nFile co ton tai: " + file.exists());
-        }
-
+        
+        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
+                        "xb.txt");
+        System.out.print("\nFile: "+file.exists());
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -237,7 +243,8 @@ public class DanhSachNXB implements CRUD {
 
     @Override
     public void ghiFile() {
-        File file = new File("NXB.txt");
+        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
+                        "xb.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < size; i++) {
                 if (NXB[i] != null) {
@@ -255,7 +262,6 @@ public class DanhSachNXB implements CRUD {
 
     public void Menu() {
         docFile();
-
         while (true) {
             System.out.print("\n-------------MenuOfNXB-------------------");
             System.out.print("\n1. Xem danh sach nha xuat ban");
@@ -263,7 +269,9 @@ public class DanhSachNXB implements CRUD {
             System.out.print("\n3. Sua trong danh sach nha xuat ban");
             System.out.print("\n4. Xoa trong danh sach nha xuat ban");
             System.out.print("\n5. Tim kiem trong danh sach nha xuat ban");
-            System.out.print("\n6. Thoat menu!");
+            System.out.print("\n6.Thong ke Nha Xuat Ban");
+            System.out.print("\n7.Ghi vao file nhung thong tin vua nhap");
+            System.out.print("\n8. Thoat menu!");
             System.out.print("\n-----------------------------------------");
             System.out.print("\nNhap su lua chon cua ban: ");
             int choice = sc.nextInt();
@@ -284,7 +292,11 @@ public class DanhSachNXB implements CRUD {
                 case 5:
                     timkiem();
                     break;
-                case 6:
+                case 6:thongke();
+                       break;
+                case 7:ghiFile();
+                break;
+                case 8:
                     System.out.print("\nThoat menu NXB!");
                     ghiFile(); 
                     sc.close(); 

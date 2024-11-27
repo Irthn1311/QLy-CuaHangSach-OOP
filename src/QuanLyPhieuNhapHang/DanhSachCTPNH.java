@@ -4,18 +4,17 @@ import java.io.*;
 import java.util.Scanner;
 import Interface.CRUD;
 
-public class DanhSachPNH implements CRUD {
+public class DanhSachCTPNH implements CRUD {
     private ChiTietPhieuNhapHang[] listPNH;  
     private int size; 
     private Scanner sc;
 
-    public DanhSachPNH() {
+    public DanhSachCTPNH() {
         this.size = 0;  
         this.listPNH = new ChiTietPhieuNhapHang[100];  
         this.sc = new Scanner(System.in);
     }
-
-    public void showMenu() {
+        public void menu(){
         int choice;
         do {
             System.out.println("\n===== Menu Phieu Nhap Hang =====");
@@ -25,9 +24,8 @@ public class DanhSachPNH implements CRUD {
             System.out.println("4. Xoa Phieu Nhap Hang");
             System.out.println("5. Tim Kiem Phieu Nhap Hang");
             System.out.println("6. Thong Ke Phieu Nhap Hang");
-            System.out.println("7. Doc Tu File");
-            System.out.println("8. Ghi Ra File");
             System.out.println("0. Thoat");
+            System.out.print("\n===============================");
             System.out.print("\nLua Chon Cua Ban: ");
 
             while (!sc.hasNextInt()) {
@@ -42,8 +40,8 @@ public class DanhSachPNH implements CRUD {
                 case 2: them(); break;
                 case 3: sua(); break;
                 case 4: xoa(); break;
-                case 5: timKiem(); break;
-                case 6: thongKe(); break;
+                case 5: timkiem(); break;
+                case 6: thongke(); break;
                 case 7: docFile(); break;
                 case 8: ghiFile(); break;
                 case 0: System.out.println("Thoat!"); break;
@@ -52,7 +50,7 @@ public class DanhSachPNH implements CRUD {
         } while (choice != 0); 
         sc.close(); 
     }
-
+@Override
     public void xem() {
         System.out.println("\nDanh Sach Phieu Nhap Hang:");
         if (size == 0) {
@@ -65,7 +63,7 @@ public class DanhSachPNH implements CRUD {
             }
         }
     }
-
+@Override
     public void them() {
         ChiTietPhieuNhapHang newItem = new ChiTietPhieuNhapHang();
         newItem.nhap(); 
@@ -91,7 +89,7 @@ public class DanhSachPNH implements CRUD {
             System.out.println("Khong tim thay Phieu Nhap Hang voi ma: " + maCTPNH);
         }
     }
-
+   @Override
     public void xoa() {
         System.out.print("\nNhap ma CTPNH can xoa: ");
         String maCTPNH = sc.nextLine();
@@ -113,8 +111,8 @@ public class DanhSachPNH implements CRUD {
             System.out.println("Khong tim thay Phieu Nhap Hang voi ma: " + maCTPNH);
         }
     }
-
-    public void timKiem() {
+    @Override
+    public void timkiem() {
         System.out.print("\nNhap ma CTPNH can tim: ");
         String maCTPNH = sc.nextLine();
         boolean found = false;
@@ -130,17 +128,20 @@ public class DanhSachPNH implements CRUD {
             System.out.println("Khong tim thay Phieu Nhap Hang voi ma: " + maCTPNH);
         }
     }
-
-    public void thongKe() {
+@Override
+    public void thongke() {
         double totalValue = 0;
         for (int i = 0; i < size; i++) {
             if (listPNH[i] != null) {
                 totalValue += listPNH[i].getThanhTien();  
             }
         }
+        System.out.print("\n=================Bang thong ke==================");
+        System.out.print("\n1.");
+        System.out.print("\n");
         System.out.println("Tong gia tri cua tat ca phieu nhap hang: " + totalValue);
     }
-
+@Override
     public void docFile() {
         System.out.print("Nhap ten file de doc: ");
         String filename = sc.nextLine();
@@ -177,7 +178,7 @@ public class DanhSachPNH implements CRUD {
             System.out.println("Loi khong xac dinh: " + e.getMessage());
         }
     }
-
+@Override
     public void ghiFile() {
         System.out.print("Nhap ten file de ghi: ");
         String filename = sc.nextLine();

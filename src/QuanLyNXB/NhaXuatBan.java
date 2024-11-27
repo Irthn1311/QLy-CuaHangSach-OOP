@@ -68,7 +68,7 @@ public class NhaXuatBan {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @SuppressWarnings("resource")
    public void nhapNXB(){
     Scanner sc=new Scanner(System.in);
     System.out.print("\nNhap Ma nha xuat ban: ");
@@ -83,12 +83,11 @@ public class NhaXuatBan {
     email=sc.nextLine();
    }
     public void xuatNXB() {
-        System.out.print( "QuanLyNhaXuatBan{" +
-                "maNXB='"+ maNXB + '\'' +
-                ", tenNXB='" + tenNXB + '\'' +
-                ", diaChiNXB='" + diaChiNXB + '\'' +
-                ", sdtNXB='" + sdtNXB + '\'' +
-                ", email='" + email + '\'' +
-                '}');
+        System.out.print("\n-------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.print("\nMa NXB: "+maNXB+
+        "\nTen NXB: "+tenNXB+
+        "\nDia chi NXB: "+diaChiNXB+
+        "\nSDT NXB: "+sdtNXB+
+        "\nEmail NXB: "+email);
     }
 }

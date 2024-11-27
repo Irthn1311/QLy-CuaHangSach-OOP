@@ -9,6 +9,9 @@ public class PhieuNhapHang {
     private String maNV;
     private Double tongTien;
     public PhieuNhapHang(){
+        maPNH="";
+        maNXB="";
+        maNV="";
     }
     public PhieuNhapHang(String maPNH, Date ngayNhap, String maNXB, String maNV, Double tongTien) {
         this.maPNH = maPNH;
@@ -62,14 +65,14 @@ public class PhieuNhapHang {
     public void nhapPNH() {
         Scanner sc = new Scanner(System.in);
         
-        System.out.print("Nhập mã phiếu nhập hàng: ");
+        System.out.print("Nhap ma Phieu Nhap Hang: ");
         maPNH = sc.nextLine();
         
-        System.out.print("Nhập ngày nhập (yyyy-mm-dd): ");
+        System.out.print("Nhap ngay hang duoc nhap vao: ");
         String dateString = sc.nextLine();
         ngayNhap = Date.valueOf(dateString);
         
-        System.out.print("Nhập mã nhà xuất bản: ");
+        System.out.print("nhap ma xuat ban: ");
         maNXB = sc.nextLine();
         
         System.out.print("Nhập mã nhân viên: ");

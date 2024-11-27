@@ -38,7 +38,7 @@ public class NhanVien {
         this.diaChiNV = DiaChiNV;
         this.luongNV = LuongNV;
     }
-
+   
     public void nhapNV(){
         Scanner sc = new Scanner(System.in);
         System.err.printf("\nNhap Ma Nhan Vien: ");
