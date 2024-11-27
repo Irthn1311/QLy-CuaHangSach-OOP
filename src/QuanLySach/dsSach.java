@@ -1,12 +1,14 @@
 package QuanLySach;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 
 import Interface.CRUD;
 
@@ -14,12 +16,6 @@ public class dsSach implements CRUD {
     Sach[] arrSach = new Sach[10];
     @SuppressWarnings("resource")
     Scanner sc=new Scanner(System.in);
-
-    public dsSach(){
-        arrSach[0] = new Sach("S001", "Luoc Su Loai Nguoi","TG001","NXB001","Lich Su va Triet Hoc",13000.0,100);
-        arrSach[1] = new SachThamKhao("S002", "Dac Nhan Tam","TG002","NXB001","Ky Nang Song",15000.0,87,"Ky Nang Xa Hoi,Tam Ly Hoc, Lanh Dao Va Quan Ly",16);
-        arrSach[2] = new SachChuyenNganh("S003", "Giai Tich","TG003","NXB002","Toan Hoc Va Giai Tich",20000.0,99,"Toan Hoc");
-    }
 
     @Override
     public void xem() {
@@ -35,42 +31,6 @@ public class dsSach implements CRUD {
             System.out.print("\nKhong co quyen sach nào trong danh sach!!!");
         }
     }
-
-//     @Override
-//     public void them(){
-//         Sach sach;
-//         String theLoai;
-//         int option;
-//         System.out.println("Hay chon the loai sach ma ban muon nhap: ");
-//         System.out.println("1. Sach Chuyen Nganh");
-//         System.out.println("2. Sach Tham Khao");
-//         System.out.println("3. Cac the loai sach khac");
-//         System.out.print("Chon lua cua ban: ");
-//         option = sc.nextInt();
-//     do {
-//         if (option == 1) {
-//             sach = new SachChuyenNganh();
-//             theLoai = "Chuyen Nganh";
-//             break;
-//         } else if (option == 2) {
-//             sach = new SachThamKhao();
-//             theLoai = "Tham Khao";
-//             break;
-//         } else if (option == 3) {
-//             sach = new Sach();
-//             System.out.print("Hay nhap the loai sach: ");
-//             theLoai = sc.nextLine();
-//             break;
-//         }
-//         System.out.print("Nhap sai! Vui long nhap lai.");
-//     } while (option != 1 && option != 2 && option != 3);
-
-
-
-// }
-
-
-
 
     public void them() {
         Sach sach = null;
@@ -101,7 +61,7 @@ public class dsSach implements CRUD {
                     break;
                 case 0:
                     System.out.print("Thoat thanh cong.");
-                    break;
+                    return;
                 default:
                     System.out.print("Nhap sai! Vui long nhap lai.");
                     break;
@@ -110,57 +70,55 @@ public class dsSach implements CRUD {
         sach.setTheLoai(theLoai);
         sach.nhap();
         arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
-        arrSach[arrSach.length] = sach;
+        arrSach[arrSach.length - 1] = sach;
     }
 
     @Override
     public void sua() {
-        boolean bookFound=false;
-        System.out.print("\nNhap Ma Sach Can Sua: ");
-        String checked = sc.nextLine();
-        for(Sach s: arrSach){
-            if(s !=null && checked.equals(s.getMaSach())){
-                s.nhap();
-                bookFound=true;
+        System.out.print("Nhap ma sach can sua: ");
+        String maSach = sc.nextLine();
+        boolean found = false;
+
+        for (int i = 0; i < arrSach.length; i++) {
+            if (arrSach[i] != null && arrSach[i].getMaSach().equals(maSach)) {
+                found = true;
+                arrSach[i].sua();
+                System.out.println("Sua sach thanh cong.");
                 break;
             }
         }
-        if (!bookFound) {
-            System.out.print("\nKHONG TIM THAY MA SACH: "+checked);
-        } else {
-            System.out.print("\nCHINH SUA THONG TIN SACH THANH CONG!!!");
-        } 
+        if (!found) {
+            System.out.println("Khong tim thay sach voi ma da nhap.");
+        }
     }
 
     @Override
-    public void xoa(){
-        boolean bookFound=false;
-        System.out.print("\nNhap Ma Sach Can Xoa: ");
-        String checked=sc.nextLine();
-        for(int i=0;i<arrSach.length;i++){
-            if(arrSach[i]!=null && checked.equals(arrSach[i].getMaSach())){
-                arrSach = Array.removeOf(arrSach, i);
-                arrSach[i]=null;
-                bookFound=true;
-                size--;
+    public void xoa() {
+        System.out.print("Nhap ma sach can xoa: ");
+        String maSach = sc.nextLine();
+        boolean found = false;
+
+        for (int i = 0; i < arrSach.length; i++) {
+            if (arrSach[i] != null && arrSach[i].getMaSach().equals(maSach)) {
+                found = true;
+                for (int j = i; j < arrSach.length - 1; j++) {
+                    arrSach[j] = arrSach[j + 1];
+                }
+                arrSach = Arrays.copyOf(arrSach, arrSach.length - 1);
+                System.out.println("Xoa sach thanh cong.");
                 break;
             }
         }
-        if (!bookFound) {
-            System.out.print("\nKHONG TIM THAY MA SACH: "+checked);
-        } else {
-            System.out.print("\nXOA THONG TIN SACH THANH CONG!!!");
-        } 
-    }   
+
+        if (!found) {
+            System.out.println("Khong tim thay sach voi ma da nhap.");
+        }
+    }
 
     public void timkiem() {
-<<<<<<< HEAD
-=======
-        @SuppressWarnings("resource")
->>>>>>> 2400f015b00f87f3a3e78906cc7c22935ba5faab
         int find;
         do {
-            System.out.println("\nLua Chọn Tìm Kiếm:");
+            System.out.println("\nLua Chon Tim Kiem:");
             System.out.println("1. Tim Kiem Theo Ma Sach");
             System.out.println("2. Tim Kiem Theo Ten Sach");
             System.out.println("3. Tim Kiem Theo Tac Gia");
@@ -222,6 +180,36 @@ public class dsSach implements CRUD {
         } while (find != 0);
     }
 
+    public void timkiemMaSach(){
+        System.out.print("Nhập mã sách cần tìm: ");
+        String maSach = sc.nextLine();
+        boolean found = false;
+
+        for (Sach sach : arrSach) {
+            if (sach != null && sach.getMaSach().equals(maSach)) {
+                found = true;
+                System.out.println("Thông tin sách tìm thấy:");
+                System.out.println("Mã sách: " + sach.getMaSach());
+                System.out.println("Tên sách: " + sach.getTenSach());
+                System.out.println("Mã tác giả: " + sach.getMaTacGia());
+                System.out.println("Mã NXB: " + sach.getMaNXB());
+                System.out.println("Thể loại: " + sach.getTheLoai());
+                System.out.println("Đơn giá bán: " + sach.getDonGiaBan());
+                System.out.println("Số lượng sách hiện có: " + sach.getSoLuongSachHienCo());
+                if (sach instanceof SachChuyenNganh) {
+                    System.out.println("Môn chuyên ngành: " + ((SachChuyenNganh) sach).getMonChuyenNganh());
+                } else if (sach instanceof SachThamKhao) {
+                    System.out.println("Lĩnh vực: " + ((SachThamKhao) sach).getLinhVuc());
+                    System.out.println("Độ tuổi: " + ((SachThamKhao) sach).getDoTuoi());
+                }
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy sách với mã đã nhập.");
+        }
+    }
 
     public void thongke() {
         int choice;
@@ -362,78 +350,79 @@ public class dsSach implements CRUD {
 
     @Override
     public void docFile() {
-        File readf = new File("data/sach.txt");
-        try {
-            if (!readf.exists()) {
-                System.out.print("FILE MOI DA DUOC TAO");
-                readf.createNewFile();
-            }
-            try (BufferedReader br = Files.newBufferedReader(readf.toPath(), StandardCharsets.UTF_8)) {
-                boolean empty = true;
-                String line;
-                while ((line = br.readLine()) != null) {
-                    empty = false;
-                    String[] info = line.split("\\|");
-                    if (info.length >= 7) {
-                        String maSach = info[0].trim();
-                        String tenSach = info[1].trim();
-                        String maTacGia = info[2].trim();
-                        String maNXB = info[3].trim();
-                        String theLoai = info[4].trim();
-                        Double donGiaBan = Double.parseDouble(info[5].trim());
-                        int soLuongSachHienCo = Integer.parseInt(info[6].trim());
-    
-                        Sach sach;
-                        if (theLoai.equalsIgnoreCase("Chuyen Nganh")) {
-                            String monChuyenNganh = info[7].trim();
-                            sach = new SachChuyenNganh(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, monChuyenNganh);
-                        } else if (theLoai.equalsIgnoreCase("Tham Khao")) {
-                            String linhVuc = info[7].trim();
-                            int doTuoi = Integer.parseInt(info[8].trim());
-                            sach = new SachThamKhao(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo, linhVuc, doTuoi);
-                        } else {
-                            sach = new Sach(maSach, tenSach, maTacGia, maNXB, theLoai, donGiaBan, soLuongSachHienCo);
-                        }
-    
-                        if (size == arrSach.length) {
-                            Sach[] newRun = new Sach[arrSach.length + 1];
-                            for (int j = 0; j < arrSach.length; j++) {
-                                if (arrSach[j] != null) {
-                                    newRun[j] = arrSach[j];
-                                }
-                            }
-                            arrSach = newRun;
-                        }
-    
-                        arrSach[size] = sach;
-                        size++;
-                    } else {
-                        System.out.println("Dữ liệu không hợp lệ: " + line);
-                    }
+        try (BufferedReader br = new BufferedReader(new FileReader("data/sach.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                Sach sach;
+                String maSach = data[0];
+                String tenSach = data[1];
+                String maTacGia = data[2];
+                String maNXB = data[3];
+                String theLoai = data[4];
+                double donGiaBan = Double.parseDouble(data[5]);
+                int soLuongSachHienCo = Integer.parseInt(data[6]);
+
+                switch (theLoai) {
+                    case "Chuyen Nganh":
+                        sach = new SachChuyenNganh();
+                        ((SachChuyenNganh) sach).setMonChuyenNganh(data[7]);
+                        break;
+                    case "Tham Khao":
+                        sach = new SachThamKhao();
+                        ((SachThamKhao) sach).setLinhVuc(data[8]);
+                        ((SachThamKhao) sach).setDoTuoi(Integer.parseInt(data[9]));
+                        break;
+                    default:
+                        sach = new Sach();
+                        break;
                 }
-    
-                if (empty) {
-                    System.out.println("\nFILE RONG");
-                }
+
+                sach.setMaSach(maSach);
+                sach.setTenSach(tenSach);
+                sach.setMaTacGia(maTacGia);
+                sach.setMaNXB(maNXB);
+                sach.setTheLoai(theLoai);
+                sach.setDonGiaBan(donGiaBan);
+                sach.setSoLuongSachHienCo(soLuongSachHienCo);
+
+                arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
+                arrSach[arrSach.length - 1] = sach;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Đã xảy ra lỗi khi đọc file: " + e.getMessage());
         }
     }
     
     @Override
     public void ghiFile() {
-        try {
-            PrintWriter pw=new PrintWriter("data/sach.txt");
-            for(Sach s:arrSach){
-                String line=s.getMaSach() + " | " + s.getTenSach() + " | " + s.getMaTacGia() + " | " + s.getMaNXB() + " | "
-                + s.getTheLoai() + " | " + s.getDonGiaBan() + " | " + s.getSoLuongSachHienCo();
-                pw.println(line);
-            }            
-            pw.flush();
-            pw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/sach.txt"))) {
+            for (Sach sach : arrSach) {
+                if (sach != null) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(sach.getMaSach()).append(",");
+                    sb.append(sach.getTenSach()).append(",");
+                    sb.append(sach.getMaTacGia()).append(",");
+                    sb.append(sach.getMaNXB()).append(",");
+                    sb.append(sach.getTheLoai()).append(",");
+                    sb.append(sach.getDonGiaBan()).append(",");
+                    sb.append(sach.getSoLuongSachHienCo()).append(",");
+
+                    if (sach instanceof SachChuyenNganh) {
+                        sb.append(((SachChuyenNganh) sach).getMonChuyenNganh()).append(",");
+                    } else if (sach instanceof SachThamKhao) {
+                        sb.append(",").append(((SachThamKhao) sach).getLinhVuc()).append(",");
+                        sb.append(((SachThamKhao) sach).getDoTuoi()).append(",");
+                    } else {
+                        sb.append(",,");
+                    }
+
+                    bw.write(sb.toString());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Đã xảy ra lỗi khi ghi file: " + e.getMessage());
         }
-    }  
+    }
 }

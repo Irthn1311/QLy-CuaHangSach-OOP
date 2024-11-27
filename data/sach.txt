@@ -1,3 +1,3 @@
-4|cntt|5|6|7|4.0|555| |0
-234|Conan|11|111|Trinh tham|11.0|1111| |0
-2|toan roi rac|22|222|chuyen nganh|2222.0|22222|CNTT
+S001,Toan Roi Rac,TG001,NXB001,Chuyen Nganh,49000.0,2000,Cong Nghe Thong Tin,
+S003,Tham Tu Lung Danh Conan,TG003,Trinh Tham,NXB002,50000.0,3000,,,
+S004,Co so du lieu,TG002,NXB005,Chuyen Nganh,30000.0,4000,Cong Nghe Thong Tin,

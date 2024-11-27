@@ -35,4 +35,14 @@ public class SachChuyenNganh extends Sach {
         super.xuat();
         System.out.printf("| Mon chuyen nganh %-10s ",monChuyenNganh);
     }
+
+    @Override public void sua() {
+        super.sua();
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Mon Chuyen Nganh Hien Tai Cua Sach La: " + getMonChuyenNganh());
+        System.out.print("Nhap Mon Chuyen Nganh Moi: ");
+        monChuyenNganh = sc.nextLine();
+    }
+
 }

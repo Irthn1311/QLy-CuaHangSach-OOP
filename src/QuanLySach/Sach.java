@@ -55,7 +55,7 @@ public class Sach {
         tenSach = sc.nextLine();
         System.out.print("Nhap Ma Tac Gia: ");
         maTacGia = sc.nextLine();
-        System.out.print("Nhap ma NXB: ");
+        System.out.print("Nhap ma Nha Xuat Ban: ");
         maNXB = sc.nextLine();
         System.out.print("Nhap Don Gia: ");
         donGiaBan = sc.nextDouble();
@@ -73,6 +73,25 @@ public class Sach {
     }
 
     public void sua(){
-        
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Sach nay thuoc the loai: " + getTheLoai());
+        System.out.println("Ten hien tai cua sach la: " + getTenSach());
+        System.out.print("Nhap Ten Sach Moi: ");
+        tenSach = sc.nextLine();
+        System.out.println("Ma Tac Gia Hien Tai Cua Sach La: " + getMaTacGia());
+        System.out.print("Nhap Ma Tac Gia Moi: ");
+        maTacGia = sc.nextLine();
+        System.out.println("Ma Nha Xuat Ban Hien Tai Cua Sach La: " + getMaNXB());
+        System.out.print("Nhap Ma Nha Xuat Ban Moi: ");
+        maNXB = sc.nextLine();
+        System.out.println("Don Gia Ban Hien Tai Cua Sach La: " + getDonGiaBan());
+        System.out.print("Nhap Don Gia Moi: ");
+        donGiaBan = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("So Luong Ton Kho Hien Tai La: " + getSoLuongSachHienCo());
+        System.out.print("Nhap So Luong Ton Kho Moi: ");
+        soLuongSachHienCo = sc.nextInt();
+        sc.nextLine();
     }
 }

@@ -39,4 +39,16 @@ public class SachThamKhao extends Sach {
         super.xuat();
         System.out.printf("| Linh vuc: %-10s | Do tuoi: %-5d ",linhVuc, doTuoi);
     }
+
+    @Override public void sua() {
+        super.sua();
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Linh Vuc Hien Tai Cua Sach La: " + getLinhVuc());
+        System.out.print("Nhap linh vuc: ");
+        linhVuc = sc.nextLine();
+        System.out.println("Do Tuoi Hien Tai Cua Sach La: " + getDoTuoi());
+        System.out.print("Nhap do tuoi: ");
+        doTuoi = sc.nextInt();
+    }
 }
