@@ -11,7 +11,6 @@ public class Main{
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine();
-
             switch (choice) {
                 case 1:
                     ql1.menu();

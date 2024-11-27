@@ -49,7 +49,7 @@ public class Sach {
     @SuppressWarnings("resource")
     public void nhap() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhap Ma Sach: ");
+        System.out.print("Nhap Ma Sach: ");
         maSach = sc.nextLine();
         System.out.print("Nhap Ten Sach: ");
         tenSach = sc.nextLine();
@@ -72,4 +72,7 @@ public class Sach {
         System.out.printf("| The Loai %-10s | Don Gia: %-13.2f | So Luong Ton: %-16d",theLoai,donGiaBan,soLuongSachHienCo);
     }
 
+    public void sua(){
+        
+    }
 }
