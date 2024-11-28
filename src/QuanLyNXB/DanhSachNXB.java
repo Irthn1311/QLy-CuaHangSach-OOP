@@ -1,308 +1,266 @@
-package QuanLyNXB;
-
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Scanner;
-import Interface.CRUD;
 
 public class DanhSachNXB implements CRUD {
-    private NhaXuatBan[] NXB;
-    private int size;
-    private Scanner sc; 
+    Scanner sc=new Scanner(System.in);
+    private NhaXuatBan[] dsNxb;
+    private int size=3;
 
-    public DanhSachNXB(int n) {
-        NXB = new NhaXuatBan[n];
-        size = 0;
-        sc = new Scanner(System.in); 
+
+    public DanhSachNXB() {
+        dsNxb = new NhaXuatBan[3];
+        dsNxb[0]=new NhaXuatBan("NXB001","Nhi Dong","99 AN DUONG VUONG","0352443333","ha@gmail.com");
+        dsNxb[1]=new NhaXuatBan("NXB002","Thieu Nhi","273 AN DUONG VUONG","03123213123","haaaaa@gmail.com");
+        dsNxb[2]=new NhaXuatBan("NXB003","Nguyen xin","99 Phan Dinh Phung","02342443333","ha22a@gmail.com");
     }
 
+    private int viTriMaNXB(String MaNXB){
+        for(int i=0; i<size;i++){
+            if(dsNxb[i]!=null && dsNxb[i].getMaNXB().equals(MaNXB)){
+                return i;
+            }
+        }
+        return -1;
+    }
    @Override
     public void xem() {
         if (size == 0) {
             System.out.print("\nDanh sach trong!");
         } else {
-            for (int i = 0; i < size; i++) {
-                if (NXB[i] != null) {
-                    System.out.print("\nThong tin nha xuat ban: ");
-                    NXB[i].xuatNXB();
+            System.out.println("Thong Tin Cua Nha Xuat Ban:");
+            for(NhaXuatBan nxb:dsNxb){
+                if(nxb!=null){
+                    nxb.xuatNXB();
                 }
             }
         }
     }
 
+    private boolean kiemtraTonTai(String NXB){
+        for(NhaXuatBan nxb: dsNxb){
+            if(nxb !=null && nxb.getMaNXB().equals(NXB)){
+                return true; // Đã tồn tại
+            }
+        }
+        return false; //Chưa tồn tại
+    }
+
     @Override
     public void them() {
-        System.out.print("\nNhap so luong NXB can them: ");
-        int n = sc.nextInt();
-        sc.nextLine(); 
-        for (int i = 0; i < n; i++) {
-            if (size < NXB.length) {
-                NXB[size++] = new NhaXuatBan();
-                NXB[size - 1].nhapNXB();
-            } else {
-                System.out.print("\nKhong the them NXB, mang da day!");
-                break;
-            }
+        NhaXuatBan nxb_new=new NhaXuatBan();
+        nxb_new.nhapNXB(false);
+        if(!kiemtraTonTai(nxb_new.getMaNXB())){
+            dsNxb=Arrays.copyOf(dsNxb, size+1);
+            dsNxb[size]=nxb_new;
+            size++;
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║    Ma NXB %s Da Ton Tai        \n",nxb_new.getMaNXB());
+            System.err.print("╚══════════════════════════════════════════");
         }
     } 
 
     @Override
     public void sua() {
-        System.out.print("\nNhap ma NXB can sua: ");
-        String maNXB = sc.nextLine();
-        boolean found = false;
-
-        for (int i = 0; i < size; i++) {
-            if (NXB[i] != null && NXB[i].getMaNXB().equals(maNXB)) {
-                NXB[i].nhapNXB();
-                found = true;
+        boolean bookFind = false;
+        System.out.print("Nhap Ma NXB Can Sua: ");
+        String MaNxb=sc.nextLine();
+        for(NhaXuatBan nxb:dsNxb){
+            if(nxb !=null && nxb.getMaNXB().equals(MaNxb)){
+                nxb.nhapNXB(true);
+                nxb.setMaNXB(MaNxb);
                 break;
             }
         }
-        if (!found) {
-            System.out.print("\nKhong tim thay ma NXB!");
+        if (!bookFind) {
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",MaNxb);
+            System.err.print("╚══════════════════════════════════════════");
+        } else {
+            System.out.println("\nChinh Sua Nha Xuat Ban Thanh Cong!!!");
         }
+
     }
 
     @Override
     public void xoa() {
         System.out.print("\nNhap ma Nha Xuat Ban can xoa: ");
         String maNXB = sc.nextLine();
-        boolean found = false;
-        for (int i = 0; i < size; i++) {
-            if (NXB[i] != null && maNXB.equals(NXB[i].getMaNXB())) {
-                NXB[i] = NXB[size - 1];
-                NXB[size - 1] = null; 
-                size--; 
-                found = true;
-                break;
+        int vt=viTriMaNXB(maNXB);
+        if(vt!=-1){
+            for(int i=vt;i<size-1;i++){
+                dsNxb[i]=dsNxb[i+1];
             }
+            dsNxb=Arrays.copyOf(dsNxb, size-1);
+            size--;
+            System.err.print("\nDa Xoa Thanh Cong NXB");
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",maNXB);
+            System.err.print("╚══════════════════════════════════════════");
         }
-        if (!found) {
-            System.out.print("\nMa khong tim thay!");
+        
+    }
+
+    public void timkiemTheoMaNXB(){
+        System.out.print("Nhap Ma Nha Xuat Ban Can Tim: ");
+        String checked1 = sc.nextLine();
+        int vt=viTriMaNXB(checked1);
+        if(vt!=-1){
+             dsNxb[vt].xuatNXB();
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",checked1);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
+    public void timkiemTheoTenNXB(){
+        System.out.print("Nhap Ten Nha Xuat Ban Can Tim: ");
+        String checked1 = sc.nextLine().toLowerCase();  
+        boolean find= false;   
+        for(NhaXuatBan nxb: dsNxb){
+            if(nxb !=null && nxb.getTenNXB().toLowerCase().contains(checked1)){
+                nxb.xuatNXB();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",checked1);
+            System.err.print("╚══════════════════════════════════════════");
+        }
+    }
+
+    public void timkiemTheoSDT(){
+        System.out.print("Nhap SDT Nha Xuat Ban Can Tim: ");
+        String checked1 = sc.nextLine().toLowerCase();  
+        boolean find= false;   
+        for(NhaXuatBan nxb: dsNxb){
+            if(nxb !=null && nxb.getSdtNXB().toLowerCase().contains(checked1)){
+                nxb.xuatNXB();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay So Dien Thoai NXB: %s        \n",checked1);
+            System.err.print("╚══════════════════════════════════════════");
+        }
+    }
     @Override 
     public void timkiem() {
         while (true) {
-            System.out.println("\n----------- Tim Kiem NXB -----------");
-            System.out.println("1. Tim kiem theo Ma NXB");
-            System.out.println("2. Tim kiem theo Ten NXB");
-            System.out.println("3. Tim kiem theo Dia Chi NXB");
-            System.out.println("4. Tim kiem theo SDT NXB");
-            System.out.println("5. Tim kiem theo Email NXB");
-            System.out.println("6. Quay lai menu chinh");
-            System.out.println("\n----------------------------------------");
-            System.out.print("Nhap su lua chon cua ban: ");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Tim Kiem Nha Xuat Ban       ║ ");
+            System.out.println("║   1. Tim Kiem Theo Ma Nha Xuat Ban       ║ ");
+            System.out.println("║   2. Tim Kiem Theo Ten Nha Xuat Ban      ║ ");
+            System.out.println("║   3. Tim Kiem Theo So Dien Thoai NXB     ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
+            System.out.print("Lua Chon Cua Ban: ");
             int choice = sc.nextInt();
             sc.nextLine(); 
-
             switch (choice) {
                 case 1:
-                    timKiem("maNXB");
+                    timkiemTheoMaNXB();
                     break;
                 case 2:
-                    timKiem("tenNXB");
+                    timkiemTheoTenNXB();
                     break;
                 case 3:
-                    timKiem("diaChiNXB");
+                    timkiemTheoSDT();
                     break;
-                case 4:
-                    timKiem("sdtNXB");
-                    break;
-                case 5:
-                    timKiem("emailNXB");
-                    break;
-                case 6:
+                case 0:
                     return; 
                 default:
-                    System.out.println("Loi lua chon! Vui long chon lai.");
+                    System.out.println("\nNhap Sai! Vui Long Nhap Lai.");
+                    break;
             }
         }
     }
 
-    public void timKiem(String type) {
-        String searchValue;
-        switch (type) {
-            case "maNXB":
-                System.out.print("\nNhap ma NXB can tim: ");
-                searchValue = sc.nextLine();
-                break;
-            case "tenNXB":
-                System.out.print("\nNhap ten NXB can tim: ");
-                searchValue = sc.nextLine();
-                break;
-            case "diaChiNXB":
-                System.out.print("\nNhap dia chi NXB can tim: ");
-                searchValue = sc.nextLine();
-                break;
-            case "sdtNXB":
-                System.out.print("\nNhap SDT NXB can tim: ");
-                searchValue = sc.nextLine();
-                break;
-            case "emailNXB":
-                System.out.print("\nNhap email NXB can tim: ");
-                searchValue = sc.nextLine();
-                break;
-            default:
-                return;
-        }
-
-        boolean found = false;
-        for (NhaXuatBan nxb : NXB) {
-            if (nxb != null) { 
-                switch (type) {
-                    case "maNXB":
-                        if (nxb.getMaNXB().equals(searchValue)) {
-                            found = true;
-                            break; 
-                        }
-                        break;
-                    case "tenNXB":
-                        if (nxb.getTenNXB().equalsIgnoreCase(searchValue)) {
-                            found = true;
-                            break;
-                        }
-                        break;
-                    case "diaChiNXB":
-                        if (nxb.getDiaChiNXB().equalsIgnoreCase(searchValue)) {
-                            found = true;
-                            break; 
-                        }
-                        break;
-                    case "sdtNXB":
-                        if (nxb.getSdtNXB().equals(searchValue)) {
-                            found = true;
-                            break; 
-                        }
-                        break;
-                    case "emailNXB":
-                        if (nxb.getEmail().equalsIgnoreCase(searchValue)) {
-                            found = true;
-                            break;
-                        }
-                        if (found) {
-                            System.out.println("\nThong tin NXB: ");
-                            nxb.xuatNXB();
-                            break; 
-                }
-            }
-        }
-        if (!found) {
-            System.out.println("Khong tim thay NXB voi gia tri: " + searchValue);
-        }
-    }
-}
     @Override
     public void thongke(){
-        Scanner sc=new Scanner(System.in);
-        while(true){
-        System.out.print("\n===============ThongkeNXB=================");
-        System.out.print("\n1.Liet ke nhung Nha Xuat Ban o HCM");
-        System.out.print("\n2.Moi nha xuat dieu co ma duy nhat hay khong");
-        System.out.print("\n==========================================");
-        System.out.print("\nNhap sua lua chon cua ban: ");
-        int choice=sc.nextInt();
-        switch (choice) {
-            case 1:
+    //     while(true){
+    //     System.out.print("\n===============ThongkeNXB=================");
+    //     System.out.print("\n1.Liet ke nhung Nha Xuat Ban o HCM");
+    //     System.out.print("\n2.Moi nha xuat dieu co ma duy nhat hay khong");
+    //     System.out.print("\n==========================================");
+    //     System.out.print("\nNhap sua lua chon cua ban: ");
+    //     int choice=sc.nextInt();
+    //     switch (choice) {
+    //         case 1:
                 
-                break;
+    //             break;
         
-            default:
-                break;
-        }
-     }
-        
+    //         default:
+    //             break;
+    //     }
+    //  }
+    // }
     }
     @Override
     public void docFile() {
-        
-        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
-                        "xb.txt");
-        System.out.print("\nFile: "+file.exists());
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] info = line.split(",");
-                if (info.length == 5) {
-                    String maNXB = info[0].trim();
-                    String tenNXB = info[1].trim();
-                    String diaChiNXB = info[2].trim();
-                    String SDTNXB = info[3].trim();
-                    String email = info[4].trim();
-                    NhaXuatBan nxb = new NhaXuatBan(maNXB, tenNXB, diaChiNXB, SDTNXB, email);
-                    NXB[size++] = nxb; 
+        File readf = new File("NhaXuatBan.txt");
+        try {
+            if (!readf.exists()) {
+                System.out.print("Tao File NXB Moi Thanh Cong");
+                readf.createNewFile();
+            }
+            try (BufferedReader br = Files.newBufferedReader(readf.toPath(), StandardCharsets.UTF_8)) {
+                String line;
+                boolean isEmpty = true;
+                while ((line = br.readLine()) != null) {
+                    isEmpty = false;
+                    String[] info = line.split("\\|");
+                    if (info.length == 5) {
+                        String MaNXB = info[0].trim();
+                        String TenNXB = info[1].trim();
+                        String diaChiNXB = info[2].trim();
+                        String sdtNXB = info[3].trim();
+                        String emailNXB = info[4].trim();
+                        
+                        if(!kiemtraTonTai(MaNXB)){
+                            dsNxb=Arrays.copyOf(dsNxb, size+1);
+                            dsNxb[size] = new NhaXuatBan(MaNXB,TenNXB,diaChiNXB,sdtNXB,emailNXB);
+                            size++;
+                        }else{
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma NXB  %s  Da Co      \n",MaNXB);
+                            System.err.print("╚══════════════════════════════════════════");
+                        }
+                        
+                    } else {
+                        System.out.println("Du Lieu Khong Hop Le: " + line);
+                    }
+                }
+                if (isEmpty) {
+                    System.out.println("\nFILE EMPTY WITH NOTHING");
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.print("\nFile khong tim thay!" + e);
-        } catch (IOException e) {
-            System.out.println("\nError reading file: " + e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void ghiFile() {
-        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
-                        "xb.txt");
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            for (int i = 0; i < size; i++) {
-                if (NXB[i] != null) {
-                    bw.write(NXB[i].getMaNXB() + "," + NXB[i].getTenNXB() + "," +
-                             NXB[i].getDiaChiNXB() + "," + NXB[i].getSdtNXB() + "," +
-                             NXB[i].getEmail());
-                    bw.newLine();
-                }
+    public void ghiFile(){
+        try {
+            PrintWriter pw=new PrintWriter("NhaXuatBan_Output.txt","UTF-8");
+            for(NhaXuatBan nxb:dsNxb){
+                String line= "Ma NXB: "+ nxb.getMaNXB() + " | Ten NXB: " +nxb.getTenNXB() + " | Dia Chi NXB: " +nxb.getDiaChiNXB()+ " | SDT: " +nxb.getSdtNXB() + " | Email: "+nxb.getEmail();
+                pw.println(line);
+                pw.flush();
             }
-            System.out.println("\nData saved to file successfully!");
-        } catch (IOException e) {
-            System.out.println("\nError writing to file: " + e);
-        }
-    }
-
-    public void Menu() {
-        docFile();
-        while (true) {
-            System.out.print("\n-------------MenuOfNXB-------------------");
-            System.out.print("\n1. Xem danh sach nha xuat ban");
-            System.out.print("\n2. Them vao danh sach nha xuat ban");
-            System.out.print("\n3. Sua trong danh sach nha xuat ban");
-            System.out.print("\n4. Xoa trong danh sach nha xuat ban");
-            System.out.print("\n5. Tim kiem trong danh sach nha xuat ban");
-            System.out.print("\n6.Thong ke Nha Xuat Ban");
-            System.out.print("\n7.Ghi vao file nhung thong tin vua nhap");
-            System.out.print("\n8. Thoat menu!");
-            System.out.print("\n-----------------------------------------");
-            System.out.print("\nNhap su lua chon cua ban: ");
-            int choice = sc.nextInt();
-            sc.nextLine(); 
-            switch (choice) {
-                case 1:
-                    xem();
-                    break;
-                case 2:
-                    them();
-                    break;
-                case 3:
-                    sua();
-                    break;
-                case 4:
-                    xoa();
-                    break;
-                case 5:
-                    timkiem();
-                    break;
-                case 6:thongke();
-                       break;
-                case 7:ghiFile();
-                break;
-                case 8:
-                    System.out.print("\nThoat menu NXB!");
-                    ghiFile(); 
-                    sc.close(); 
-                default:
-                    System.out.print("\nLoi lua chon!");
-            }
+            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
+           
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,5 +1,3 @@
-package QuanLyNXB;
-
 import java.util.Scanner;
 
 public class NhaXuatBan {
@@ -9,7 +7,6 @@ public class NhaXuatBan {
     private String sdtNXB;     
     private String email;      
 
-
     public NhaXuatBan() {
         this.maNXB = "";
         this.tenNXB = "";
@@ -17,7 +14,6 @@ public class NhaXuatBan {
         this.sdtNXB = "";
         this.email = "";
     }
-
 
     public NhaXuatBan(String maNXB, String tenNXB, String diaChiNXB, String sdtNXB, String email) {
         this.maNXB = maNXB;
@@ -68,26 +64,29 @@ public class NhaXuatBan {
     public void setEmail(String email) {
         this.email = email;
     }
-    @SuppressWarnings("resource")
-   public void nhapNXB(){
+   public void nhapNXB(boolean skipMaNXB){
     Scanner sc=new Scanner(System.in);
-    System.out.print("\nNhap Ma nha xuat ban: ");
-    maNXB=sc.nextLine();
-    System.out.print("\nNhap Ten nha xuat ban: ");
+    if(!skipMaNXB){
+        System.out.print("Nhap Ma nha xuat ban: ");
+        maNXB=sc.nextLine();
+    }
+    System.out.print("Nhap Ten nha xuat ban: ");
     tenNXB=sc.nextLine();
-    System.out.print("\nNhap Dia chi nha xuat ban: ");
+    System.out.print("Nhap Dia chi nha xuat ban: ");
     diaChiNXB=sc.nextLine();
-    System.out.print("\nNhap So dien thoai nha xuat ban: ");
+    System.out.print("Nhap So dien thoai nha xuat ban: ");
     sdtNXB=sc.nextLine();
-    System.out.print("\nNhap Email NXB: ");
+    System.out.print("Nhap Email NXB: ");
     email=sc.nextLine();
    }
     public void xuatNXB() {
-        System.out.print("\n-------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.print("\nMa NXB: "+maNXB+
-        "\nTen NXB: "+tenNXB+
-        "\nDia chi NXB: "+diaChiNXB+
-        "\nSDT NXB: "+sdtNXB+
-        "\nEmail NXB: "+email);
+        System.out.println("╔══════════════════════════════════════════");
+        System.out.printf("║      MA NHA XUAT BAN: %s          \n",maNXB);
+        System.out.println("╠══════════════════════════════════════════");
+        System.out.printf("║ Ten Nha Xuat Ban: %s                              \n",tenNXB);
+        System.out.printf("║ Email  : %s                   \n",email);
+        System.err.printf("║ SDT    : %s                      \n",sdtNXB);
+        System.err.printf("║ Dia Chi: %s                      \n",diaChiNXB);
+        System.out.println("╚══════════════════════════════════════════");
     }
 }
