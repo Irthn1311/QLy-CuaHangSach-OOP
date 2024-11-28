@@ -68,8 +68,8 @@ public class Sach {
 
     public void xuat() {
         System.out.print("\n-------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("| Ma Sach: %-10s | Ten Sach: %-16s | Ma Tac Gia: %-10s | Ma NXB: %-10s",maSach,tenSach,maTacGia,maNXB);
-        System.out.printf("| The Loai %-10s | Don Gia: %-13.2f | So Luong Ton: %-16d",theLoai,donGiaBan,soLuongSachHienCo);
+        System.out.printf("| Ma Sach: %-5s | Ten Sach: %-16s | Ma Tac Gia: %-10s | Ma NXB: %-10s",maSach,tenSach,maTacGia,maNXB);
+        System.out.printf("| The Loai: %-10s | Don Gia: %-13.2f | So Luong Ton: %-16d",theLoai,donGiaBan,soLuongSachHienCo);
     }
 
     public void sua(){

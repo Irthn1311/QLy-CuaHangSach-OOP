@@ -37,7 +37,7 @@ public class dsSach implements CRUD {
         String theLoai = "";
         int option;
         do {
-            System.out.println("Hay chon the loai sach ma ban muon nhap: ");
+            System.out.println("Hay chon the loai sach ma ban muon them: ");
             System.out.println("1. Sach Chuyen Nganh");
             System.out.println("2. Sach Tham Khao");
             System.out.println("3. Cac the loai sach khac");
@@ -95,11 +95,11 @@ public class dsSach implements CRUD {
     @Override
     public void xoa() {
         System.out.print("Nhap ma sach can xoa: ");
-        String maSach = sc.nextLine();
+        String maSach = sc.nextLine().toLowerCase().trim();
         boolean found = false;
 
         for (int i = 0; i < arrSach.length; i++) {
-            if (arrSach[i] != null && arrSach[i].getMaSach().equals(maSach)) {
+            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().contains(maSach)) {
                 found = true;
                 for (int j = i; j < arrSach.length - 1; j++) {
                     arrSach[j] = arrSach[j + 1];
@@ -122,53 +122,23 @@ public class dsSach implements CRUD {
             System.out.println("1. Tim Kiem Theo Ma Sach");
             System.out.println("2. Tim Kiem Theo Ten Sach");
             System.out.println("3. Tim Kiem Theo Tac Gia");
+            System.out.println("4. Tim Kiem Nang Cao Sach Tham Khao Trong Khoang Gia Ban");
             System.out.println("0. Thoat");
             System.out.print("Lua Chon Cua Ban: ");
             find = sc.nextInt();
             sc.nextLine();
             switch (find) {
                 case 1:
-                    boolean bookFound1 = false;
-                    System.out.print("\nNhap Ma Sach Can Tim Kiem: ");
-                    String checked1 = sc.nextLine();
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if (arrSach[i] != null && checked1.equals(arrSach[i].getMaSach())) {
-                            arrSach[i].xuat();
-                            bookFound1 = true;
-                            break;
-                        }
-                    }
-                    if (!bookFound1) {
-                        System.out.println("\nKhong Tim Thấy Ma Sach: " + checked1);
-                    }
+                    timkiemMaSach();
                     break;
                 case 2:
-                    boolean bookFound2 = false;
-                    System.out.print("\nNhap Ten Sach Can Tim Kiem: ");
-                    String checked2 = sc.nextLine().toLowerCase();
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if (arrSach[i] != null && arrSach[i].getTenSach().toLowerCase().contains(checked2)) {
-                            arrSach[i].xuat();
-                            bookFound2 = true;
-                        }
-                    }
-                    if (!bookFound2) {
-                        System.out.println("\nKhong Tim Thay Ten Sach: " + checked2);
-                    }
+                    timkiemTenSach();
                     break;
                 case 3:
-                    boolean bookFound3 = false;
-                    System.out.print("\nNhap Ma Tac Gia Can Tim Kiem: ");
-                    String checked3 = sc.nextLine().toLowerCase();
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if (arrSach[i] != null && arrSach[i].getMaTacGia().toLowerCase().contains(checked3)) {
-                            arrSach[i].xuat();
-                            bookFound3 = true;
-                        }
-                    }
-                    if (!bookFound3) {
-                        System.out.println("\nKhong Tim Thay Tac Gia: " + checked3);
-                    }
+                    timkiemMaTacGia();
+                    break;
+                case 4:
+                    timkiemNCGiaBan();
                     break;
                 case 0:
                     System.out.println("Thoat thanh cong.");
@@ -181,33 +151,82 @@ public class dsSach implements CRUD {
     }
 
     public void timkiemMaSach(){
-        System.out.print("Nhập mã sách cần tìm: ");
-        String maSach = sc.nextLine();
+        System.out.print("Nhap ma sach can tim: ");
+        String maSach = sc.nextLine().toLowerCase().trim();
         boolean found = false;
 
         for (Sach sach : arrSach) {
-            if (sach != null && sach.getMaSach().equals(maSach)) {
+            if (sach != null && sach.getMaSach().toLowerCase().contains(maSach)) {
                 found = true;
-                System.out.println("Thông tin sách tìm thấy:");
-                System.out.println("Mã sách: " + sach.getMaSach());
-                System.out.println("Tên sách: " + sach.getTenSach());
-                System.out.println("Mã tác giả: " + sach.getMaTacGia());
-                System.out.println("Mã NXB: " + sach.getMaNXB());
-                System.out.println("Thể loại: " + sach.getTheLoai());
-                System.out.println("Đơn giá bán: " + sach.getDonGiaBan());
-                System.out.println("Số lượng sách hiện có: " + sach.getSoLuongSachHienCo());
-                if (sach instanceof SachChuyenNganh) {
-                    System.out.println("Môn chuyên ngành: " + ((SachChuyenNganh) sach).getMonChuyenNganh());
-                } else if (sach instanceof SachThamKhao) {
-                    System.out.println("Lĩnh vực: " + ((SachThamKhao) sach).getLinhVuc());
-                    System.out.println("Độ tuổi: " + ((SachThamKhao) sach).getDoTuoi());
-                }
+                sach.xuat();
                 break;
             }
         }
 
         if (!found) {
-            System.out.println("Không tìm thấy sách với mã đã nhập.");
+            System.out.println("Khong tim thay sach voi ma da nhap.");
+        }
+    }
+    public void timkiemTenSach(){
+        System.out.print("Nhap ten sach can tim: ");
+        String tenSach = sc.nextLine().toLowerCase().trim();
+        boolean found = false;
+
+        for (Sach sach : arrSach) {
+            if (sach != null && sach.getTenSach().toLowerCase().contains(tenSach)) {
+                found = true;
+                sach.xuat();
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Khong tim thay sach voi ten da nhap.");
+        }
+    }
+    public void timkiemMaTacGia(){
+        System.out.print("Nhap ma tac gia can tim: ");
+        String maTacGia = sc.nextLine().toLowerCase().trim();
+        boolean found = false;
+
+        for (Sach sach : arrSach){
+            if (sach != null && sach.getMaTacGia().toLowerCase().contains(maTacGia)){
+                found = true;
+                sach.xuat();
+            }
+        }
+
+        if (!found){
+            System.out.println("Khong tim thay sach voi ma tac gia da nhap.");
+        }
+    }
+    public void timkiemNCGiaBan(){
+        System.out.print("\nNhap Don Gia Ban Toi Thieu: ");
+        double giaMin = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Nhap Don Gia Ban Toi Da: ");
+        double giaMax = sc.nextDouble();
+        sc.nextLine();
+
+        if (giaMin > giaMax) {
+            System.out.println("Gia toi thieu khong duoc lon hon gia toi da. Vui long nhap lai.");
+            return;
+        }
+
+        boolean found = false;
+
+        for (Sach sach : arrSach) {
+            if (sach != null) {
+                double giaBan = sach.getDonGiaBan();
+                if (giaMin <= giaBan && giaBan <= giaMax) {
+                    sach.xuat();
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("\nKhong Tim Thay Sach Voi Don Gia Ban Trong Khoang " + giaMin + " => " + giaMax);
         }
     }
 
@@ -328,7 +347,7 @@ public class dsSach implements CRUD {
     }
 
     public void thongkeGiaTien(){
-        System.out.print("\nNhap Gia Tien Can Thong Ke: ");
+        System.out.print("\nNhap Moc Gia Tien Can Thong Ke: ");
                     double x = sc.nextDouble();
                     sc.nextLine();
                     int countOver = 0;
@@ -390,7 +409,7 @@ public class dsSach implements CRUD {
                 arrSach[arrSach.length - 1] = sach;
             }
         } catch (IOException e) {
-            System.out.println("Đã xảy ra lỗi khi đọc file: " + e.getMessage());
+            System.out.println("Da Xay Ra Loi Khi Doc File: " + e.getMessage());
         }
     }
     
@@ -422,7 +441,7 @@ public class dsSach implements CRUD {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Đã xảy ra lỗi khi ghi file: " + e.getMessage());
+            System.out.println("Da Xay Ra Loi Khi Ghi File: " + e.getMessage());
         }
     }
 }
