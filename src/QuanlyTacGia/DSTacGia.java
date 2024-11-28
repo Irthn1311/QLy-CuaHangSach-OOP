@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,24 +8,46 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.Period;
 
-import Interface.CRUD;
+
 
 public class DSTacGia implements CRUD {
     Scanner sc = new Scanner(System.in);
-    TacGia[] TG;
+    TacGia[] dsTG;
     private int size = 3;
 
     public DSTacGia() {
-        TG = new TacGia[3];
-        TG[0] = new TacGia("TG001", "Wrxdie", "10-02-2000", "Ha Noi");
-        TG[1] = new TacGia("TG002", "MCK", "02-03-1999", "Ha Noi");
-        TG[2] = new TacGia("TG003", "TLing", "07-10-2000", "Ha Noi");
+        dsTG = new TacGia[3];
+        dsTG[0] = new TacGia("TG001", "Wrxdie", "10-02-2000", "Ha Noi");
+        dsTG[1] = new TacGia("TG002", "MCK", "02-03-1999", "Ha Noi");
+        dsTG[2] = new TacGia("TG003", "TLing", "07-10-2000", "Ha Noi");
+    }
+
+    private int viTriMaTG(String MaTG){
+        for(int i=0;i<size;i++){
+            if(dsTG[i] !=null && dsTG[i].getMaTacGia().equals(MaTG)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean kiemtraTonTai(String matg){
+        for(TacGia tacgia: dsTG){
+            if(tacgia !=null && tacgia.getMaTacGia().equals(matg)){
+                return true; // Đã tồn tại
+            }
+        }
+        return false; //Chưa tồn tại
     }
 
     @Override
     public void xem() {
-        System.out.println("Thong tin vi tri cua khach hang:");
-        for (TacGia tacGia : TG) {
+        if (size == 0) {
+            System.out.println("Danh Sach Rong.");
+            return;
+        }
+        System.out.println("Thong Tin Cua Tac Gia:");
+        for (TacGia tacGia : dsTG) {
             if (tacGia != null) {
                 tacGia.xuatTG();
             }
@@ -33,171 +56,141 @@ public class DSTacGia implements CRUD {
 
     @Override
     public void them() {
-        for (int i = 0; i < TG.length; i++) {
-            if (TG[i]==null){
-                TG[i] = new TacGia(); 
-                TG[i].nhapTG();
-                size++;
-                return;
-            }
+        TacGia TG_new=new TacGia();
+        TG_new.nhapTG(false);
+        if(!kiemtraTonTai(TG_new.getMaTacGia())){
+            dsTG=Arrays.copyOf(dsTG, size+1);
+            dsTG[size]=TG_new;
+            size++;
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║    Ma Tac Gia %s Da Ton Tai        \n",TG_new.getMaTacGia());
+            System.err.print("╚══════════════════════════════════════════");
         }
-        if (size == TG.length) { 
-            TacGia[] newTG = new TacGia[TG.length + 1];
-            for (int j = 0; j< TG.length; j++) {
-                if(TG[j]!=null){
-                    newTG[j] = TG[j];
-                } 
-            }
-            TG = newTG; 
-        }
-    
-        TG[size] = new TacGia();
-        TG[size].nhapTG();
-        size++;
+
+
     }
 
     @Override
     public void sua() {
         boolean bookFind = false;
-        System.out.print("\nNhap Ma Sach Can Sua: ");
+        System.out.print("\nNhap Ma Tac Gia Can Chinh Sua: ");
         String checked = sc.nextLine();
-        for (int i = 0; i < TG.length; i++) {
-            if (TG[i] != null && checked.equals(TG[i].getMaTacGia())) {
-                TG[i].nhapTG();
+        for (TacGia TG:dsTG) {
+            if (TG !=null && TG.getMaTacGia().equals(checked)) {
+                System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma TG: "+checked);
+                TG.nhapTG(true);
+                TG.setMaTacGia(checked);
                 bookFind = true;
                 break;
             }
         }
         if (!bookFind) {
-            System.out.println("\nKHONG TIM THAY MA SACH.");
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",checked);
+            System.err.print("╚══════════════════════════════════════════");
         } else {
-            System.out.println("\nCHINH SUA SACH THANH CONG!!!");
+            System.out.println("\nChinh Sua Tac Gia Thanh Cong!!!");
         }
     }
 
     @Override
     public void xoa() {
-        boolean bookFind = false;
         System.out.print("\nNhap Ma Tac Gia Can Xoa: ");
         String checked = sc.nextLine();
-        for (int i = 0; i < TG.length; i++) {
-            if (TG[i] != null && checked.equals(TG[i].getMaTacGia())) {
-                TG[i] = null;
-                bookFind = true;
-                size--;
-                break;
+        int vt=viTriMaTG(checked);
+        if(vt!=-1){
+            for(int i=vt;i<size-1;i++){
+                dsTG[i]=dsTG[i+1];
             }
+            dsTG=Arrays.copyOf(dsTG, size-1);
+            size--;
+            System.out.println("Da Xoa Tac Gia Voi Ma: " + checked);
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",checked);
+            System.err.print("╚══════════════════════════════════════════");
         }
-        if (!bookFind) {
-            System.out.println("\nKHONG TIM THAY MA TAC GIA.");
-        } else {
-            System.out.println("\nXOA TAC GIA THANH CONG!!!");
+        
+    }
+
+    public void TimTGTheoMa(){
+        System.out.print("Nhap Ma Tac Gia Can Tim: ");
+        String checked1 = sc.nextLine();
+        int vt=viTriMaTG(checked1);
+        if(vt!=-1){
+            dsTG[vt].xuatTG();
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",checked1);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
+    public void TimTGTheoTen(){
+        System.out.print("Nhap Ten Tac Gia Can Tim: ");
+        String checked1 = sc.nextLine().toLowerCase();  
+        boolean find= false;   
+        for(TacGia tacgia:dsTG){
+            if(tacgia !=null && tacgia.getTenTacGia().toLowerCase().contains(checked1)){
+                tacgia.xuatTG();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",checked1);
+            System.err.print("╚══════════════════════════════════════════");
+        }
+    }
     @Override
     public void timkiem() {
-        int find;
-        do {
-            System.out.println("\nLua Chon Tim Kiem:");
-            System.out.println("1. Tim Kiem Theo Ma Tac Gia");
-            System.out.println("2. Tim Kiem Theo Ten Tac Gia");
-            System.out.println("0. Thoat");
-            System.out.print("Lua Chon Cua Ban: ");
-            find = sc.nextInt();
-            sc.nextLine(); 
-            switch (find) {
-                case 1:
-                    boolean bookFind1 = false;
-                    System.out.println("Nhap Ma Tac Gia Can Tim: ");
-                    String checked1 = sc.nextLine();
-                    for (TacGia tacGia : TG) {
-                        if (tacGia != null && checked1.equals(tacGia.getMaTacGia())) {
-                            tacGia.xuatTG();
-                            bookFind1 = true;
-                            break;
-                        }
-                    }
-                    if (!bookFind1) {
-                        System.out.println("\nKHONG TIM THAY MA TAC GIA: "+checked1);
-                    }
-                    break;
-                case 2:
-                    boolean bookFind2 = false;
-                    System.out.println("Nhap Ten Tac Gia Can Tim: ");
-                    String checked2 = sc.nextLine().toLowerCase();
-                    for (TacGia tacGia : TG) {
-                        if (tacGia != null && tacGia.getTenTacGia().toLowerCase().contains(checked2)) {
-                            tacGia.xuatTG();
-                            bookFind2 = true;
-                        }
-                    }
-                    if (!bookFind2) {
-                        System.out.println("\nKHONG TIM THAY TAC GIA.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("THOAT THANH CONG");
-                    break;
-                default:
-                    System.out.println("\nNhap Sai! Vui Long Nhap Lai.");
-                    break;
-            }
-        } while (find != 0);
-    }
-
-    @Override
-    public void thongke() {
-        LocalDate nowDate = LocalDate.now();
         int choice;
         do {
-            System.out.println("\nLua Chon Thong Ke:");
-            System.out.println("1. Thong Ke Tac Gia Tren 50 Tuoi");
-            System.out.println("2. Thong Ke Tac Gia Duoi 50 Tuoi");
-            System.out.println("0. Thoat");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Tim Kiem Tac Gia            ║ ");
+            System.out.println("║   1. Tim Kiem Theo Ma Tac Gia            ║ ");
+            System.out.println("║   2. Tim Kiem Theo Ten Tac Gia           ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("  ╚══════════════════════════════════════════╝\n");
             System.out.print("Lua Chon Cua Ban: ");
             choice = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine(); 
             switch (choice) {
                 case 1:
-                    int soluong1=0;
-                    System.out.println("\nThong tin cua cac tac gia tren 50 Tuoi:");
-                    for (TacGia tacGia : TG) {
-                        if (tacGia != null) {
-                            int age = Period.between(tacGia.getNamSinhTG(), nowDate).getYears();
-                            if (age > 50) {
-                                tacGia.xuatTG();
-                                soluong1++;
-                            }
-                        }
-                    }
-                    if(soluong1==0){
-                        System.err.print("\nKhong Co Tac Gia Tren 50 Tuoi");
-                    }
+                    TimTGTheoMa();
                     break;
                 case 2:
-                    int soluong2=0;
-                    System.out.print("\nThong Tin Cua Cac Tac Gia Duoi 50 Tuoi:");
-                    for (TacGia tacGia : TG) {
-                        if (tacGia != null) {
-                            int age = Period.between(tacGia.getNamSinhTG(), nowDate).getYears();
-                            if (age <= 50) {
-                                tacGia.xuatTG();
-                            }
-                        }
-                    }
-                    if(soluong2==0){
-                        System.err.print("\nKhong Co Tac Gia Duoi 50 Tuoi");
-                    }
+                    TimTGTheoTen();
                     break;
                 case 0:
-                    System.out.println("THOAT THANH CONG");
+                    System.out.println("Thoat Thanh Cong");
                     break;
                 default:
                     System.out.println("\nNhap Sai! Vui Long Nhap Lai.");
                     break;
             }
         } while (choice != 0);
+    }
+
+
+    @Override
+    public void thongke() {
+        LocalDate nowDate = LocalDate.now();
+        int soluong1=0;
+        int soluong2=0;
+        for (TacGia tacGia : dsTG) {
+            if (tacGia != null) {
+                int age = Period.between(tacGia.getNamSinhTG(), nowDate).getYears();
+                if (age > 50) {
+                    soluong1++;
+                }else{
+                    soluong2++;
+                }
+            }
+        }
+        System.err.print("So Tac Gia Tren 50 Tuoi: "+soluong1);
+        System.err.print("So Tac Gia Duoi 50 Tuoi: "+soluong2);
     }
     @Override
     public void docFile() {
@@ -218,17 +211,17 @@ public class DSTacGia implements CRUD {
                         String TenTG = info[1].trim();
                         String NamSinhTG = info[2].trim();
                         String QueQuanTG = info[3].trim();
-                        if (size == TG.length) {
-                            TacGia[] newTG = new TacGia[TG.length + 1];
-                            for (int j = 0; j < TG.length; j++) {
-                                if (TG[j] != null) {
-                                    newTG[j] = TG[j];
-                                }
-                            }
-                            TG = newTG;
+                        
+                        if(!kiemtraTonTai(MaTG)){
+                            dsTG=Arrays.copyOf(dsTG, size+1);
+                            dsTG[size] = new TacGia(MaTG,TenTG,NamSinhTG,QueQuanTG);
+                            size++;
+                        }else{
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma Tac Gia  %s  Da Co      \n",MaTG);
+                            System.err.print("╚══════════════════════════════════════════");
                         }
-                        TG[size] = new TacGia(MaTG,TenTG,NamSinhTG,QueQuanTG);
-                        size++;
+                        
                     } else {
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
@@ -241,11 +234,11 @@ public class DSTacGia implements CRUD {
             e.printStackTrace();
         }
     }
-    
+    @Override
     public void ghiFile(){
         try {
             PrintWriter pw=new PrintWriter("TacGia_Output.txt","UTF-8");
-            for(TacGia tacgia:TG){
+            for(TacGia tacgia:dsTG){
                 String line= "Ma Tac Gia: "+ tacgia.getMaTacGia() + " | Ten Tac Gia: " +tacgia.getTenTacGia() + " | Nam Sinh: " +tacgia.getNamSinhTG()+ " | Que Quan: " +tacgia.getQueQuan();
                 pw.println(line);
                 pw.flush();
