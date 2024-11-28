@@ -1,28 +1,24 @@
 package QuanLySach;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-
-
+import java.io.PrintWriter;
 
 import Interface.CRUD;
 
 public class dsSach implements CRUD {
     Sach[] arrSach = new Sach[10];
-    @SuppressWarnings("resource")
     Scanner sc=new Scanner(System.in);
 
     @Override
     public void xem() {
         boolean checks=false;
-        System.out.print("\nThong Tin Sach");
         for(Sach s: arrSach){
             if( s !=null){
+                System.out.print("\nThong Tin Sach");
                 s.xuat();
                 checks=true;
             }
@@ -75,14 +71,14 @@ public class dsSach implements CRUD {
 
     @Override
     public void sua() {
-        System.out.print("Nhap ma sach can sua: ");
-        String maSach = sc.nextLine();
+        System.out.print("Nhap Ma Sach Can Sua: ");
+        String maSach = sc.nextLine().toLowerCase().trim();
         boolean found = false;
 
         for (int i = 0; i < arrSach.length; i++) {
-            if (arrSach[i] != null && arrSach[i].getMaSach().equals(maSach)) {
+            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().equals(maSach)) {
                 found = true;
-                arrSach[i].sua();
+                arrSach[i].suaSach();
                 System.out.println("Sua sach thanh cong.");
                 break;
             }
@@ -94,12 +90,12 @@ public class dsSach implements CRUD {
 
     @Override
     public void xoa() {
-        System.out.print("Nhap ma sach can xoa: ");
+        System.out.print("Nhap Ma Sach Can Xoa: ");
         String maSach = sc.nextLine().toLowerCase().trim();
         boolean found = false;
 
         for (int i = 0; i < arrSach.length; i++) {
-            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().contains(maSach)) {
+            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().equals(maSach)) {
                 found = true;
                 for (int j = i; j < arrSach.length - 1; j++) {
                     arrSach[j] = arrSach[j + 1];
@@ -372,22 +368,43 @@ public class dsSach implements CRUD {
         try (BufferedReader br = new BufferedReader(new FileReader("data/sach.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split("\\|");
+                if (data.length < 7) {
+                    System.out.println("Invalid data format: " + line);
+                    continue;
+                }
+    
                 Sach sach;
                 String maSach = data[0];
                 String tenSach = data[1];
                 String maTacGia = data[2];
                 String maNXB = data[3];
                 String theLoai = data[4];
-                double donGiaBan = Double.parseDouble(data[5]);
-                int soLuongSachHienCo = Integer.parseInt(data[6]);
-
+                double donGiaBan;
+                int soLuongSachHienCo;
+    
+                try {
+                    donGiaBan = Double.parseDouble(data[5]);
+                    soLuongSachHienCo = Integer.parseInt(data[6]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number format in line: " + line);
+                    continue;
+                }
+    
                 switch (theLoai) {
                     case "Chuyen Nganh":
+                        if (data.length < 8) {
+                            System.out.println("Invalid data format for Chuyen Nganh: " + line);
+                            continue;
+                        }
                         sach = new SachChuyenNganh();
                         ((SachChuyenNganh) sach).setMonChuyenNganh(data[7]);
                         break;
                     case "Tham Khao":
+                        if (data.length < 10) {
+                            System.out.println("Invalid data format for Tham Khao: " + line);
+                            continue;
+                        }
                         sach = new SachThamKhao();
                         ((SachThamKhao) sach).setLinhVuc(data[8]);
                         ((SachThamKhao) sach).setDoTuoi(Integer.parseInt(data[9]));
@@ -396,7 +413,7 @@ public class dsSach implements CRUD {
                         sach = new Sach();
                         break;
                 }
-
+    
                 sach.setMaSach(maSach);
                 sach.setTenSach(tenSach);
                 sach.setMaTacGia(maTacGia);
@@ -404,7 +421,7 @@ public class dsSach implements CRUD {
                 sach.setTheLoai(theLoai);
                 sach.setDonGiaBan(donGiaBan);
                 sach.setSoLuongSachHienCo(soLuongSachHienCo);
-
+    
                 arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
                 arrSach[arrSach.length - 1] = sach;
             }
@@ -415,33 +432,28 @@ public class dsSach implements CRUD {
     
     @Override
     public void ghiFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/sach.txt"))) {
-            for (Sach sach : arrSach) {
-                if (sach != null) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(sach.getMaSach()).append(",");
-                    sb.append(sach.getTenSach()).append(",");
-                    sb.append(sach.getMaTacGia()).append(",");
-                    sb.append(sach.getMaNXB()).append(",");
-                    sb.append(sach.getTheLoai()).append(",");
-                    sb.append(sach.getDonGiaBan()).append(",");
-                    sb.append(sach.getSoLuongSachHienCo()).append(",");
+    try {
+        PrintWriter pw = new PrintWriter("data/sach.txt");
+        for (Sach sach : arrSach) {
+            if (sach != null) {
+                String line = sach.getMaSach() + "|" + sach.getTenSach() + "|" + sach.getMaTacGia() + "|" + sach.getMaNXB() + "|" 
+                            + sach.getTheLoai() + "|" + sach.getDonGiaBan() + "|" + sach.getSoLuongSachHienCo() + "|";
 
-                    if (sach instanceof SachChuyenNganh) {
-                        sb.append(((SachChuyenNganh) sach).getMonChuyenNganh()).append(",");
-                    } else if (sach instanceof SachThamKhao) {
-                        sb.append(",").append(((SachThamKhao) sach).getLinhVuc()).append(",");
-                        sb.append(((SachThamKhao) sach).getDoTuoi()).append(",");
-                    } else {
-                        sb.append(",,");
-                    }
-
-                    bw.write(sb.toString());
-                    bw.newLine();
+                if (sach instanceof SachChuyenNganh) {
+                    line += ((SachChuyenNganh) sach).getMonChuyenNganh() + "||";
+                } else if (sach instanceof SachThamKhao) {
+                    line += "|" + ((SachThamKhao) sach).getLinhVuc() + "|" + ((SachThamKhao) sach).getDoTuoi();
+                } else {
+                    line += "||";
                 }
+
+                pw.println(line);
             }
-        } catch (IOException e) {
-            System.out.println("Da Xay Ra Loi Khi Ghi File: " + e.getMessage());
         }
+        System.out.println("Ghi thong tin vao file thanh cong.");
+        pw.close();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 }

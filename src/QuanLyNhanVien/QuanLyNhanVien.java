@@ -1,3 +1,5 @@
+package QuanLyNhanVien;
+
 import java.util.Scanner;
 
 public class QuanLyNhanVien {

@@ -1,3 +1,5 @@
+package QuanLyNhanVien;
+
 import java.util.Scanner;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -15,6 +17,8 @@ public class NhanVien {
     private String diaChiNV;
     private Double luongNV;
     DateTimeFormatter  formatter=DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    
+
     public NhanVien(){
         this.maNV = "";
         this.hoNV = "";
@@ -38,48 +42,7 @@ public class NhanVien {
         this.diaChiNV = DiaChiNV;
         this.luongNV = LuongNV;
     }
-   
-    public void nhapNV(){
-        Scanner sc = new Scanner(System.in);
-        System.err.printf("\nNhap Ma Nhan Vien: ");
-        this.maNV = sc.nextLine();
-
-        System.err.printf("\nNhap Ho Nhan Vien: ");
-        this.hoNV = sc.nextLine();
-
-        System.err.printf("\nNhap Ten Nhan Vien: ");
-        this.tenNV = sc.nextLine();
-
-        System.err.printf("\nNhap Chuc Vu Nhan Vien: ");
-        this.chucVu = sc.nextLine();
-
-        boolean CheckDate = false;
-        while (!CheckDate) {
-            System.err.printf("\nNhap Ngay Sinh Nhan Vien (dd-mm-yyyy): ");
-            String ngaySinhInput = sc.nextLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            try {
-                this.ngaySinh = LocalDate.parse(ngaySinhInput, formatter);
-                CheckDate = true;
-            } catch (DateTimeParseException e) {
-                System.err.println("Ngay sinh khong hop le. Vui long nhap lai(dd-mm-yyyy).");
-            }
-        }
-
-        System.err.printf("\nNhap Gioi Tinh Nhan Vien: ");
-        this.gioiTinh = sc.nextLine();
-
-        System.err.printf("\nNhap So Dien Thoai Nhan Vien:  ");
-        this.sdtNV = sc.nextLine();
-
-        System.err.printf("\nNhap Dia Chi Nhan Vien: ");
-        this.diaChiNV = sc.nextLine();
-
-        System.err.printf("\nNhap Luong Nhan Vien: ");
-        this.luongNV = sc.nextDouble();
-        sc.nextLine();
-    }
-
+    
     public String getMaNV() { return maNV; }
     public String getHoNV() { return hoNV; }
     public String getTenNV() { return tenNV; }
@@ -107,9 +70,132 @@ public class NhanVien {
     public void setDiaChiNV(String DiaChiNV) { this.diaChiNV = DiaChiNV; }
     public void setLuongNV(Double LuongNV) { this.luongNV = LuongNV; }
 
+    @SuppressWarnings("resource")
+    public void nhapNV(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap Ma Nhan Vien: ");
+        this.maNV = sc.nextLine();
+
+        System.out.print("\nNhap Ho Nhan Vien: ");
+        this.hoNV = sc.nextLine();
+
+        System.out.print("\nNhap Ten Nhan Vien: ");
+        this.tenNV = sc.nextLine();
+
+        System.out.print("\nNhap Chuc Vu Nhan Vien: ");
+        this.chucVu = sc.nextLine();
+
+        boolean CheckDate = false;
+        while (!CheckDate) {
+            System.out.print("\nNhap Ngay Sinh Nhan Vien (dd-mm-yyyy): ");
+            String ngaySinhInput = sc.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            try {
+                this.ngaySinh = LocalDate.parse(ngaySinhInput, formatter);
+                CheckDate = true;
+            } catch (DateTimeParseException e) {
+                System.err.println("Ngay sinh khong hop le. Vui long nhap lai(dd-mm-yyyy).");
+            }
+        }
+
+        System.out.print("\nNhap Gioi Tinh Nhan Vien: ");
+        this.gioiTinh = sc.nextLine();
+
+        System.out.print("\nNhap So Dien Thoai Nhan Vien:  ");
+        this.sdtNV = sc.nextLine();
+
+        System.out.print("\nNhap Dia Chi Nhan Vien: ");
+        this.diaChiNV = sc.nextLine();
+
+        System.out.print("\nNhap Luong Nhan Vien: ");
+        this.luongNV = sc.nextDouble();
+        sc.nextLine();
+    }
+
     public void xuatNV(){
-        System.err.print("\n----------------------------------------------------------------------------------------------------------------\n");
-        System.err.printf("| Ma Nhan Vien: %-10s| Ho Nhan Vien: %-10s | Ten Nhan Vien: %-16s | Chuc Vu: %-10s\n", maNV, hoNV, tenNV, chucVu);
-        System.err.printf("| SDT: %-12s       | Ngay Sinh : %-12s   | Gioi Tinh: %-18s     | Dia chi: %-10s | Luong: %-15.2f\n", sdtNV, ngaySinh.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), gioiTinh, diaChiNV, luongNV);
+        System.out.print("\n----------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("| Ma Nhan Vien: %-10s| Ho Nhan Vien: %-10s | Ten Nhan Vien: %-16s | Chuc Vu: %-10s\n", maNV, hoNV, tenNV, chucVu);
+        System.out.printf("| SDT: %-12s       | Ngay Sinh : %-12s   | Gioi Tinh: %-18s     | Dia chi: %-10s | Luong: %-15.2f\n", sdtNV, ngaySinh.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), gioiTinh, diaChiNV, luongNV);
+    }
+
+    public void suaNV() {
+        @SuppressWarnings("resource")
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("\nChon thong tin can sua:");
+            System.out.println("1. Ho Nhan Vien");
+            System.out.println("2. Ten Nhan Vien");
+            System.out.println("3. Chuc Vu");
+            System.out.println("4. Ngay Sinh");
+            System.out.println("5. Gioi Tinh");
+            System.out.println("6. So Dien Thoai");
+            System.out.println("7. Dia Chi");
+            System.out.println("8. Luong");
+            System.out.println("0. Thoat");
+            System.out.print("Lua chon cua ban: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // Xoa bo dem
+    
+            switch (choice) {
+                case 1:
+                    System.out.println("Ho Nhan Vien Hien Tai: " + getHoNV());
+                    System.out.print("Nhap Ho Nhan Vien Moi: ");
+                    this.hoNV = sc.nextLine();
+                    break;
+                case 2:
+                    System.out.println("Ten Nhan Vien Hien Tai: " + getTenNV());
+                    System.out.print("Nhap Ten Nhan Vien Moi: ");
+                    this.tenNV = sc.nextLine();
+                    break;
+                case 3:
+                    System.out.println("Chuc Vu Hien Tai: " + getChucVu());
+                    System.out.print("Nhap Chuc Vu Moi: ");
+                    this.chucVu = sc.nextLine();
+                    break;
+                case 4:
+                    System.out.println("Ngay Sinh Hien Tai: " + getNgaySinh());
+                    boolean checkDate = false;
+                    while (!checkDate) {
+                        System.out.print("Nhap Ngay Sinh Moi (dd-MM-yyyy): ");
+                        String ngaySinhInput = sc.nextLine();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        try {
+                            this.ngaySinh = LocalDate.parse(ngaySinhInput, formatter);
+                            checkDate = true;
+                        } catch (DateTimeParseException e) {
+                            System.err.println("Ngay sinh khong hop le. Vui long nhap lai.");
+                        }
+                    }
+                    break;
+                case 5:
+                    System.out.println("Gioi Tinh Hien Tai: " + getGioiTinh());
+                    System.out.print("Nhap Gioi Tinh Moi: ");
+                    this.gioiTinh = sc.nextLine();
+                    break;
+                case 6:
+                    System.out.println("So Dien Thoai Hien Tai: " + getSDTNV());
+                    System.out.print("Nhap So Dien Thoai Moi: ");
+                    this.sdtNV = sc.nextLine();
+                    break;
+                case 7:
+                    System.out.println("Dia Chi Hien Tai: " + getDiaChiNV());
+                    System.out.print("Nhap Dia Chi Moi: ");
+                    this.diaChiNV = sc.nextLine();
+                    break;
+                case 8:
+                    System.out.println("Luong Hien Tai: " + getLuongNV());
+                    System.out.print("Nhap Luong Moi: ");
+                    this.luongNV = sc.nextDouble();
+                    sc.nextLine(); // Xoa bo dem
+                    break;
+                case 0:
+                    System.out.println("Ket thuc chinh sua.");
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le. Vui long chon lai.");
+                    break;
+            }
+        } while (choice != 0);
     }
 }

@@ -1,0 +1,3 @@
+Ma Hoa Don: HD001 | Ma Khach Hang: KH001 | Ma Nhan Vien: NV001 | Ngay Tao HD: 2024-11-11 | Tong Tien: 220.0 | Tien Nhan: 3000.0 | Tien Thoi: 800.0
+Ma Hoa Don: HD002 | Ma Khach Hang: KH002 | Ma Nhan Vien: NV001 | Ngay Tao HD: 2024-11-21 | Tong Tien: 2123.0 | Tien Nhan: 10000.0 | Tien Thoi: 7877.0
+Ma Hoa Don: HD004 | Ma Khach Hang: KH001 | Ma Nhan Vien: NV001 | Ngay Tao HD: 2024-11-11 | Tong Tien: 220.0 | Tien Nhan: 1000.0 | Tien Thoi: 780.0

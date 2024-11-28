@@ -1,11 +1,12 @@
-S001,Toan Roi Rac,Nguyen Hoa,NXB Thanh Nien,Chuyen Nganh,49000.0,2000,Cong Nghe Thong Tin,
-S002,Dac Nhan Tam,Dale Carnegie,NXB Dan Tri,Sach Tu Luc,54180.0,4000,,,
-S003,Tuoi Tre Dang Gia Bao Nhieu,Rosie Nguyen,NXB Hoi Nha Van,Ky Nang Song,89500.0,2000,,,
-S004,Co so du lieu,TG001,NXB005,Chuyen Nganh,30000.0,4000,Cong Nghe Thong Tin,
-S005,Ly Thuyet Do Thi,Nguyen Hoa,NXB Thanh Nien,Chuyen Nganh,39000.0,6000,Cong Nghe Thong Tin,
-S006,Buc Pha 900+ Danh Gia Nang Luc,Nguyen Huu Tri,NXB Kim Dong,Tham Khao,70000.0,4000,,Hoc Tap,17,
-S007,Tu Dien Bach Khoa Viet Nam,Viet Nam,NXB Thanh Nien,Tham Khao,89000.0,4000,,Tu Dien,16,
-S008,Tham Tu Lung Danh Conan,Noname,NXB Kim Dong,Trinh Tham,15000.0,2500,,,
-S009,Triet Hoc Dai Cuong,Noname,NXB Thanh Nien,Chuyen Nganh,19000.0,2000,Triet Hoc,
-S010,Hello World,Noname,NXB Kim Dong,Chuyen Nganh,30000.0,4000,Cong Nghe Thong Tin,
-S011,Toi Chang Biet Toi La Ai,NHT,KD,Tham Khao,50000.0,3000,,Doi Song,10,
+S001|Toan Roi Rac|Nguyen Hoa|NXB Thanh Nien|Chuyen Nganh|49000.0|2000|Cong Nghe Thong Tin||
+S002|Dac Nhan Tam|Dale Carnegie|NXB Dan Tri|Sach Tu Luc|54180.0|4000|||
+S003|Tuoi Tre Dang Gia Bao Nhieu|Rosie Nguyen|NXB Hoi Nha Van|Ky Nang Song|89500.0|2000|||
+S004|Co so du lieu|TG001|NXB005|Chuyen Nganh|30000.0|4000|Cong Nghe Thong Tin||
+S005|Ly Thuyet Do Thi|Nguyen Hoa|NXB Thanh Nien|Chuyen Nganh|39000.0|6000|Cong Nghe Thong Tin||
+S006|Buc Pha 900+ Danh Gia Nang Luc|Nguyen Huu Tri|NXB Kim Dong|Tham Khao|70000.0|4000||Hoc Tap x2|17
+S007|Tu Dien Bach Khoa Viet Nam|Viet Nam|NXB Thanh Nien|Tham Khao|89000.0|4000||Tu Dien|16
+S008|Tham Tu Lung Danh Conan|Noname|NXB Kim Dong|Trinh Tham|15000.0|2500|||
+S009|Triet Hoc Dai Cuong|Noname|NXB Thanh Nien|Chuyen Nganh|19000.0|2000|Triet Hoc||
+S010|Hello World|Noname|NXB Kim Dong|Chuyen Nganh|30000.0|4000|Cong Nghe Thong Tin||
+S011|Toi Chang Biet Toi La Ai|NHT|KD|Tham Khao|50000.0|3000||Doi Song|10
+S012|Toi La Ai|NHT|Kim Dong|Tham Khao|4000.0|30000||Doi Song|18
