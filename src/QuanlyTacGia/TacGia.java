@@ -28,7 +28,7 @@ public class TacGia {
             System.out.printf("\nNhap Ma Tac Gia: ");
             this.MaTacGia=sc.nextLine();
         }
-        System.out.printf("Nhap Ten Tac Gia: ");
+        System.out.printf("\nNhap Ten Tac Gia: ");
         this.TenTacGia=sc.nextLine();
 
         boolean CheckDate=false;

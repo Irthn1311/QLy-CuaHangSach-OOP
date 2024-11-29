@@ -67,30 +67,21 @@ public class DSTacGia implements CRUD {
             System.err.printf("║    Ma Tac Gia %s Da Ton Tai        \n",TG_new.getMaTacGia());
             System.err.print("╚══════════════════════════════════════════");
         }
-
-
     }
 
     @Override
-    public void sua() {
-        boolean bookFind = false;
+    public void sua() { 
         System.out.print("\nNhap Ma Tac Gia Can Chinh Sua: ");
         String checked = sc.nextLine();
-        for (TacGia TG:dsTG) {
-            if (TG !=null && TG.getMaTacGia().equals(checked)) {
-                System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma TG: "+checked);
-                TG.nhapTG(true);
-                TG.setMaTacGia(checked);
-                bookFind = true;
-                break;
-            }
-        }
-        if (!bookFind) {
+        int vt=viTriMaTG(checked);
+        if(vt!=-1){
+            System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Tac Gia: "+checked);
+            dsTG[vt].nhapTG(true);
+            dsTG[vt].setMaTacGia(checked);
+        }else {
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",checked);
             System.err.print("╚══════════════════════════════════════════");
-        } else {
-            System.out.println("\nChinh Sua Tac Gia Thanh Cong!!!");
         }
     }
 
@@ -152,7 +143,7 @@ public class DSTacGia implements CRUD {
             System.out.println("║   1. Tim Kiem Theo Ma Tac Gia            ║ ");
             System.out.println("║   2. Tim Kiem Theo Ten Tac Gia           ║ ");
             System.out.println("║   0. Thoat                               ║ ");
-            System.out.print("  ╚══════════════════════════════════════════╝\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("Lua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 
@@ -215,7 +206,11 @@ public class DSTacGia implements CRUD {
                         if(!kiemtraTonTai(MaTG)){
                             dsTG=Arrays.copyOf(dsTG, size+1);
                             dsTG[size] = new TacGia(MaTG,TenTG,NamSinhTG,QueQuanTG);
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma Tac Gia  %s  Da Them      \n",MaTG);
+                            System.err.print("╚══════════════════════════════════════════");
                             size++;
+                            
                         }else{
                             System.err.print("\n╔══════════════════════════════════════════\n");
                             System.err.printf("║ Ma Tac Gia  %s  Da Co      \n",MaTG);
