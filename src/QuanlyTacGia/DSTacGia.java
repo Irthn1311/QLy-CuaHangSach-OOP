@@ -180,8 +180,10 @@ public class DSTacGia implements CRUD {
                 }
             }
         }
-        System.err.print("So Tac Gia Tren 50 Tuoi: "+soluong1);
-        System.err.print("So Tac Gia Duoi 50 Tuoi: "+soluong2);
+        System.out.println("╔══════════════════════════════════════════");
+        System.out.printf("║   Tac Gia Tren 50 Tuoi: %d         \n",soluong1);
+        System.out.printf("║   Tac Gia Duoi 50 Tuoi: %d         \n",soluong2);
+        System.out.println("╠══════════════════════════════════════════");
     }
     @Override
     public void docFile() {
