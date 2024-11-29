@@ -73,7 +73,7 @@ public class KhachHang {
 
         boolean checkDate=false;
         while (!checkDate) {
-            System.err.print("Nhap Ngay Sinh Khach Hang: ");
+            System.err.print("Nhap Ngay Sinh Khach Hang (dd-mm-yyyy): ");
             String ngaySinhKH=sc.nextLine();
             try{
                 this.ngaySinh=LocalDate.parse(ngaySinhKH,formatter);
@@ -85,7 +85,7 @@ public class KhachHang {
         System.out.print("Nhap Gioi Tinh Khach Hang: ");
         this.gioiTinh=sc.nextLine();
 
-        System.out.print("Nhap So Dien Thoai Khach Hang:  ");
+        System.out.print("Nhap So Dien Thoai Khach Hang: ");
         this.sdtKH=sc.nextLine();
 
         System.out.print("Nhap Dia Chi Khach Hang: ");

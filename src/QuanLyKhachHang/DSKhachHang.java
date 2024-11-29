@@ -2,10 +2,13 @@ package QuanLyKhachHang;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,20 +16,20 @@ import java.nio.file.Files;
 import Interface.CRUD;
 
 public class DSKhachHang implements CRUD {
-    KhachHang[] dsKH;
+    KhachHang[] arrKH;
     Scanner sc=new Scanner(System.in);
     private int size=3;
 
     public DSKhachHang() {
-        dsKH = new KhachHang[3];
-        dsKH[0] = new KhachHang("KH001", "Le","Phan","02-03-2000","Nam","0111111111", "Quan 1");
-        dsKH[1] = new KhachHang("KH002","Nghiem","Vu Hoang Long","02-03-1999","Nam","022222222222","Tan Phu");
-        dsKH[2] = new KhachHang("KH003","Nguyen", "Thao Linh","07-10-2000","Nu","03333333333", "Quan 2");
+        arrKH = new KhachHang[3];
+        arrKH[0] = new KhachHang("KH001", "Le","Phan","02-03-2000","Nam","0111111111", "Quan 1");
+        arrKH[1] = new KhachHang("KH002",   "Nghiem","Vu Hoang Long","02-03-1999","Nam","022222222222","Tan Phu");
+        arrKH[2] = new KhachHang("KH003","Nguyen", "Thao Linh","07-10-2000","Nu","03333333333", "Quan 2");
     }
 
     private int viTriMaKh(String MaKH){
-        for(int i=0;i<size-1;i++){
-            if(dsKH[i]!=null && dsKH[i].getMaKH().equals(MaKH)){
+        for(int i = 0; i < arrKH.length; i++){
+            if(arrKH[i] != null && arrKH[i].getMaKH().toLowerCase().equals(MaKH.toLowerCase())){
                 return i;
             }
         }
@@ -34,7 +37,7 @@ public class DSKhachHang implements CRUD {
     }
     
     private boolean kiemtraTonTai(String MaKh){
-        for(KhachHang khachHang:dsKH){
+        for(KhachHang khachHang:arrKH){
             if(khachHang !=null && khachHang.getMaKH().equals(MaKh)){
                 return true; // Đã tồn tại
             }
@@ -44,10 +47,10 @@ public class DSKhachHang implements CRUD {
 
     @Override
     public void xem(){
-        if(size==0){
+        if(arrKH.length == 0){
             System.out.print("Danh Sach Rong");
         }else{
-            for(KhachHang khachHang: dsKH){
+            for(KhachHang khachHang: arrKH){
             if(khachHang !=null){
                 khachHang.xuatKH();
                 }
@@ -60,9 +63,8 @@ public class DSKhachHang implements CRUD {
         KhachHang kh_new=new KhachHang();
         kh_new.nhapKH(false);
         if(!kiemtraTonTai(kh_new.getMaKH())){
-            dsKH=Arrays.copyOf(dsKH, size+1);
-            dsKH[size]=kh_new;
-            size++;
+            arrKH = Arrays.copyOf(arrKH, arrKH.length + 1);
+            arrKH[arrKH.length - 1] = kh_new;
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║    Ma Khach %s Da Ton Tai        \n",kh_new.getMaKH());
@@ -78,8 +80,8 @@ public class DSKhachHang implements CRUD {
         int vt=viTriMaKh(MaKh);
         if(vt!=-1){
             System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Khach Hang: "+MaKh);
-            dsKH[vt].nhapKH(true);
-            dsKH[vt].setMaKH(MaKh);
+            arrKH[vt].nhapKH(true);
+            arrKH[vt].setMaKH(MaKh);
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",MaKh);
@@ -91,15 +93,12 @@ public class DSKhachHang implements CRUD {
     public void xoa(){
         System.out.print("\nNhap Ma Khach Hang Can Xoa: ");
         String maKh = sc.nextLine();
-        int vt=viTriMaKh(maKh);
-        if(vt!=-1){
-            for(int i=vt;i<size-1;i++){
-                if(dsKH[i] !=null){
-                    dsKH[vt]=dsKH[vt+1];
-                }
+        int vt = viTriMaKh(maKh);
+        if(vt != -1){
+            for(int i = vt; i < arrKH.length - 1; i++){
+                arrKH[i]=arrKH[i + 1];
             }
-            dsKH=Arrays.copyOf(dsKH, size-1);
-            size--;
+            arrKH = Arrays.copyOf(arrKH, arrKH.length - 1);
             System.out.println("Da Xoa Khach Hang Voi Ma: " + maKh);
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
@@ -113,7 +112,7 @@ public class DSKhachHang implements CRUD {
         System.out.print("\nNhap Ma Khach Hang Can Tim: ");
         String maKh = sc.nextLine();
         if(kiemtraTonTai(maKh)){
-            for(KhachHang khachHang:dsKH){
+            for(KhachHang khachHang:arrKH){
                 if(khachHang !=null && khachHang.getMaKH().equals(maKh)){
                     khachHang.xuatKH();
                     break;
@@ -130,7 +129,7 @@ public class DSKhachHang implements CRUD {
         System.out.print("\nNhap Ho Khach Hang Can Tim: ");
         String hoKh = sc.nextLine().toLowerCase();
         boolean find=false;
-        for(KhachHang khachHang:dsKH){
+        for(KhachHang khachHang:arrKH){
             if(khachHang !=null && khachHang.getHoKH().toLowerCase().contains(hoKh)){
                 khachHang.xuatKH();
                 find=true;
@@ -146,7 +145,7 @@ public class DSKhachHang implements CRUD {
         System.out.print("\nNhap Ten Khach Hang Can Tim: ");
         String hoKh = sc.nextLine().toLowerCase();
         boolean find=false;
-        for(KhachHang khachHang:dsKH){
+        for(KhachHang khachHang:arrKH){
             if(khachHang !=null && khachHang.getTenKH().toLowerCase().contains(hoKh)){
                 khachHang.xuatKH();
                 find=true;
@@ -165,7 +164,7 @@ public class DSKhachHang implements CRUD {
         System.out.print("Nhap Quan Thu Hai:");
         String quanB=sc.nextLine().toLowerCase();
         boolean find=false;
-        for(KhachHang khachHang: dsKH){
+        for(KhachHang khachHang: arrKH){
             if(khachHang!=null && (khachHang.getDiaChiKH().toLowerCase().equals(quanA)|| khachHang.getDiaChiKH().toLowerCase().equals(quanB))){
                 khachHang.xuatKH();
                 find=true;
@@ -186,7 +185,7 @@ public class DSKhachHang implements CRUD {
         int ageB=sc.nextInt();
         sc.nextLine();
         boolean find=false;
-        for(KhachHang khachHang: dsKH){
+        for(KhachHang khachHang: arrKH){
             int tuoi=Period.between(khachHang.getNgaySinh(), now).getYears();
             if(tuoi >=ageA && tuoi<ageB){
                 khachHang.xuatKH();
@@ -246,7 +245,7 @@ public class DSKhachHang implements CRUD {
     public void thongkeTheotuoi(){
         LocalDate now=LocalDate.now();
         int hocsinh=0, thanhnien=0,truongthanh=0, trungnien=0,caotuoi=0;
-        for(KhachHang Khach: dsKH){
+        for(KhachHang Khach: arrKH){
             if(Khach!=null){
                 int age=Period.between(Khach.getNgaySinh(), now).getYears();
                 if(age>0 && age<=18){
@@ -274,7 +273,7 @@ public class DSKhachHang implements CRUD {
 
     public void thongkeTheoGT(){
         int male=0,female=0,gender_unknown=0;
-        for(KhachHang Khach: dsKH){
+        for(KhachHang Khach: arrKH){
             if(Khach !=null){
                 String gender=Khach.getGioiTinh().toLowerCase();
                 if(gender.equals("nam")){
@@ -324,69 +323,71 @@ public class DSKhachHang implements CRUD {
     }
 
     @Override
-    public void docFile(){
-        File readf= new File("KhachHang_Input.txt");
-        try{
-            if(!readf.exists()){
-                System.out.print("Tao File Khach Hang Moi Thanh Cong");
-                readf.createNewFile();
-            }
-            try(BufferedReader br=Files.newBufferedReader(readf.toPath(),StandardCharsets.UTF_8)){
-                boolean empty=true;
-                String line;
-                while ((line=br.readLine())!=null){
-                    empty=false;
-                    String[] info=line.split("\\|");
-                    if(info.length==7){
-                        String maKH=info[0].trim();
-                        String hoKH=info[1].trim();
-                        String tenKH=info[2].trim();
-                        String ngaySinhKH=info[3].trim();
-                        String gioitinh=info[4].trim();
-                        String sdt=info[5].trim();
-                        String diachi=info[6].trim();
-                        
-                        if(!kiemtraTonTai(maKH)){
-                            dsKH=Arrays.copyOf(dsKH, size+1);
-                            dsKH[size]=new KhachHang(maKH,hoKH,tenKH,ngaySinhKH,gioitinh,sdt,diachi);
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma Khach  %s  Da Them      \n",maKH);
-                            System.err.print("╚══════════════════════════════════════════");
-                            size++;
-                            
-                        }else{
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma Khach  %s  Da Co      \n",maKH);
-                            System.err.print("╚══════════════════════════════════════════");
+    public void docFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader("data/khachhang.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] info = line.split("\\|");
+                if (info.length == 7) {
+                    String maKH = info[0].trim();
+                    String hoKH = info[1].trim();
+                    String tenKH = info[2].trim();
+                    String ngaySinhKH = info[3].trim();
+                    String gioiTinh = info[4].trim();
+                    String sdtKH = info[5].trim();
+                    String diaChiKH = info[6].trim();
+
+                    if (!kiemtraTonTai(maKH)) {
+                        if (arrKH == null) {
+                            arrKH = new KhachHang[1];
+                        } else {
+                            arrKH = Arrays.copyOf(arrKH, arrKH.length + 1);
                         }
-                    }else{
-                        System.out.println("Du Lieu Khong Hop Le: " + line);
+                        arrKH[arrKH.length - 1] = new KhachHang(maKH, hoKH, tenKH, ngaySinhKH, gioiTinh, sdtKH, diaChiKH);
+                        System.err.print("\n╔══════════════════════════════════════════\n");
+                        System.err.printf("║ Ma Khach  %s  Da Them      \n", maKH);
+                        System.err.print("╚══════════════════════════════════════════");
+
+                    } else {
+                        System.err.print("\n╔══════════════════════════════════════════\n");
+                        System.err.printf("║ Ma Khach  %s  Da Co      \n", maKH);
+                        System.err.print("╚══════════════════════════════════════════");
                     }
-                }
-                if (empty) {
-                    System.out.println("\nFILE EMPTY WITH NOTHING");
+                } else {
+                    System.out.println("Du Lieu Khong Hop Le: " + line);
                 }
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Da Xay Ra Loi Khi Doc File: " + e.getMessage());
         }
     }
 
+
     @Override
-    public void ghiFile(){
-        try {
-            PrintWriter pw=new PrintWriter("KhachHang_Output.txt","UTF-8");
-            
-            for(KhachHang khach: dsKH){
-                String line= "Ma Khach Hang: "+khach.getMaKH() + " | Ho Khach Hang: " + khach.getHoKH() + " | Ten Khach Hang: " + khach.getTenKH() + " | SDT: " + khach.getSDTKH()+ " | Ngay Sinh: " 
-                + khach.getNgaySinh()+ " | Gioi Tinh: " +khach.getGioiTinh()+ " | Dia Chi: " +khach.getDiaChiKH();
+    public void ghiFile() {
+    try {
+        PrintWriter pw = new PrintWriter("data/khachhang.txt");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        for (KhachHang kh : arrKH) {
+            if (kh != null) {
+                String formattedNgaySinh = kh.getNgaySinh().format(formatter);
+                String line = kh.getMaKH() + "|" 
+                            + kh.getHoKH() + "|" 
+                            + kh.getTenKH() + "|" 
+                            + formattedNgaySinh + "|" 
+                            + kh.getGioiTinh() + "|" 
+                            + kh.getSDTKH() + "|" 
+                            + kh.getDiaChiKH();
                 pw.println(line);
-                pw.flush();
             }
-            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG ");
-            pw.close();
-        }catch (Exception e) {
-            e.printStackTrace();
         }
+
+        System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG.");
+        pw.close();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
 }
