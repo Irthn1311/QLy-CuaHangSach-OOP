@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import Interface.CRUD;
@@ -383,10 +384,12 @@ public class DSNhanVien implements CRUD {
     public void ghiFile() {
         try {
             PrintWriter pw = new PrintWriter("data/nhanvien.txt");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             for (NhanVien nv : arrNV) {
                 if (nv != null) {
+                    String formattedNgaySinh = nv.getNgaySinh().format(formatter);
                     String line = nv.getMaNV() + "|" + nv.getHoNV() + "|" + nv.getTenNV() + "|" + nv.getChucVu() + "|" 
-                                + nv.getNgaySinh() + "|" + nv.getGioiTinh() + "|" + nv.getSDTNV() + "|" + nv.getDiaChiNV() + "|" + nv.getLuongNV();
+                                + formattedNgaySinh + "|" + nv.getGioiTinh() + "|" + nv.getSDTNV() + "|" + nv.getDiaChiNV() + "|" + nv.getLuongNV();
                     pw.println(line);
                 }
             }
