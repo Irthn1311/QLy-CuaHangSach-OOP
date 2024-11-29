@@ -1,3 +1,5 @@
+package QuanLyKhachHang;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+import Interface.CRUD;
 
 public class DSKhachHang implements CRUD {
     KhachHang[] dsKH;

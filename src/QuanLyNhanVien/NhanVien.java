@@ -70,7 +70,6 @@ public class NhanVien {
     public void setDiaChiNV(String DiaChiNV) { this.diaChiNV = DiaChiNV; }
     public void setLuongNV(Double LuongNV) { this.luongNV = LuongNV; }
 
-    @SuppressWarnings("resource")
     public void nhapNV(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap Ma Nhan Vien: ");
@@ -110,6 +109,7 @@ public class NhanVien {
         System.out.print("\nNhap Luong Nhan Vien: ");
         this.luongNV = sc.nextDouble();
         sc.nextLine();
+        sc.close();
     }
 
     public void xuatNV(){
@@ -119,7 +119,6 @@ public class NhanVien {
     }
 
     public void suaNV() {
-        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
@@ -197,5 +196,6 @@ public class NhanVien {
                     break;
             }
         } while (choice != 0);
+        sc.close();
     }
 }

@@ -1,3 +1,5 @@
+package QuanLyKhachHang;
+
 import java.util.Scanner;
 
 public class QuanLyKhachHang {
