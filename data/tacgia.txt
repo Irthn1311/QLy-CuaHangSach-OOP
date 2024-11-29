@@ -1,5 +1,5 @@
-TG001 | Wrxdie | 10-02-2000 | Ha Noi
-TG002 | MCK | 02-03-1999 | Ha Noi
-TG003 | Tlinh | 07-10-2000 | Ha Noi
+TG001 | Nguyen Hoa | 10-02-1970 | Ha Noi
+TG002 | Rosie Nguyen | 02-03-1987 | Quy Nhon
+TG003 | Nguyen Nhat Anh | 07-10-1986 | Ha Noi
 TG004 | J97 | 09-07-1997 | Ben Tre
 TG005 | Son Tung MTP | 05-07-1994 | Thai Binh
