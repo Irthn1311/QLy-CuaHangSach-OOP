@@ -1,40 +1,34 @@
+package QuanLyNhanVien;
+
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import Interface.CRUD;
 
 public class DSNhanVien implements CRUD {
-    NhanVien[] dsNV;
+    NhanVien[] arrNV = new NhanVien[10];
     Scanner sc=new Scanner(System.in);
-    int size=3;
 
-
-    public DSNhanVien(){
-        dsNV = new NhanVien[3];
-        dsNV[0] = new NhanVien("NV001", "Le","Phan","Quan Ly","02-03-2000","Nam","0111111111", "Quan 1",1000.0);
-        dsNV[1] = new NhanVien("NV002","Nghiem","Vu Hoang Long","Nhan Vien","02-03-1999","Nam","022222222222","Tan Phu",300.0);
-        dsNV[2] = new NhanVien("NV003","Nguyen", "Thao Linh","Nhan Vien","07-10-2000","Nu","03333333333", "Quan 2",240.0);
-    }
-
-    private int viTriMaNv(String MaNv){
-        for(int i=0;i<size-1;i++){
-            if(dsNV[i]!=null && dsNV[i].getMaNV().equals(MaNv)){
+    private int viTriMaNv(String maNV) {
+        for (int i = 0; i < arrNV.length; i++) {
+            if (arrNV[i] != null && arrNV[i].getMaNV().equalsIgnoreCase(maNV)) {
                 return i;
             }
         }
         return -1;
     }
+    
 
     private boolean kiemTraTonTai(String MaNv){
-        for(NhanVien nv: dsNV){
-            if(nv!=null && nv.getMaNV().equals(MaNv)){
+        for(NhanVien nv: arrNV){
+            if(nv!=null && nv.getMaNV().equalsIgnoreCase(MaNv)){
                 return true; // Đã tồn tại
             }
         }
@@ -43,12 +37,12 @@ public class DSNhanVien implements CRUD {
     
     @Override
     public void xem(){
-        if(size==0){
+        if(arrNV.length == 0){
             System.out.print("Danh Sach Rong");
         }else{
             System.out.print("\nThong Tin Cua Nhan Vien");
-            for(NhanVien nv: dsNV){
-            if(nv !=null){
+            for(NhanVien nv: arrNV){
+            if(nv != null){
                 nv.xuatNV();
                 }
             }
@@ -60,9 +54,8 @@ public class DSNhanVien implements CRUD {
         NhanVien nv=new NhanVien();
         nv.nhapNV(false);
         if(!kiemTraTonTai(nv.getMaNV())){
-            dsNV=Arrays.copyOf(dsNV, size+1);
-            dsNV[size]=nv;
-            size++;
+            arrNV = Arrays.copyOf(arrNV, arrNV.length + 1);
+            arrNV[arrNV.length - 1] = nv;
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║    Ma Khach %s Da Ton Tai        \n",nv.getMaNV());
@@ -77,8 +70,8 @@ public class DSNhanVien implements CRUD {
         int vt= viTriMaNv(MaNv);
         if(vt !=-1){
             System.out.print("\n╔══════════════════════════════════════════╗\n");
-            System.err.printf("║     MENU : Chinh Sua Nhan Vien %s ║\n",MaNv);
-            dsNV[vt].suaNV();
+            System.err.printf("║     MENU : Chinh Sua Nhan Vien %6s    ║\n",MaNv.toUpperCase());
+            arrNV[vt].suaNV();
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Nhan Vien: %s        \n",MaNv);
@@ -92,11 +85,10 @@ public class DSNhanVien implements CRUD {
         String MaNv = sc.nextLine();
         int vt= viTriMaNv(MaNv);
         if(vt !=-1){
-            for(int i=vt;i<size-1;i++){
-                dsNV[i]=dsNV[i+1];
+            for(int i = vt; i < arrNV.length - 1; i++){
+                arrNV[i]=arrNV[i+1];
             }
-            dsNV=Arrays.copyOf(dsNV, size+1);
-            size--;
+            arrNV = Arrays.copyOf(arrNV, arrNV.length -1);
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Nhan Vien: %s        \n",MaNv);
@@ -152,7 +144,7 @@ public class DSNhanVien implements CRUD {
         String MaNv = sc.nextLine();
         int vt= viTriMaNv(MaNv);
         if(vt!=-1){
-            dsNV[vt].xuatNV();  //Kiem tra lại
+            arrNV[vt].xuatNV();  //Kiem tra lại
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Nhan Vien: %s        \n",MaNv);
@@ -162,10 +154,10 @@ public class DSNhanVien implements CRUD {
 
     public void timkiemHoNV(){
         System.out.print("\nNhap Ho Nhan Vien Can Tim Kiem: ");
-        String hoNV = sc.nextLine().toLowerCase();
+        String hoNV = sc.nextLine();
         boolean find=false;
-        for(NhanVien nv: dsNV){
-            if(nv !=null && nv.getHoNV().toLowerCase().equals(hoNV)){
+        for(NhanVien nv: arrNV){
+            if(nv !=null && nv.getHoNV().toLowerCase().contains(hoNV.toLowerCase())){
                 nv.xuatNV();
                 find=true;
             }
@@ -179,10 +171,10 @@ public class DSNhanVien implements CRUD {
 
     public void timkiemTenNV(){
         System.out.print("\nNhap Ten Nhan Vien Can Tim Kiem: ");
-        String tenNV = sc.nextLine().toLowerCase();
+        String tenNV = sc.nextLine();
         boolean find=false;
-        for(NhanVien nv: dsNV){
-            if(nv !=null && nv.getTenNV().toLowerCase().contains(tenNV)){
+        for(NhanVien nv: arrNV){
+            if(nv !=null && nv.getTenNV().toLowerCase().contains(tenNV.toLowerCase())){
                 nv.xuatNV();
                 find=true;
             }
@@ -196,12 +188,12 @@ public class DSNhanVien implements CRUD {
 
     public void timkiemTheoQuan(){
         System.out.print("\nNhap Quan Thu Nhat:");
-        String quanA=sc.nextLine().toLowerCase();
+        String quanA=sc.nextLine();
         System.out.print("Nhap Quan Thu Hai:");
-        String quanB=sc.nextLine().toLowerCase();
+        String quanB=sc.nextLine();
         boolean find=false;
-        for(NhanVien nVien: dsNV){
-            if(nVien!=null && (nVien.getDiaChiNV().toLowerCase().equals(quanA)|| nVien.getDiaChiNV().toLowerCase().equals(quanB))){
+        for(NhanVien nVien: arrNV){
+            if(nVien!=null && (nVien.getDiaChiNV().equalsIgnoreCase(quanA)|| nVien.getDiaChiNV().equalsIgnoreCase(quanB))){
                 nVien.xuatNV();
                 find=true;
             }
@@ -222,7 +214,7 @@ public class DSNhanVien implements CRUD {
         int ageB=sc.nextInt();
         sc.nextLine();
         boolean find=false;
-        for(NhanVien nv: dsNV){
+        for(NhanVien nv: arrNV){
             int tuoi=Period.between(nv.getNgaySinh(), now).getYears();
             if(tuoi >=ageA && tuoi<=ageB){
                 nv.xuatNV();
@@ -277,7 +269,7 @@ public class DSNhanVien implements CRUD {
     public void thongkeTuoiNV() {
         LocalDate nowDate=LocalDate.now();
         int hocsinh=0, thanhnien=0,truongthanh=0, trungnien=0,caotuoi=0;
-        for(NhanVien nv: dsNV){
+        for(NhanVien nv: arrNV){
             if(nv !=null){
                 int age = Period.between(nv.getNgaySinh(), nowDate).getYears();
                 if(age>0 && age<=18){
@@ -305,12 +297,12 @@ public class DSNhanVien implements CRUD {
 
     public void thongkeGioiTinhNV() {
         int male=0,female=0,gender_unknown=0;
-        for(NhanVien nVien: dsNV){
+        for(NhanVien nVien: arrNV){
             if(nVien !=null){
-                String gender=nVien.getGioiTinh().toLowerCase();
-                if(gender.equals("nam")){
+                String gender=nVien.getGioiTinh();
+                if(gender.equalsIgnoreCase("nam")){
                     male++;
-                }else if(gender.equals("nu")){
+                }else if(gender.equalsIgnoreCase("nu")){
                     female++;
                 }else{
                     gender_unknown++;
@@ -326,17 +318,19 @@ public class DSNhanVien implements CRUD {
     }
 
     public void thongkeChucVuNV() {
-        int member=0, manager=0, ceo=0;
-        for(NhanVien nv:dsNV){
+        int member=0, manager=0, ceo=0, khac=0;
+        for(NhanVien nv:arrNV){
             if(nv !=null){
-                String job=nv.getChucVu().toLowerCase();
-                if(job.equals("nhan vien")){
+                String job=nv.getChucVu();
+                if(job.equalsIgnoreCase("nhan vien")){
                     member++;
-                }else if(job.equals("quan ly")){
+                }else if(job.equalsIgnoreCase("quan ly")){
                     manager++;
-                }else{
+                }else if(job.equalsIgnoreCase("giam doc")){
                     ceo++;
-                }  
+                }else{
+                    khac++;
+                }
             }
         }
         System.err.print("\n╔══════════════════════════════════════════\n");
@@ -344,6 +338,8 @@ public class DSNhanVien implements CRUD {
         System.out.println("║   Giam Doc  : "+ceo);
         System.out.println("║   Quan Ly   : "+manager);
         System.out.println("║   Nhan Vien : "+member);
+        System.out.println("║   Khac      : "+khac);
+
         System.out.print("╚══════════════════════════════════════════\n");
     }
 
@@ -355,7 +351,7 @@ public class DSNhanVien implements CRUD {
         boolean find=false;
         int sl=0;
 
-        for(NhanVien nVien: dsNV){
+        for(NhanVien nVien: arrNV){
             if(nVien!=null && nVien.getLuongNV() >= l1 && nVien.getLuongNV()<=l2){
                 sl++;
                 find=true;
@@ -373,61 +369,53 @@ public class DSNhanVien implements CRUD {
     }
     @Override 
     public void docFile() {
-    File readf= new File("KhachHang_Input.txt");
-        try{
-            if(!readf.exists()){
-                System.out.print("Tao File Khach Hang Moi Thanh Cong");
-                readf.createNewFile();
-            }
-            try(BufferedReader br=Files.newBufferedReader(readf.toPath(),StandardCharsets.UTF_8)){
-                boolean empty=true;
-                String line;
-                while ((line=br.readLine())!=null){
-                    empty=false;
-                    String[] info=line.split("\\|");
-                    if(info.length==9){
-                        String maNV=info[0].trim();
-                        String hoNV=info[1].trim();
-                        String tenNV=info[2].trim();
-                        String chucvuNv=info[3].trim();
-                        String ngaySinhNV=info[4].trim();
-                        String gioitinh=info[5].trim();
-                        String sdt=info[6].trim();
-                        String diachi=info[7].trim();
-                        Double luong=Double.parseDouble(info[7].trim());
-                        
-                        if(!kiemTraTonTai(maNV)){
-                            dsNV=Arrays.copyOf(dsNV, size+1);
-                            dsNV[size]=new NhanVien(maNV,hoNV,tenNV,chucvuNv,ngaySinhNV,gioitinh,sdt,diachi,luong);
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma Nhan Vien  %s  Da Them      \n",maNV);
-                            System.err.print("╚══════════════════════════════════════════");
-                            size++;
-                            
-                        }else{
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma Nhan Vien  %s  Da Co      \n",maNV);
-                            System.err.print("╚══════════════════════════════════════════");
+        try (BufferedReader br = new BufferedReader(new FileReader("data/nhanvien.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] info = line.split("\\|");
+                if (info.length == 9) {
+                    String maNV = info[0].trim();
+                    String hoNV = info[1].trim();
+                    String tenNV = info[2].trim();
+                    String chucVu = info[3].trim();
+                    String ngaySinh = info[4].trim();
+                    String gioiTinh = info[5].trim();
+                    String sdtNV = info[6].trim();
+                    String diaChiNV = info[7].trim();
+                    Double luongNV = Double.parseDouble(info[8].trim());
+
+                    if (!kiemTraTonTai(maNV)) { // Kiểm tra nhân viên đã tồn tại hay chưa
+                        if (arrNV == null) {
+                            arrNV = new NhanVien[1];
+                        } else {
+                            arrNV = Arrays.copyOf(arrNV, arrNV.length + 1);
                         }
-                    }else{
-                        System.out.println("Du Lieu Khong Hop Le: " + line);
+                        arrNV[arrNV.length - 1] = new NhanVien(maNV, hoNV, tenNV, chucVu, ngaySinh, gioiTinh, sdtNV, diaChiNV, luongNV);
+
+                        System.err.print("\n╔══════════════════════════════════════════\n");
+                        System.err.printf("║ Ma Nhan Vien  %s  Da Them      \n", maNV);
+                        System.err.print("╚══════════════════════════════════════════");
+                    } else {
+                        System.err.print("\n╔══════════════════════════════════════════\n");
+                        System.err.printf("║ Ma Nhan Vien  %s  Da Co      \n", maNV);
+                        System.err.print("╚══════════════════════════════════════════");
                     }
-                }
-                if (empty) {
-                    System.out.println("\nFILE EMPTY WITH NOTHING");
+                } else {
+                    System.out.println("Du Lieu Khong Hop Le: " + line);
                 }
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Da Xay Ra Loi Khi Doc File: " + e.getMessage());
         }
-}
+    }
+
 
     @Override
     public void ghiFile() {
         try {
-            PrintWriter pw=new PrintWriter("KhachHang_Output.txt","UTF-8");
+            PrintWriter pw = new PrintWriter("data/nhanvien.txt");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            for (NhanVien nv : dsNV) {
+            for (NhanVien nv : arrNV) {
                 if (nv != null) {
                     String formattedNgaySinh = nv.getNgaySinh().format(formatter);
                     String line = nv.getMaNV() + "|" + nv.getHoNV() + "|" + nv.getTenNV() + "|" + nv.getChucVu() + "|" 

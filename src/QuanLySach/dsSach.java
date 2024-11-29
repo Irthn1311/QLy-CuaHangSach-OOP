@@ -436,8 +436,13 @@ public class dsSach implements CRUD {
         PrintWriter pw = new PrintWriter("data/sach.txt");
         for (Sach sach : arrSach) {
             if (sach != null) {
-                String line = sach.getMaSach() + "|" + sach.getTenSach() + "|" + sach.getMaTacGia() + "|" + sach.getMaNXB() + "|" 
-                            + sach.getTheLoai() + "|" + sach.getDonGiaBan() + "|" + sach.getSoLuongSachHienCo() + "|";
+                String line = sach.getMaSach() + "|" 
+                            + sach.getTenSach() + "|" 
+                            + sach.getMaTacGia() + "|" 
+                            + sach.getMaNXB() + "|" 
+                            + sach.getTheLoai() + "|" 
+                            + sach.getDonGiaBan() + "|" 
+                            + sach.getSoLuongSachHienCo() + "|";
 
                 if (sach instanceof SachChuyenNganh) {
                     line += ((SachChuyenNganh) sach).getMonChuyenNganh() + "||";

@@ -1,3 +1,5 @@
+package QuanLyNXB;
+
 import java.util.Scanner;
 
 public class QuanLyNhaXuatBan{

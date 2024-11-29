@@ -13,12 +13,12 @@ import java.io.PrintWriter;
 import Interface.CRUD;
 
 public class DSKhachHang implements CRUD {
-    KhachHang[] arrKH;
+    KhachHang[] arrKH = new KhachHang[10];
     Scanner sc=new Scanner(System.in);
 
     private int viTriMaKh(String MaKH){
         for(int i = 0; i < arrKH.length; i++){
-            if(arrKH[i] != null && arrKH[i].getMaKH().toLowerCase().equals(MaKH.toLowerCase())){
+            if(arrKH[i] != null && arrKH[i].getMaKH().equalsIgnoreCase(MaKH)){
                 return i;
             }
         }
@@ -27,7 +27,7 @@ public class DSKhachHang implements CRUD {
     
     private boolean kiemtraTonTai(String MaKh){
         for(KhachHang khachHang:arrKH){
-            if(khachHang !=null && khachHang.getMaKH().equals(MaKh)){
+            if(khachHang !=null && khachHang.getMaKH().equalsIgnoreCase(MaKh)){
                 return true; // Đã tồn tại
             }
         }
@@ -37,11 +37,11 @@ public class DSKhachHang implements CRUD {
     @Override
     public void xem(){
         if(arrKH.length == 0){
-            System.out.print("Danh Sach Rong");
+            System.out.println("Danh Sach Rong");
         }else{
             for(KhachHang khachHang: arrKH){
-            if(khachHang !=null){
-                khachHang.xuatKH();
+                if(khachHang != null){
+                    khachHang.xuatKH();
                 }
             }
         }
@@ -49,8 +49,8 @@ public class DSKhachHang implements CRUD {
 
     @Override
     public void them(){
-        KhachHang kh_new=new KhachHang();
-        kh_new.nhapKH(false);
+        KhachHang kh_new = new KhachHang();
+        kh_new.nhapKH();
         if(!kiemtraTonTai(kh_new.getMaKH())){
             arrKH = Arrays.copyOf(arrKH, arrKH.length + 1);
             arrKH[arrKH.length - 1] = kh_new;
@@ -65,15 +65,15 @@ public class DSKhachHang implements CRUD {
     @Override
     public void sua(){
         System.out.print("Nhap Ma Khach Hang Can Sua:");
-        String MaKh=sc.nextLine();
-        int vt=viTriMaKh(MaKh);
-        if(vt!=-1){
-            System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Khach Hang: "+MaKh);
-            arrKH[vt].nhapKH(true);
-            arrKH[vt].setMaKH(MaKh);
+        String maKh = sc.nextLine();
+        int vt = viTriMaKh(maKh);
+        if(vt != -1){
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.printf("║     MENU : Chinh Sua Khach Hang %6s   ║\n",maKh.toUpperCase());
+            arrKH[vt].suaKH();
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
-            System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",MaKh);
+            System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",maKh);
             System.err.print("╚══════════════════════════════════════════");
         }
     }
@@ -100,13 +100,10 @@ public class DSKhachHang implements CRUD {
     public void timKiemTheoMaKh(){
         System.out.print("\nNhap Ma Khach Hang Can Tim: ");
         String maKh = sc.nextLine();
-        if(kiemtraTonTai(maKh)){
-            for(KhachHang khachHang:arrKH){
-                if(khachHang !=null && khachHang.getMaKH().equals(maKh)){
-                    khachHang.xuatKH();
-                    break;
-                }
-            }
+        int vt = viTriMaKh(maKh);
+        if (vt != -1) {
+            arrKH[vt].xuatKH();
+            
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",maKh);
@@ -116,10 +113,10 @@ public class DSKhachHang implements CRUD {
 
     public void timKiemTheoHo(){
         System.out.print("\nNhap Ho Khach Hang Can Tim: ");
-        String hoKh = sc.nextLine().toLowerCase();
+        String hoKh = sc.nextLine();
         boolean find=false;
         for(KhachHang khachHang:arrKH){
-            if(khachHang !=null && khachHang.getHoKH().toLowerCase().contains(hoKh)){
+            if(khachHang !=null && khachHang.getHoKH().toLowerCase().contains(hoKh.toLowerCase())){
                 khachHang.xuatKH();
                 find=true;
             }
@@ -132,10 +129,10 @@ public class DSKhachHang implements CRUD {
     }
     public void timKiemTheoTen(){
         System.out.print("\nNhap Ten Khach Hang Can Tim: ");
-        String hoKh = sc.nextLine().toLowerCase();
+        String hoKh = sc.nextLine();
         boolean find=false;
         for(KhachHang khachHang:arrKH){
-            if(khachHang !=null && khachHang.getTenKH().toLowerCase().contains(hoKh)){
+            if(khachHang !=null && khachHang.getTenKH().toLowerCase().contains(hoKh.toLowerCase())){
                 khachHang.xuatKH();
                 find=true;
             }
@@ -149,12 +146,12 @@ public class DSKhachHang implements CRUD {
 
     public void timKiemTheoQuan(){
         System.out.print("\nNhap Quan Thu Nhat:");
-        String quanA=sc.nextLine().toLowerCase();
+        String quanA=sc.nextLine();
         System.out.print("Nhap Quan Thu Hai:");
-        String quanB=sc.nextLine().toLowerCase();
+        String quanB=sc.nextLine();
         boolean find=false;
         for(KhachHang khachHang: arrKH){
-            if(khachHang!=null && (khachHang.getDiaChiKH().toLowerCase().equals(quanA)|| khachHang.getDiaChiKH().toLowerCase().equals(quanB))){
+            if(khachHang!=null && (khachHang.getDiaChiKH().equalsIgnoreCase(quanA)|| khachHang.getDiaChiKH().equalsIgnoreCase(quanB))){
                 khachHang.xuatKH();
                 find=true;
             }
@@ -264,10 +261,10 @@ public class DSKhachHang implements CRUD {
         int male=0,female=0,gender_unknown=0;
         for(KhachHang Khach: arrKH){
             if(Khach !=null){
-                String gender=Khach.getGioiTinh().toLowerCase();
-                if(gender.equals("nam")){
+                String gender=Khach.getGioiTinh();
+                if(gender.equalsIgnoreCase("nam")){
                     male++;
-                }else if(gender.equals("nu")){
+                }else if(gender.equalsIgnoreCase("nu")){
                     female++;
                 }else{
                     gender_unknown++;
@@ -336,7 +333,6 @@ public class DSKhachHang implements CRUD {
                         System.err.print("\n╔══════════════════════════════════════════\n");
                         System.err.printf("║ Ma Khach  %s  Da Them      \n", maKH);
                         System.err.print("╚══════════════════════════════════════════");
-
                     } else {
                         System.err.print("\n╔══════════════════════════════════════════\n");
                         System.err.printf("║ Ma Khach  %s  Da Co      \n", maKH);

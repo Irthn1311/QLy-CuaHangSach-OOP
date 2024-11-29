@@ -1,6 +1,8 @@
 import QuanLySach.QuanLySach;
 import QuanLyNhanVien.QuanLyNhanVien;
 import QuanLyKhachHang.QuanLyKhachHang;
+import QuanlyTacGia.QuanLyTacGia;
+import QuanLyNXB.QuanLyNhaXuatBan;
 
 import java.util.Scanner;
 public class Main{
@@ -8,12 +10,17 @@ public class Main{
         QuanLySach qlSach = new QuanLySach();
         QuanLyNhanVien qlNV = new QuanLyNhanVien();
         QuanLyKhachHang qlKH = new QuanLyKhachHang();
+        QuanLyTacGia qlTG = new QuanLyTacGia();
+        QuanLyNhaXuatBan qlNXB = new QuanLyNhaXuatBan();
         int choice;
         Scanner sc = new Scanner(System.in);
         do {
             System.out.print("\n1.Quan Ly Sach");
             System.out.print("\n2.Quan Ly Nhan Vien");
             System.out.print("\n3.Quan Ly Khach Hang");
+            System.out.print("\n4.Quan Ly Tac Gia");
+            System.out.print("\n5.Quan Ly Nha Xuat Ban");
+            System.out.print("\n0.Ket thuc chuong trinh");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -26,6 +33,13 @@ public class Main{
                     break;
                 case 3:
                     qlKH.menu();
+                    break;
+                case 4:
+                    qlTG.menu();
+                    break;
+                case 5:
+                    qlNXB.menu();
+                    break;
                 case 0:
                     System.out.print("\nThoat");
                     break;

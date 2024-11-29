@@ -58,12 +58,10 @@ public class KhachHang {
     public void setDiaChiKH(String DiaChiKH){ this.diaChiKH=DiaChiKH; }
 
     @SuppressWarnings("resource")
-    public void nhapKH(boolean skipMaKH){
+    public void nhapKH(){
         Scanner sc= new Scanner(System.in);
-        if(!skipMaKH){
-            System.out.print("\nNhap Ma Khach Hang: ");
-            this.maKH=sc.nextLine();
-        }
+        System.out.print("\nNhap Ma Khach Hang: ");
+        this.maKH=sc.nextLine();
         
         System.out.print("\nNhap Ho Khach Hang: ");
         this.hoKH=sc.nextLine();
@@ -102,19 +100,23 @@ public class KhachHang {
         System.err.printf("║ Dia Chi        : %s      \n",diaChiKH);
         System.out.println("╚══════════════════════════════════════════");
     }
+    
     public void suaKH() {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-            System.out.print("\n1.Sua Ho Khach Hang");
-            System.out.print("\n2.Sua Ten Khach Hang");
-            System.out.print("\n3.Sua Ngay Sinh Khach Hang");
-            System.out.print("\n4.Sua Gioi Tinh Khach Hang");
-            System.out.print("\n5.Sua So Dien Thoai Khach Hang");
-            System.out.print("\n6.Sua Dia Chi Khach Hang");
-            System.out.print("\n0.Thoat");
-            System.out.print("\nLua Chon Cua Ban: ");
+            System.out.print("╔══════════════════════════════════════════╗\n");
+            System.out.print("║  1.Sua Ho Khach Hang                     ║\n");
+            System.out.print("║  2.Sua Ten Khach Hang                    ║\n");
+            System.out.print("║  3.Sua Ngay Sinh Khach Hang              ║\n");
+            System.out.print("║  4.Sua Gioi Tinh Khach Hang              ║\n");
+            System.out.print("║  5.Sua So Dien Thoai Khach Hang          ║\n");
+            System.out.print("║  6.Sua Dia Chi Khach Hang                ║\n");
+            System.out.print("║  0.Thoat                                 ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
+
+            System.out.print("Lua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine();
 

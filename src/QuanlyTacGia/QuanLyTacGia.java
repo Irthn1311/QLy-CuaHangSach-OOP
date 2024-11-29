@@ -1,3 +1,5 @@
+package QuanlyTacGia;
+
 import java.util.Scanner;
 
 public class QuanLyTacGia {

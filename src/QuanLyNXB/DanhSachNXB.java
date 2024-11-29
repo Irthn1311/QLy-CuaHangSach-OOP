@@ -1,63 +1,58 @@
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+package QuanLyNXB;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import Interface.CRUD;
 
 public class DanhSachNXB implements CRUD {
+    NhaXuatBan[] arrNXB = new NhaXuatBan[0];
     Scanner sc=new Scanner(System.in);
-    private NhaXuatBan[] dsNxb;
-    private int size=3;
-
-
-    public DanhSachNXB() {
-        dsNxb = new NhaXuatBan[3];
-        dsNxb[0]=new NhaXuatBan("NXB001","Nhi Dong","99 AN DUONG VUONG","0352443333","ha@gmail.com");
-        dsNxb[1]=new NhaXuatBan("NXB002","Thieu Nhi","273 AN DUONG VUONG","03123213123","haaaaa@gmail.com");
-        dsNxb[2]=new NhaXuatBan("NXB003","Nguyen xin","99 Phan Dinh Phung","02342443333","ha22a@gmail.com");
-    }
-
-    private int viTriMaNXB(String MaNXB){
-        for(int i=0; i<size;i++){
-            if(dsNxb[i]!=null && dsNxb[i].getMaNXB().equals(MaNXB)){
+    
+    private int viTriMaNXB(String maNXB){
+        for(int i = 0; i < arrNXB.length; i++){
+            if(arrNXB[i] != null && arrNXB[i].getMaNXB().equalsIgnoreCase(maNXB)){
                 return i;
             }
         }
         return -1;
     }
-   @Override
-    public void xem() {
-        if (size == 0) {
-            System.out.print("\nDanh sach trong!");
-        } else {
-            System.out.println("Thong Tin Cua Nha Xuat Ban:");
-            for(NhaXuatBan nxb:dsNxb){
-                if(nxb!=null){
-                    nxb.xuatNXB();
-                }
-            }
-        }
-    }
 
     private boolean kiemtraTonTai(String NXB){
-        for(NhaXuatBan nxb: dsNxb){
-            if(nxb !=null && nxb.getMaNXB().equals(NXB)){
+        for(NhaXuatBan nxb: arrNXB){
+            if(nxb !=null && nxb.getMaNXB().equalsIgnoreCase(NXB)){
                 return true; // Đã tồn tại
             }
         }
         return false; //Chưa tồn tại
     }
 
+   @Override
+    public void xem() {
+        if (arrNXB.length == 0) {
+            System.out.print("\nDanh sach trong!");
+            return;
+        } else {
+            for(NhaXuatBan nxb : arrNXB){
+                if(nxb != null){
+                    nxb.xuatNXB();
+                }
+            }
+        }
+    }
+
+    
+
     @Override
     public void them() {
         NhaXuatBan nxb_new=new NhaXuatBan();
-        nxb_new.nhapNXB(false);
+        nxb_new.nhapNXB();
         if(!kiemtraTonTai(nxb_new.getMaNXB())){
-            dsNxb=Arrays.copyOf(dsNxb, size+1);
-            dsNxb[size]=nxb_new;
-            size++;
+            arrNXB = Arrays.copyOf(arrNXB, arrNXB.length + 1);
+            arrNXB[arrNXB.length - 1] = nxb_new;
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║    Ma NXB %s Da Ton Tai        \n",nxb_new.getMaNXB());
@@ -68,15 +63,15 @@ public class DanhSachNXB implements CRUD {
     @Override
     public void sua() {
         System.out.print("Nhap Ma Nha Xuat Ban Can Sua:");
-        String MaKh=sc.nextLine();
-        int vt=viTriMaNXB(MaKh);
-        if(vt!=-1){
-            System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Nha Xuat Ban: "+MaKh);
-            dsNxb[vt].nhapNXB(true);;
-            dsNxb[vt].setMaNXB(MaKh);
+        String maNXB = sc.nextLine();
+        int vt = viTriMaNXB(maNXB);
+        if(vt != -1){
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.printf("║     MENU : Chinh Sua Nha Xuat Ban %6s ║\n",maNXB.toUpperCase());
+            arrNXB[vt].suaNXB();
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
-            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",MaKh);
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",maNXB);
             System.err.print("╚══════════════════════════════════════════");
         }
 
@@ -86,14 +81,13 @@ public class DanhSachNXB implements CRUD {
     public void xoa() {
         System.out.print("\nNhap ma Nha Xuat Ban can xoa: ");
         String maNXB = sc.nextLine();
-        int vt=viTriMaNXB(maNXB);
-        if(vt!=-1){
-            for(int i=vt;i<size-1;i++){
-                dsNxb[i]=dsNxb[i+1];
+        int vt = viTriMaNXB(maNXB);
+        if(vt != -1){
+            for(int i = vt; i < arrNXB.length - 1; i++){
+                arrNXB[i] = arrNXB[i + 1];
             }
-            dsNxb=Arrays.copyOf(dsNxb, size-1);
-            size--;
-            System.err.print("\nDa Xoa Thanh Cong NXB");
+            arrNXB = Arrays.copyOf(arrNXB, arrNXB.length - 1);
+            System.err.print("\nDa Xoa Thanh Cong Nha Xuat Ban Voi Ma "+maNXB.toUpperCase());
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",maNXB);
@@ -105,9 +99,9 @@ public class DanhSachNXB implements CRUD {
     public void timkiemTheoMaNXB(){
         System.out.print("Nhap Ma Nha Xuat Ban Can Tim: ");
         String checked1 = sc.nextLine();
-        int vt=viTriMaNXB(checked1);
-        if(vt!=-1){
-             dsNxb[vt].xuatNXB();
+        int vt = viTriMaNXB(checked1);
+        if(vt != -1){
+             arrNXB[vt].xuatNXB();
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",checked1);
@@ -117,10 +111,10 @@ public class DanhSachNXB implements CRUD {
 
     public void timkiemTheoTenNXB(){
         System.out.print("Nhap Ten Nha Xuat Ban Can Tim: ");
-        String checked1 = sc.nextLine().toLowerCase();  
+        String checked1 = sc.nextLine();  
         boolean find= false;   
-        for(NhaXuatBan nxb: dsNxb){
-            if(nxb !=null && nxb.getTenNXB().toLowerCase().contains(checked1)){
+        for(NhaXuatBan nxb: arrNXB){
+            if(nxb !=null && nxb.getTenNXB().toLowerCase().contains(checked1.toLowerCase())){
                 nxb.xuatNXB();
                 find=true;
             }
@@ -134,10 +128,10 @@ public class DanhSachNXB implements CRUD {
 
     public void timkiemTheoSDT(){
         System.out.print("Nhap SDT Nha Xuat Ban Can Tim: ");
-        String checked1 = sc.nextLine().toLowerCase();  
+        String checked1 = sc.nextLine();  
         boolean find= false;   
-        for(NhaXuatBan nxb: dsNxb){
-            if(nxb !=null && nxb.getSdtNXB().toLowerCase().contains(checked1)){
+        for(NhaXuatBan nxb: arrNXB){
+            if(nxb !=null && nxb.getSdtNXB().contains(checked1)){
                 nxb.xuatNXB();
                 find=true;
             }
@@ -150,7 +144,8 @@ public class DanhSachNXB implements CRUD {
     }
     @Override 
     public void timkiem() {
-        while (true) {
+        int choice;
+        do {
             System.err.print("\n╔══════════════════════════════════════════╗\n");
             System.out.println("║       MENU : Tim Kiem Nha Xuat Ban       ║ ");
             System.out.println("║   1. Tim Kiem Theo Ma Nha Xuat Ban       ║ ");
@@ -159,7 +154,7 @@ public class DanhSachNXB implements CRUD {
             System.out.println("║   0. Thoat                               ║ ");
             System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("Lua Chon Cua Ban: ");
-            int choice = sc.nextInt();
+            choice = sc.nextInt();
             sc.nextLine(); 
             switch (choice) {
                 case 1:
@@ -172,12 +167,13 @@ public class DanhSachNXB implements CRUD {
                     timkiemTheoSDT();
                     break;
                 case 0:
-                    return; 
+                    System.out.println("Thoat Thanh Cong");
+                    break; 
                 default:
                     System.out.println("\nNhap Sai! Vui Long Nhap Lai.");
                     break;
             }
-        }
+        } while (choice != 0);
     }
 
     @Override
@@ -202,62 +198,57 @@ public class DanhSachNXB implements CRUD {
     }
     @Override
     public void docFile() {
-        File readf = new File("NhaXuatBan.txt");
-        try {
-            if (!readf.exists()) {
-                System.out.print("Tao File NXB Moi Thanh Cong");
-                readf.createNewFile();
-            }
-            try (BufferedReader br = Files.newBufferedReader(readf.toPath(), StandardCharsets.UTF_8)) {
-                String line;
-                boolean isEmpty = true;
-                while ((line = br.readLine()) != null) {
-                    isEmpty = false;
-                    String[] info = line.split("\\|");
-                    if (info.length == 5) {
-                        String MaNXB = info[0].trim();
-                        String TenNXB = info[1].trim();
-                        String diaChiNXB = info[2].trim();
-                        String sdtNXB = info[3].trim();
-                        String emailNXB = info[4].trim();
-                        
-                        if(!kiemtraTonTai(MaNXB)){
-                            dsNxb=Arrays.copyOf(dsNxb, size+1);
-                            dsNxb[size] = new NhaXuatBan(MaNXB,TenNXB,diaChiNXB,sdtNXB,emailNXB);
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma NXB  %s  Da Them     \n",MaNXB);
-                            System.err.print("╚══════════════════════════════════════════");
-                            size++;
-                        }else{
-                            System.err.print("\n╔══════════════════════════════════════════\n");
-                            System.err.printf("║ Ma NXB  %s  Da Co      \n",MaNXB);
-                            System.err.print("╚══════════════════════════════════════════");
+        try (BufferedReader br = new BufferedReader(new FileReader("data/nhaxuatban.txt"))){
+            String line;
+            while ((line = br.readLine()) != null){
+                String[] info = line.split("\\|");
+                if (info.length == 5) {
+                    String maNXB = info[0].trim();
+                    String tenNXB = info[1].trim();
+                    String diaChiNXB = info[2].trim();
+                    String sdtNXB = info[3].trim();
+                    String email = info[4].trim();
+
+                    if (!kiemtraTonTai(maNXB)) {
+                        if (arrNXB == null) {
+                            arrNXB = new NhaXuatBan[1];
+                        } else {
+                            arrNXB = Arrays.copyOf(arrNXB, arrNXB.length + 1);
                         }
-                        
+                        arrNXB[arrNXB.length - 1] = new NhaXuatBan(maNXB, tenNXB, diaChiNXB, sdtNXB, email);
+                        System.out.print("\n╔══════════════════════════════════════════\n");
+                        System.out.printf("║ Ma Nha Xuat Ban  %s  Da Them      \n", maNXB);
+                        System.out.print("╚══════════════════════════════════════════");
                     } else {
-                        System.out.println("Du Lieu Khong Hop Le: " + line);
+                        System.out.print("\n╔══════════════════════════════════════════\n");
+                        System.out.printf("║ Ma Nha Xuat Ban  %s  Da Co      \n", maNXB);
+                        System.out.print("╚══════════════════════════════════════════");
                     }
+                } else {
+                    System.out.print("\nDu Lieu Khong Hop Le: " + line);
                 }
-                if (isEmpty) {
-                    System.out.println("\nFILE EMPTY WITH NOTHING");
-                }
+                
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Da Xay Ra Loi Khi Doc File: " + e.getMessage());
         }
     }
 
     @Override
     public void ghiFile(){
         try {
-            PrintWriter pw=new PrintWriter("NhaXuatBan_Output.txt","UTF-8");
-            for(NhaXuatBan nxb:dsNxb){
-                String line= "Ma NXB: "+ nxb.getMaNXB() + " | Ten NXB: " +nxb.getTenNXB() + " | Dia Chi NXB: " +nxb.getDiaChiNXB()+ " | SDT: " +nxb.getSdtNXB() + " | Email: "+nxb.getEmail();
-                pw.println(line);
-                pw.flush();
+            PrintWriter pw = new PrintWriter(new PrintWriter("data/nhaxuatban.txt"));
+            for (NhaXuatBan nxb : arrNXB) {
+                if (nxb != null) {
+                    String line = nxb.getMaNXB() + " | " 
+                                + nxb.getTenNXB() + " | " 
+                                + nxb.getDiaChiNXB() + " | " 
+                                + nxb.getSdtNXB() + " | " 
+                                + nxb.getEmail();
+                    pw.println(line);
+                }
             }
-            System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
-           
+            System.err.print("\nNhap Thong Tin Vao Tu File Thanh Cong\n");
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();
