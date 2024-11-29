@@ -13,18 +13,35 @@ public class dsSach implements CRUD {
     Sach[] arrSach = new Sach[10];
     Scanner sc=new Scanner(System.in);
 
-    @Override
-    public void xem() {
-        boolean checks=false;
-        for(Sach s: arrSach){
-            if( s !=null){
-                System.out.print("\nThong Tin Sach");
-                s.xuat();
-                checks=true;
+    private int viTriMaSach(String maSach){
+        for(int i = 0; i < arrSach.length; i++){
+            if (arrSach[i] != null && arrSach[i].getMaSach().equalsIgnoreCase(maSach)){
+                return i;
             }
         }
-        if(!checks){
-            System.out.print("\nKhong co quyen sach nào trong danh sach!!!");
+        return -1;
+    }
+
+    private boolean kiemtraTonTai(String maSach){
+        for (Sach s: arrSach){
+            if (s != null && s.getMaSach().equalsIgnoreCase(maSach)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void xem() {
+        if (arrSach.length == 0){
+            System.out.println("Danh Sach Sach Rong.");
+            return;
+        } else {
+            for (Sach s: arrSach){
+                if (s != null){
+                    s.xuat();
+                }
+            }
         }
     }
 
@@ -65,49 +82,49 @@ public class dsSach implements CRUD {
         } while (option != 1 && option != 2 && option != 3 && option != 0);
         sach.setTheLoai(theLoai);
         sach.nhap();
-        arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
-        arrSach[arrSach.length - 1] = sach;
+        if (!kiemtraTonTai(sach.getMaSach())){
+            arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
+            arrSach[arrSach.length - 1] = sach;
+            System.out.println("Them sach thanh cong.");
+        } else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║    Ma Sach %s Da Ton Tai        \n",sach.getMaSach());
+            System.err.print("╚══════════════════════════════════════════");
+        }
+        
     }
 
     @Override
     public void sua() {
         System.out.print("Nhap Ma Sach Can Sua: ");
-        String maSach = sc.nextLine().toLowerCase().trim();
-        boolean found = false;
-
-        for (int i = 0; i < arrSach.length; i++) {
-            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().equals(maSach)) {
-                found = true;
-                arrSach[i].suaSach();
-                System.out.println("Sua sach thanh cong.");
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("Khong tim thay sach voi ma da nhap.");
+        String maSach = sc.nextLine();
+        int vt = viTriMaSach(maSach);
+        if (vt == -1){
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.printf("║     MENU : Chinh Sua Sach %6s         ║\n",maSach.toUpperCase());
+            arrSach[vt].suaSach();
+        } else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Sach: %s              \n",maSach);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
     @Override
     public void xoa() {
         System.out.print("Nhap Ma Sach Can Xoa: ");
-        String maSach = sc.nextLine().toLowerCase().trim();
-        boolean found = false;
-
-        for (int i = 0; i < arrSach.length; i++) {
-            if (arrSach[i] != null && arrSach[i].getMaSach().toLowerCase().equals(maSach)) {
-                found = true;
-                for (int j = i; j < arrSach.length - 1; j++) {
-                    arrSach[j] = arrSach[j + 1];
-                }
-                arrSach = Arrays.copyOf(arrSach, arrSach.length - 1);
-                System.out.println("Xoa sach thanh cong.");
-                break;
+        String maSach = sc.nextLine();
+        int vt = viTriMaSach(maSach);
+        if(vt != -1){
+            for(int i = vt; i < arrSach.length - 1; i++){
+                arrSach[i] = arrSach[i + 1];
             }
-        }
-
-        if (!found) {
-            System.out.println("Khong tim thay sach voi ma da nhap.");
+            arrSach = Arrays.copyOf(arrSach, arrSach.length - 1);
+            System.out.println("Da Xoa Sach Voi Ma: " + maSach);
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Sach: %s        \n",maSach);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -148,28 +165,25 @@ public class dsSach implements CRUD {
 
     public void timkiemMaSach(){
         System.out.print("Nhap ma sach can tim: ");
-        String maSach = sc.nextLine().toLowerCase().trim();
-        boolean found = false;
-
-        for (Sach sach : arrSach) {
-            if (sach != null && sach.getMaSach().toLowerCase().contains(maSach)) {
-                found = true;
-                sach.xuat();
-                break;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Khong tim thay sach voi ma da nhap.");
+        String maSach = sc.nextLine();
+        int vt = viTriMaSach(maSach);
+        if (vt != -1) {
+            arrSach[vt].xuat();
+            
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Sach: %s        \n",maSach);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
+
     public void timkiemTenSach(){
         System.out.print("Nhap ten sach can tim: ");
-        String tenSach = sc.nextLine().toLowerCase().trim();
+        String tenSach = sc.nextLine().trim();
         boolean found = false;
 
         for (Sach sach : arrSach) {
-            if (sach != null && sach.getTenSach().toLowerCase().contains(tenSach)) {
+            if (sach != null && sach.getTenSach().toLowerCase().contains(tenSach.toLowerCase())) {
                 found = true;
                 sach.xuat();
                 break;
@@ -182,11 +196,11 @@ public class dsSach implements CRUD {
     }
     public void timkiemMaTacGia(){
         System.out.print("Nhap ma tac gia can tim: ");
-        String maTacGia = sc.nextLine().toLowerCase().trim();
+        String maTacGia = sc.nextLine().trim();
         boolean found = false;
 
         for (Sach sach : arrSach){
-            if (sach != null && sach.getMaTacGia().toLowerCase().contains(maTacGia)){
+            if (sach != null && sach.getMaTacGia().toLowerCase().contains(maTacGia.toLowerCase())){
                 found = true;
                 sach.xuat();
             }
@@ -422,8 +436,22 @@ public class dsSach implements CRUD {
                 sach.setDonGiaBan(donGiaBan);
                 sach.setSoLuongSachHienCo(soLuongSachHienCo);
     
-                arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
-                arrSach[arrSach.length - 1] = sach;
+                // Kiểm tra mã sách tồn tại
+                if (!kiemtraTonTai(maSach)) {
+                    if (arrSach == null) {
+                        arrSach = new Sach[1];
+                    } else {
+                        arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
+                    }
+                    arrSach[arrSach.length - 1] = sach;
+                    System.err.print("\n╔══════════════════════════════════════════\n");
+                    System.err.printf("║ Mã Sách %s Đã Thêm \n", maSach);
+                    System.err.print("╚══════════════════════════════════════════");
+                } else {
+                    System.err.print("\n╔══════════════════════════════════════════\n");
+                    System.err.printf("║ Mã Sách %s Đã Có \n", maSach);
+                    System.err.print("╚══════════════════════════════════════════");
+                }
             }
         } catch (IOException e) {
             System.out.println("Da Xay Ra Loi Khi Doc File: " + e.getMessage());
