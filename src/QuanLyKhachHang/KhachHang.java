@@ -1,4 +1,3 @@
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +8,7 @@ public class KhachHang {
     private String hoKH;
     private String tenKH;
     private LocalDate ngaySinh;
-    private String gioiTinh; // thong ke nam nu
+    private String gioiTinh; 
     private String sdtKH;
     private String diaChiKH;
     DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -33,20 +32,22 @@ public class KhachHang {
         this.diaChiKH=diaChiKH;
     }
 
-    public void nhapKH(){
+    public void nhapKH(boolean skipMaKH){
         Scanner sc= new Scanner(System.in);
-        System.err.printf("\nNhap Ma Khach Hang: ");
-        this.maKH=sc.nextLine();
-
+        if(!skipMaKH){
+            System.err.printf("\nNhap Ma Khach Hang: ");
+            this.maKH=sc.nextLine();
+        }
+        
         System.err.printf("\nNhap Ho Khach Hang: ");
         this.hoKH=sc.nextLine();
 
-        System.err.printf("\nNhap Ten Khach Hang: ");
+        System.err.printf("Nhap Ten Khach Hang: ");
         this.tenKH=sc.nextLine();
 
         boolean checkDate=false;
         while (!checkDate) {
-            System.err.print("\nNhap Ngay Sinh Khach Hang: ");
+            System.err.print("Nhap Ngay Sinh Khach Hang: ");
             String ngaySinhKH=sc.nextLine();
             try{
                 this.ngaySinh=LocalDate.parse(ngaySinhKH,formatter);
@@ -55,13 +56,13 @@ public class KhachHang {
                 System.err.printf("\nNgay sinh khong hop le. Vui long nhap lai. ");
             }
         }
-        System.err.printf("\nNhap Gioi Tinh Khach Hang: ");
+        System.err.printf("Nhap Gioi Tinh Khach Hang: ");
         this.gioiTinh=sc.nextLine();
 
-        System.err.printf("\nNhap So Dien Thoai Khach Hang:  ");
+        System.err.printf("Nhap So Dien Thoai Khach Hang:  ");
         this.sdtKH=sc.nextLine();
 
-        System.err.printf("\nNhap Dia Chi Khach Hang: ");
+        System.err.printf("Nhap Dia Chi Khach Hang: ");
         this.diaChiKH=sc.nextLine();
     }
 
@@ -89,8 +90,13 @@ public class KhachHang {
     public void setDiaChiKH(String DiaChiKH){ this.diaChiKH=DiaChiKH; }
 
     public void xuatKH(){
-        System.err.print("\n-----------------------------------------------------------------------------------------------------------------------\n");
-        System.err.printf("| Ma Khach Hang: %-10s | Ho Khach Hang: %-10s | Ten Khach Hang: %-16s | SDT: %-10s\n", maKH, hoKH, tenKH, sdtKH);
-        System.err.printf("| Ngay Sinh : %-10s    | Gioi Tinh: %-10s     | Dia Chi: %-16s ", ngaySinh.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), gioiTinh, diaChiKH);
+        System.out.println("╔══════════════════════════════════════════");
+        System.out.printf("║      MA KHACH HANG: %s          \n",maKH);
+        System.out.println("╠══════════════════════════════════════════");
+        System.out.printf("║ Ho Va Ten Khach: %s %s   \n",hoKH,tenKH);
+        System.out.printf("║ SDT            : %s      \n",sdtKH);
+        System.err.printf("║ Ngay Sinh      : %s      \n",ngaySinh.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        System.err.printf("║ Dia Chi        : %s      \n",diaChiKH);
+        System.out.println("╚══════════════════════════════════════════");
     }
 }

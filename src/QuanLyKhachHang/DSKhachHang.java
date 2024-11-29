@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,88 +8,192 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import Interface.CRUD;
+
 public class DSKhachHang implements CRUD {
-    KhachHang[] KH;
+    KhachHang[] dsKH;
     Scanner sc=new Scanner(System.in);
     private int size=3;
 
     public DSKhachHang() {
-        KH = new KhachHang[3];
-        KH[0] = new KhachHang("KH001", "Le","Phan","02-03-2000","Nam","0111111111", "Quan 1");
-        KH[1] = new KhachHang("KH002","Nghiem","Vu Hoang Long","02-03-1999","Nam","022222222222","Tan Phu");
-        KH[2] = new KhachHang("KH003","Nguyen", "Thao Linh","07-10-2000","Nu","03333333333", "Quan 2");
+        dsKH = new KhachHang[3];
+        dsKH[0] = new KhachHang("KH001", "Le","Phan","02-03-2000","Nam","0111111111", "Quan 1");
+        dsKH[1] = new KhachHang("KH002","Nghiem","Vu Hoang Long","02-03-1999","Nam","022222222222","Tan Phu");
+        dsKH[2] = new KhachHang("KH003","Nguyen", "Thao Linh","07-10-2000","Nu","03333333333", "Quan 2");
+    }
+
+    private int viTriMaKh(String MaKH){
+        for(int i=0;i<size-1;i++){
+            if(dsKH[i]!=null && dsKH[i].getMaKH().equals(MaKH)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    private boolean kiemtraTonTai(String MaKh){
+        for(KhachHang khachHang:dsKH){
+            if(khachHang !=null && khachHang.getMaKH().equals(MaKh)){
+                return true; // Đã tồn tại
+            }
+        }
+        return false; //Không tồn tại
     }
 
     @Override
     public void xem(){
-        System.out.print("\nThong Tin Cua Khach Hang");
-        for(KhachHang Khach: KH){
-            if( Khach !=null){
-                Khach.xuatKH();
+        if(size==0){
+            System.out.print("Danh Sach Rong");
+        }else{
+            for(KhachHang khachHang: dsKH){
+            if(khachHang !=null){
+                khachHang.xuatKH();
+                }
             }
         }
     }
 
     @Override
     public void them(){
-        for(int i=0;i<KH.length;i++){
-            if(KH[i]==null){
-                KH[i]=new KhachHang();
-                KH[i].nhapKH();
-                size++;
-                return;
-            }
+        KhachHang kh_new=new KhachHang();
+        kh_new.nhapKH(false);
+        if(!kiemtraTonTai(kh_new.getMaKH())){
+            dsKH=Arrays.copyOf(dsKH, size+1);
+            dsKH[size]=kh_new;
+            size++;
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║    Ma Khach %s Da Ton Tai        \n",kh_new.getMaKH());
+            System.err.print("╚══════════════════════════════════════════");
         }
-        if(size== KH.length){
-            KhachHang[] newKH= new KhachHang[KH.length+1];
-            for(int j=0;j<KH.length;j++){
-                if(KH[j]!=null)
-                    newKH[j]=KH[j];
-            }
-            KH=newKH;
-        }
-        KH[size]=new KhachHang();
-        KH[size].nhapKH();
-        size++;
+        
     }
 
     @Override
     public void sua(){
-        boolean guestFind=false;
-        System.out.print("\nNhap Ma Khach Hang Can Sua: ");
-        String checked = sc.nextLine();
-        for(KhachHang Khach: KH){
-            if(Khach !=null && checked.equals(Khach.getMaKH())){
-                Khach.nhapKH();
-                guestFind=true;
-                break;
-            }
-        }
-        if (!guestFind) {
-            System.out.println("\nKHONG TIM THAY MA KHACH HANG.");
-        } else {
-            System.out.println("\nCHINH SUA THONG TIN KHACH HANG THANH CONG!!!");
+        System.out.print("Nhap Ma Khach Hang Can Sua:");
+        String MaKh=sc.nextLine();
+        int vt=viTriMaKh(MaKh);
+        if(vt!=-1){
+            System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Khach Hang: "+MaKh);
+            dsKH[vt].nhapKH(true);
+            dsKH[vt].setMaKH(MaKh);
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",MaKh);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
     @Override
     public void xoa(){
-        boolean guestFind=false;
         System.out.print("\nNhap Ma Khach Hang Can Xoa: ");
-        String checked = sc.nextLine();
-        for(int i = 0; i < KH.length; i++){
-            if(KH[i] !=null && checked.equals(KH[i].getMaKH())){
-                KH[i]=null;
-                guestFind=true;
-                size--;
-                break;
+        String maKh = sc.nextLine();
+        int vt=viTriMaKh(maKh);
+        if(vt!=-1){
+            for(int i=vt;i<size-1;i++){
+                if(dsKH[i] !=null){
+                    dsKH[vt]=dsKH[vt+1];
+                }
+            }
+            dsKH=Arrays.copyOf(dsKH, size-1);
+            size--;
+            System.out.println("Da Xoa Khach Hang Voi Ma: " + maKh);
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",maKh);
+            System.err.print("╚══════════════════════════════════════════");
+        }
+        
+    }
+
+    public void timKiemTheoMaKh(){
+        System.out.print("\nNhap Ma Khach Hang Can Tim: ");
+        String maKh = sc.nextLine();
+        if(kiemtraTonTai(maKh)){
+            for(KhachHang khachHang:dsKH){
+                if(khachHang !=null && khachHang.getMaKH().equals(maKh)){
+                    khachHang.xuatKH();
+                    break;
+                }
+            }
+        }else{
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Khach Hang: %s        \n",maKh);
+            System.err.print("╚══════════════════════════════════════════");
+        }
+    }
+
+    public void timKiemTheoHo(){
+        System.out.print("\nNhap Ho Khach Hang Can Tim: ");
+        String hoKh = sc.nextLine().toLowerCase();
+        boolean find=false;
+        for(KhachHang khachHang:dsKH){
+            if(khachHang !=null && khachHang.getHoKH().toLowerCase().contains(hoKh)){
+                khachHang.xuatKH();
+                find=true;
             }
         }
-        if (!guestFind) {
-            System.out.println("\nKHONG TIM THAY MA KHACH HANG.");
-        } else {
-            System.out.println("\nXOA THONG TIN KHACH HANG THANH CONG!!!");
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ho Khach Hang: %s        \n",hoKh);
+            System.err.print("╚══════════════════════════════════════════"); 
+        }
+    }
+    public void timKiemTheoTen(){
+        System.out.print("\nNhap Ten Khach Hang Can Tim: ");
+        String hoKh = sc.nextLine().toLowerCase();
+        boolean find=false;
+        for(KhachHang khachHang:dsKH){
+            if(khachHang !=null && khachHang.getTenKH().toLowerCase().contains(hoKh)){
+                khachHang.xuatKH();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ten Khach Hang: %s        \n",hoKh);
+            System.err.print("╚══════════════════════════════════════════"); 
+        }
+    }
+
+    public void timKiemTheoQuan(){
+        System.out.print("\nNhap Quan Thu Nhat:");
+        String quanA=sc.nextLine().toLowerCase();
+        System.out.print("Nhap Quan Thu Hai:");
+        String quanB=sc.nextLine().toLowerCase();
+        boolean find=false;
+        for(KhachHang khachHang: dsKH){
+            if(khachHang!=null && (khachHang.getDiaChiKH().toLowerCase().equals(quanA)|| khachHang.getDiaChiKH().toLowerCase().equals(quanB))){
+                khachHang.xuatKH();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Khach Hang O %s va %s      \n",quanA,quanB);
+            System.err.print("╚══════════════════════════════════════════"); 
+        }
+    }
+    public void timKiemTheoTuoi(){
+        LocalDate now=LocalDate.now();
+        System.out.print("\nNhap Do Tuoi Start: ");  
+        int ageA=sc.nextInt();
+        sc.nextLine();
+        System.out.print("\nNhap Do Tuoi End: ");  
+        int ageB=sc.nextInt();
+        sc.nextLine();
+        boolean find=false;
+        for(KhachHang khachHang: dsKH){
+            int tuoi=Period.between(khachHang.getNgaySinh(), now).getYears();
+            if(tuoi >=ageA && tuoi<ageB){
+                khachHang.xuatKH();
+                find=true;
+            }
+        }
+        if(!find){
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Khach Hang Tu %d => %d      \n",ageA,ageB);
+            System.err.print("╚══════════════════════════════════════════"); 
         }
     }
 
@@ -96,111 +201,33 @@ public class DSKhachHang implements CRUD {
     public void timkiem(){
         int find;
         do {
-            System.out.println("\nLua Chon Tim Kiem:");
-            System.out.println("1. Tim Kiem Theo Ma Khach Hang");
-            System.out.println("2. Tim Kiem Theo Ho Khach Hang");
-            System.out.println("3. Tim Kiem Theo Ten Lot Va Ten Khach Hang");
-            System.out.println("4. Tim Kiem Nang Cao Khach O Quan A Hoac Quan B << OR >>");
-            System.err.println("5. Tim Kiem Nang CAo Khach Tu Tuoi x => Tuoi X << AND >>");
-            System.out.println("0. Thoat");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Tim Kiem Khach Hang         ║ ");
+            System.out.println("║   1. Tim Kiem Theo Ma Khach Hang         ║ ");
+            System.out.println("║   2. Tim Kiem Theo Ho Khach Hang         ║ ");
+            System.out.println("║   3. Tim Kiem Theo Ten Khach Hang        ║ ");
+            System.out.println("║   4. Tim Kiem Theo Quan A va B <<OR>>    ║ ");
+            System.out.println("║   5. Tim Kiem Theo Do Tuoi     <<AND>>   ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("Lua Chon Cua Ban: ");
             find = sc.nextInt();
             sc.nextLine();
             switch (find) {
                 case 1:
-                    boolean guestFind1=false;
-                    System.out.print("\nNhap Ma Khach Hang Can Tim Kiem: ");
-                    String checked1 = sc.nextLine();
-                    for(KhachHang Khach: KH){
-                        if(Khach !=null && checked1.equals(Khach.getMaKH())){
-                            Khach.xuatKH();
-                            guestFind1=true;
-                            break;
-                        }
-                    }
-                    if(!guestFind1){
-                        System.out.println("\nKHONG TIM THAY MA KHACH HANG: "+checked1);
-                    }
+                    timKiemTheoMaKh();
                     break;
                 case 2:
-                    boolean guestFind2=false;
-                    System.out.print("\nNhap Ho Khach Hang Can Tim Kiem: ");
-                    String checked2 = sc.nextLine().toLowerCase();
-                    for(KhachHang Khach: KH){
-                        if(Khach !=null && checked2.equals(Khach.getHoKH().toLowerCase())){
-                            Khach.xuatKH();
-                            guestFind2=true;
-                            break;
-                        }
-                    }
-                    if(!guestFind2){
-                        System.out.println("\nKHONG TIM THAY KHACH HANG HO: "+checked2);
-                    }
+                    timKiemTheoHo();
                     break;
                 case 3:
-                    boolean guestFind3=false;
-                    System.out.print("\nNhap Ten Lot hoac Ten Khach Hang Can Tim Kiem: ");
-                    String checked3=sc.nextLine().toLowerCase();
-                    int checked3_length=checked3.length();
-                    for(int i=0;i<KH.length;i++){
-                        if(KH[i]!=null){
-                            String fullString=KH[i].getTenKH().toLowerCase();
-                            int fullString_length=fullString.length();
-                            for (int j=0; j<= fullString_length-checked3_length;j++){
-                                int k;
-                                for(k=0;k<checked3_length;k++){
-                                    if(fullString.charAt(j+k)!=checked3.charAt(k)){
-                                        break;
-                                    }
-                                }
-                                if(k== checked3_length){
-                                    KH[i].xuatKH();
-                                    guestFind3=true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if(!guestFind3){
-                        System.out.println("\nKHONG TIM THAY KHACH HANG TEN: "+checked3);
-                    }
+                    timKiemTheoTen();
                     break;
                 case 4:
-                    System.out.print("\nNhap Quan Thu Nhat:");
-                    String quanA=sc.nextLine().toLowerCase();
-                    System.out.print("Nhap Quan Thu Hai:");
-                    String quanB=sc.nextLine().toLowerCase();
-                    boolean checked4=false;
-                    for(KhachHang Khach: KH)
-                        if(Khach !=null && ( (Khach.getDiaChiKH().toLowerCase().equals(quanA)) || (Khach.getDiaChiKH().toLowerCase().equals(quanB)))){
-                            Khach.xuatKH();
-                            checked4=true;
-                        }
-                    if(!checked4){
-                        System.out.println("\nKHONG TIM THAY KHACH HANG O "+quanA.toUpperCase()+" VA "+quanB.toUpperCase());
-                    }
+                   timKiemTheoQuan();
                     break;
                 case 5:
-                    System.out.print("\nNhap Do Tuoi Start: ");  
-                    int ageA=sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("\nNhap Do Tuoi End: ");  
-                    int ageB=sc.nextInt();
-                    sc.nextLine();
-                    boolean checked5=false;
-                    LocalDate nowDate=LocalDate.now();
-                    for(KhachHang Khach: KH){
-                        if(Khach !=null){
-                            int age=Period.between(Khach.getNgaySinh(), nowDate).getYears();
-                            if(ageA<=age && ageB>=age){
-                                Khach.xuatKH();
-                                checked5=true;
-                            }
-                        }
-                    }
-                    if(!checked5){
-                        System.out.println("\nKHONG TIM THAY KHACH HANG TU "+ageA+" => "+ageB+"TUOI");
-                    }
+                    timKiemTheoTuoi();
                     break;
                 case 0:
                     System.out.println("THOAT THANH CONG");
@@ -213,62 +240,75 @@ public class DSKhachHang implements CRUD {
         } while (find!=0);
     }
 
+    public void thongkeTheotuoi(){
+        LocalDate now=LocalDate.now();
+        int hocsinh=0, thanhnien=0,truongthanh=0, trungnien=0,caotuoi=0;
+        for(KhachHang Khach: dsKH){
+            if(Khach!=null){
+                int age=Period.between(Khach.getNgaySinh(), now).getYears();
+                if(age>0 && age<=18){
+                    hocsinh++;
+                }else if( age>19 && age<=25){
+                    thanhnien++;
+                }else if(age>26 && age<=40){
+                    truongthanh++;
+                }else if(age>40 && age<=60){
+                    trungnien++;
+                }else if(age>60){
+                    caotuoi++;
+                }
+            }
+        }
+        System.err.print("\n╔══════════════════════════════════════════\n");
+        System.out.println("║     Thong Ke Do Tuoi Cua Khach Hang      ");
+        System.out.println("║  Hoc Sinh (0->18)            : "+hocsinh);
+        System.out.println("║  Thanh Nien (19->25)         : "+thanhnien);
+        System.out.println("║  Truong Thanh (26->40)       : "+truongthanh);
+        System.out.println("║  Trung Nien (41-60)          : "+trungnien);
+        System.out.println("║  Nguoi Cao Tuoi (lớn hơn 61) : "+caotuoi);
+        System.out.print("╚══════════════════════════════════════════\n");
+    }
+
+    public void thongkeTheoGT(){
+        int male=0,female=0,gender_unknown=0;
+        for(KhachHang Khach: dsKH){
+            if(Khach !=null){
+                String gender=Khach.getGioiTinh().toLowerCase();
+                if(gender.equals("nam")){
+                    male++;
+                }else if(gender.equals("nu")){
+                    female++;
+                }else{
+                    gender_unknown++;
+                }
+            }
+        }
+        System.err.print("\n╔══════════════════════════════════════════\n");
+        System.out.println("║       Thong Ke Gioi Tinh Khach             ");
+        System.out.println("║   Nam:           : "+male);
+        System.out.println("║   Nu             : "+female);
+        System.out.println("║   Gioi Tinh Khac : "+gender_unknown);
+        System.out.print("╚══════════════════════════════════════════\n");
+    }
     @Override
     public void thongke(){
-        LocalDate nowDate=LocalDate.now();
         int choice;
         do {
-            System.out.println("\nLua Chon Thong Ke:");
-            System.out.println("1. Thong Ke Do Tuoi Khach Hang");
-            System.out.println("2. Thong Ke Gioi Tinh Khach Hang");
-            System.out.println("0. Thoat");
-            System.out.print("\nLua Chon Cua Ban: ");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Thong Ke                    ║ ");
+            System.out.println("║   1. Thong Ke Do Tuoi Khach Hang         ║ ");
+            System.out.println("║   2. Thong Ke Gioi Tinh Khach Hang       ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
+            System.out.print("Lua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    int hocsinh=0, thanhnien=0,truongthanh=0, trungnien=0,caotuoi=0;
-                    for(KhachHang Khach: KH){
-                        if(Khach!=null){
-                            int age=Period.between(Khach.getNgaySinh(), nowDate).getYears();
-                            if(age>0 && age<=18){
-                                hocsinh++;
-                            }else if( age>19 && age<=25){
-                                thanhnien++;
-                            }else if(age>26 && age<=40){
-                                truongthanh++;
-                            }else if(age>40 && age<=60){
-                                trungnien++;
-                            }else if(age>60){
-                                caotuoi++;
-                            }
-                        }
-                    }
-                    System.out.print("\nThong Ke Do Tuoi Cua Khach Hang Tai Cua Hang");
-                    System.out.print("\n------------------------------------------------------------");
-                    System.out.print("\nHoc Sinh (0-18): "+hocsinh);
-                    System.out.print("\nThanh Nien (19-25): "+thanhnien);
-                    System.out.print("\nTruong Thanh (26-40): "+truongthanh);
-                    System.out.print("\nTrung Nien (41-60): "+trungnien);
-                    System.out.print("\nNguoi Cao Tuoi (lớn hơn 61): "+caotuoi);
+                    thongkeTheotuoi();
                     break;
                 case 2:
-                    int male=0,female=0,gender_unknown=0;
-                    for(KhachHang Khach: KH){
-                        if(Khach !=null){
-                            String gender=Khach.getGioiTinh().toLowerCase();
-                            if(gender.equals("nam")){
-                                male++;
-                            }else if(gender.equals("nu")){
-                                female++;
-                            }else{
-                                gender_unknown++;
-                            }
-                        }
-                    }
-                    System.out.print("Thong Ke Gioi Tinh Khach Hang Tai Cua Hang");
-                    System.out.print("\n------------------------------------------------------------");
-                    System.out.print("\nNam: "+male+" Nu: "+female+" Khong Xac Dinh: "+gender_unknown);
+                    thongkeTheoGT();
                     break;
                 case 0:
                     System.out.print("Thoat");
@@ -302,16 +342,20 @@ public class DSKhachHang implements CRUD {
                         String gioitinh=info[4].trim();
                         String sdt=info[5].trim();
                         String diachi=info[6].trim();
-                        if(size==KH.length){
-                            KhachHang[] newKH=new KhachHang[KH.length+1];
-                            for(int j=0;j<KH.length;j++){
-                                if(KH[j]!=null)
-                                    newKH[j]=KH[j];
-                            }
-                            KH=newKH;
+                        
+                        if(!kiemtraTonTai(maKH)){
+                            dsKH=Arrays.copyOf(dsKH, size+1);
+                            dsKH[size]=new KhachHang(maKH,hoKH,tenKH,ngaySinhKH,gioitinh,sdt,diachi);
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma Khach  %s  Da Them      \n",maKH);
+                            System.err.print("╚══════════════════════════════════════════");
+                            size++;
+                            
+                        }else{
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma Khach  %s  Da Co      \n",maKH);
+                            System.err.print("╚══════════════════════════════════════════");
                         }
-                        KH[size]=new KhachHang(maKH,hoKH,tenKH,ngaySinhKH,gioitinh,sdt,diachi);
-                        size++;
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
@@ -330,7 +374,7 @@ public class DSKhachHang implements CRUD {
         try {
             PrintWriter pw=new PrintWriter("KhachHang_Output.txt","UTF-8");
             
-            for(KhachHang khach: KH){
+            for(KhachHang khach: dsKH){
                 String line= "Ma Khach Hang: "+khach.getMaKH() + " | Ho Khach Hang: " + khach.getHoKH() + " | Ten Khach Hang: " + khach.getTenKH() + " | SDT: " + khach.getSDTKH()+ " | Ngay Sinh: " 
                 + khach.getNgaySinh()+ " | Gioi Tinh: " +khach.getGioiTinh()+ " | Dia Chi: " +khach.getDiaChiKH();
                 pw.println(line);
