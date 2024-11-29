@@ -6,26 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 import Interface.CRUD;
 
 public class DSKhachHang implements CRUD {
     KhachHang[] arrKH;
     Scanner sc=new Scanner(System.in);
-    private int size=3;
-
-    public DSKhachHang() {
-        arrKH = new KhachHang[3];
-        arrKH[0] = new KhachHang("KH001", "Le","Phan","02-03-2000","Nam","0111111111", "Quan 1");
-        arrKH[1] = new KhachHang("KH002",   "Nghiem","Vu Hoang Long","02-03-1999","Nam","022222222222","Tan Phu");
-        arrKH[2] = new KhachHang("KH003","Nguyen", "Thao Linh","07-10-2000","Nu","03333333333", "Quan 2");
-    }
 
     private int viTriMaKh(String MaKH){
         for(int i = 0; i < arrKH.length; i++){
