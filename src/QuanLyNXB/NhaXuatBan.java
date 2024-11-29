@@ -67,10 +67,10 @@ public class NhaXuatBan {
    public void nhapNXB(boolean skipMaNXB){
     Scanner sc=new Scanner(System.in);
     if(!skipMaNXB){
-        System.out.print("Nhap Ma nha xuat ban: ");
+        System.out.print("\nNhap Ma nha xuat ban: ");
         maNXB=sc.nextLine();
     }
-    System.out.print("Nhap Ten nha xuat ban: ");
+    System.out.print("\nNhap Ten nha xuat ban: ");
     tenNXB=sc.nextLine();
     System.out.print("Nhap Dia chi nha xuat ban: ");
     diaChiNXB=sc.nextLine();

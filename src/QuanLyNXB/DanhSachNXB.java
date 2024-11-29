@@ -4,6 +4,8 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Interface.CRUD;
+
 public class DanhSachNXB implements CRUD {
     Scanner sc=new Scanner(System.in);
     private NhaXuatBan[] dsNxb;
@@ -65,22 +67,17 @@ public class DanhSachNXB implements CRUD {
 
     @Override
     public void sua() {
-        boolean bookFind = false;
-        System.out.print("Nhap Ma NXB Can Sua: ");
-        String MaNxb=sc.nextLine();
-        for(NhaXuatBan nxb:dsNxb){
-            if(nxb !=null && nxb.getMaNXB().equals(MaNxb)){
-                nxb.nhapNXB(true);
-                nxb.setMaNXB(MaNxb);
-                break;
-            }
-        }
-        if (!bookFind) {
+        System.out.print("Nhap Ma Nha Xuat Ban Can Sua:");
+        String MaKh=sc.nextLine();
+        int vt=viTriMaNXB(MaKh);
+        if(vt!=-1){
+            System.out.print("\nNhap Thong Tin Chinh Sua Cua Ma Nha Xuat Ban: "+MaKh);
+            dsNxb[vt].nhapNXB(true);;
+            dsNxb[vt].setMaNXB(MaKh);
+        }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
-            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",MaNxb);
+            System.err.printf("║ Khong Tim Thay Ma Nha Xuat Ban: %s        \n",MaKh);
             System.err.print("╚══════════════════════════════════════════");
-        } else {
-            System.out.println("\nChinh Sua Nha Xuat Ban Thanh Cong!!!");
         }
 
     }
@@ -227,6 +224,9 @@ public class DanhSachNXB implements CRUD {
                         if(!kiemtraTonTai(MaNXB)){
                             dsNxb=Arrays.copyOf(dsNxb, size+1);
                             dsNxb[size] = new NhaXuatBan(MaNXB,TenNXB,diaChiNXB,sdtNXB,emailNXB);
+                            System.err.print("\n╔══════════════════════════════════════════\n");
+                            System.err.printf("║ Ma NXB  %s  Da Them     \n",MaNXB);
+                            System.err.print("╚══════════════════════════════════════════");
                             size++;
                         }else{
                             System.err.print("\n╔══════════════════════════════════════════\n");
