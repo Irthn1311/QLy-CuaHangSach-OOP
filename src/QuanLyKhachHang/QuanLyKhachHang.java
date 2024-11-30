@@ -1,3 +1,5 @@
+package QuanLyKhachHang;
+
 import java.util.Scanner;
 
 public class QuanLyKhachHang {
@@ -6,15 +8,19 @@ public class QuanLyKhachHang {
     public void menu() {
         int choice;
         do {
-            System.out.print("\n1.Xem Danh Sach Khach Hang");
-            System.out.print("\n2.Them Khach Hang");
-            System.out.print("\n3.Sua Khach Hang");
-            System.out.print("\n4.Xoa Khach Hang");
-            System.out.print("\n5.Tim Khach Hang");
-            System.out.print("\n6.Thong Ke Khach Hang");
-            System.out.print("\n7.Doc Du Lieu File");
-            System.err.print("\n8.Ghi Du Lieu Vao File");
-            System.out.print("\n0.Thoat");
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.print("║        MENU : Quan ly Khach Hang         ║\n");
+            System.out.print("╠══════════════════════════════════════════╣\n");
+            System.out.print("║  1.Xem Danh Sach Khach Hang              ║\n");
+            System.out.print("║  2.Them Khach Hang                       ║\n");
+            System.out.print("║  3.Sua Khach Hang                        ║\n");
+            System.out.print("║  4.Xoa Khach Hang                        ║\n");
+            System.out.print("║  5.Tim Khach Hang                        ║\n");
+            System.out.print("║  6.Thong Ke Khach Hang                   ║\n");
+            System.out.print("║  7.Doc Du Lieu File                      ║\n");
+            System.err.print("║  8.Ghi Du Lieu Vao File                  ║\n");
+            System.out.print("║  0.Thoat                                 ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 

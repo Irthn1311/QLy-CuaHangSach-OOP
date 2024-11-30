@@ -1,0 +1,3 @@
+Ma CTPNH: PNH001 | Ma Sach: 123.0 | So Luong: 12 | Ma Nhan Vien: 123.0 | Tong Tien: 1476.0
+Ma CTPNH: PNH001 | Ma Sach: 123.0 | So Luong: 15 | Ma Nhan Vien: 123.0 | Tong Tien: 1845.0
+Ma CTPNH: PNH002 | Ma Sach: 123.0 | So Luong: 12 | Ma Nhan Vien: 123.0 | Tong Tien: 1476.0
