@@ -72,7 +72,9 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
         dsChiTiet[size] = chiTiet;
         size++;
 
+
         updateTongTien(MaPNH);
+
 
         System.out.println("Da Them Chi Tiet Vao Hoa Don Co Ma:"+MaPNH);
     }
@@ -107,10 +109,12 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
                 return; // Dừng thêm chi tiết
             }
 
+
             dsChiTiet = Arrays.copyOf(dsChiTiet, size + 1);
             dsChiTiet[size] = chiTiet;
             size++;
             updateTongTien(MaPNH);
+
 
             System.out.println("Da Them Chi Tiet Vao Hoa Don Co Ma:"+MaPNH);
         }else{
@@ -123,6 +127,7 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
             System.out.println("Chua Co Chi Tiet Nao.");
             return;
         }
+        System.out.println("Danh Sach Chi Tiet Cac Hoa Don");
         System.out.println("Danh Sach Chi Tiet Cac Hoa Don");
         // In các chi tiết hóa đơn
         for(ChiTietHoaDon CTHD: dsChiTiet){
@@ -186,6 +191,13 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
                 findHD = true;
                 break;
             }
+        // Kiểm tra mã hóa đơn có tồn tại không
+        boolean findHD = false;
+        for (ChiTietHoaDon chiTiet : dsChiTiet) {
+            if (chiTiet !=null && chiTiet.getMaCTHD().equals(MaHD)) {
+                findHD = true;
+                break;
+            }
         }
         if (!findHD) {
             System.out.println("Khong Tim Thay Phieu Voi Ma: " + MaHD);
@@ -239,6 +251,7 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
                         int soluong=Integer.parseInt(info[2].trim());
                         Double dongia=Double.parseDouble(info[3].trim());
 
+
                         if(size==dsChiTiet.length){
                             dsChiTiet=Arrays.copyOf(dsChiTiet, size+1);
                         }
@@ -248,6 +261,7 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
+                }
                 }
                 if (empty) {
                     System.out.println("\nFILE EMPTY WITH NOTHING");
@@ -265,7 +279,13 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
             for(ChiTietHoaDon CTHD: dsChiTiet){
                 if(CTHD != null){
                     String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: "
+                if(CTHD != null){
+                    String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: "
                             +CTHD.getThanhTien();
+                    pw.println(line);
+                    pw.flush();
+                }
+
                     pw.println(line);
                     pw.flush();
                 }
@@ -273,10 +293,12 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG ");
 
+
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 }
