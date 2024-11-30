@@ -11,36 +11,36 @@ public class QuanLyNhaXuatBan{
             System.out.print("\n╔══════════════════════════════════════════╗\n");
             System.err.print("║        MENU : Quan ly Nha Xuat Ban       ║\n");
             System.out.print("╠══════════════════════════════════════════╣\n");
-            System.out.print("║  1.Xem Danh Sach Nha Xuat Ban            ║\n");
-            System.out.print("║  2.Them Nha Xuat Ban                     ║\n");
-            System.out.print("║  3.Sua Nha Xuat Ban                      ║\n");
-            System.out.print("║  4.Xoa Nha Xuat Ban                      ║\n");
-            System.out.print("║  5.Tim Nha Xuat Ban                      ║\n");
-            System.out.print("║  6.Doc Du Lieu File                      ║\n");
-            System.err.print("║  7.Ghi Du Lieu Vao File                  ║\n");
-            System.out.print("║  0.Thoat                                 ║\n");
+            System.out.print("║  1. Doc Du Lieu File                     ║\n");
+            System.out.print("║  2. Xem Danh Sach Nha Xuat Ban           ║\n");
+            System.out.print("║  3. Them Nha Xuat Ban                    ║\n");
+            System.out.print("║  4. Sua Nha Xuat Ban                     ║\n");
+            System.out.print("║  5. Xoa Nha Xuat Ban                     ║\n");
+            System.out.print("║  6. Tim Nha Xuat Ban                     ║\n");
+            System.err.print("║  7. Ghi Du Lieu Vao File                 ║\n");
+            System.out.print("║  0. Thoat                                ║\n");
             System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 
             switch (choice) {
                 case 1:
-                    nxb.xem();
+                    nxb.docFile();
                     break;
                 case 2:
-                    nxb.them();
+                    nxb.xem();
                     break;
                 case 3:
-                    nxb.sua();
+                    nxb.them();
                     break;
                 case 4:
-                    nxb.xoa();
+                    nxb.sua();
                     break;
                 case 5:
-                    nxb.timkiem();
+                    nxb.xoa();
                     break;
                 case 6:
-                    nxb.docFile();
+                    nxb.timkiem();
                     break;
                 case 7:
                     nxb.ghiFile();

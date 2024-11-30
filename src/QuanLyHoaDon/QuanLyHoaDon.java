@@ -1,3 +1,5 @@
+package QuanLyHoaDon;
+
 import java.util.Scanner;
 
 public class QuanLyHoaDon {

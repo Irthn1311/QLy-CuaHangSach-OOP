@@ -1,9 +1,12 @@
+package QuanLyPhieuNhapHang;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Interface.CRUD2;
 public class DanhSachChiTietPhieuNhapHang implements CRUD2{
     Scanner sc = new Scanner(System.in);
     private ChiTietPhieuNhapHang[] dsChiTiet = new ChiTietPhieuNhapHang[0];
