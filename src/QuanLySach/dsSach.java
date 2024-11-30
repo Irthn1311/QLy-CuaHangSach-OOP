@@ -10,8 +10,19 @@ import java.io.PrintWriter;
 import Interface.CRUD;
 
 public class dsSach implements CRUD {
-    Sach[] arrSach = new Sach[10];
+    Sach[] arrSach ;
     Scanner sc=new Scanner(System.in);
+
+    public dsSach(){
+        arrSach = new Sach[3];
+        arrSach[0]= new Sach("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87);
+        arrSach[0]= new SachThamKhao("S002","Nha Gia Kim","TG002","NXB002","Van Hoc, Tieu Thuyet Truyen Cam Hung",95.00,99,"Tieu Thuyet",18);
+        arrSach[0]= new SachChuyenNganh("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87,"Triet Hoc");
+    }
+
+    public Sach[] getDsSach(){
+        return arrSach;
+    }
 
     private int viTriMaSach(String maSach){
         for(int i = 0; i < arrSach.length; i++){
@@ -50,12 +61,14 @@ public class dsSach implements CRUD {
         String theLoai = "";
         int option;
         do {
-            System.out.println("Hay chon the loai sach ma ban muon them: ");
-            System.out.println("1. Sach Chuyen Nganh");
-            System.out.println("2. Sach Tham Khao");
-            System.out.println("3. Cac the loai sach khac");
-            System.out.println("0. Thoat");
-            System.out.print("Chon lua cua ban: ");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Chon Sach Muon Them         ║ ");
+            System.out.println("║   1. Sach Chuyen Nganh                   ║ ");
+            System.out.println("║   2. Sach Tham Khao                      ║ ");
+            System.out.println("║   3. Cac The Loai Sach Khac              ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
+            System.out.print("Lua Chon Cua Ban: ");
             option = sc.nextInt();
             sc.nextLine();
             switch (option) {
@@ -85,7 +98,9 @@ public class dsSach implements CRUD {
         if (!kiemtraTonTai(sach.getMaSach())){
             arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
             arrSach[arrSach.length - 1] = sach;
-            System.out.println("Them sach thanh cong.");
+            System.err.print("\n╔══════════════════════════════════════════\n");
+                    System.err.printf("║ Ma Sach %s Da Them \n", sach.getMaSach());
+                    System.err.print("╚══════════════════════════════════════════");
         } else{
             System.err.print("\n╔══════════════════════════════════════════\n");
             System.err.printf("║    Ma Sach %s Da Ton Tai        \n",sach.getMaSach());
@@ -131,12 +146,14 @@ public class dsSach implements CRUD {
     public void timkiem() {
         int find;
         do {
-            System.out.println("\nLua Chon Tim Kiem:");
-            System.out.println("1. Tim Kiem Theo Ma Sach");
-            System.out.println("2. Tim Kiem Theo Ten Sach");
-            System.out.println("3. Tim Kiem Theo Tac Gia");
-            System.out.println("4. Tim Kiem Nang Cao Sach Tham Khao Trong Khoang Gia Ban");
-            System.out.println("0. Thoat");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Tim Kiem Sach               ║ ");
+            System.out.println("║   1. Tim Kiem Theo Ma Sach               ║ ");
+            System.out.println("║   2. Tim Kiem Theo Ten Sach              ║ ");
+            System.out.println("║   3. Tim Kiem Theo Ma Tac Gia               ║ ");
+            System.out.println("║   4. Tim Kiem Theo Gia Sach (Min-Max)    ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("Lua Chon Cua Ban: ");
             find = sc.nextInt();
             sc.nextLine();
@@ -191,7 +208,9 @@ public class dsSach implements CRUD {
         }
 
         if (!found) {
-            System.out.println("Khong tim thay sach voi ten da nhap.");
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ten Sach: %s        \n",tenSach);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
     public void timkiemMaTacGia(){
@@ -207,7 +226,9 @@ public class dsSach implements CRUD {
         }
 
         if (!found){
-            System.out.println("Khong tim thay sach voi ma tac gia da nhap.");
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Ma Tac Gia: %s        \n",maTacGia);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
     public void timkiemNCGiaBan(){
@@ -219,7 +240,9 @@ public class dsSach implements CRUD {
         sc.nextLine();
 
         if (giaMin > giaMax) {
-            System.out.println("Gia toi thieu khong duoc lon hon gia toi da. Vui long nhap lai.");
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ ERROR: Min > Max (Vui Long Nhap Lai)        \n");
+            System.err.print("╚══════════════════════════════════════════");
             return;
         }
 
@@ -236,19 +259,23 @@ public class dsSach implements CRUD {
         }
 
         if (!found) {
-            System.out.println("\nKhong Tim Thay Sach Voi Don Gia Ban Trong Khoang " + giaMin + " => " + giaMax);
+            System.err.print("\n╔══════════════════════════════════════════\n");
+            System.err.printf("║ Khong Tim Thay Sach Tu %.2f => %.2f        \n",giaMin,giaMax);
+            System.err.print("╚══════════════════════════════════════════");
         }
     }
 
     public void thongke() {
         int choice;
         do {
-            System.out.println("\nLua Chon Thong Ke:");
-            System.out.println("1. Thong Ke So Luong Sach Theo The Loai");
-            System.out.println("2. Thong Ke So Luong Sach Theo Tac Gia");
-            System.out.println("3. Thong Ke So Luong Sach Theo Nha Xuat Ban");
-            System.out.println("4. Thong Ke So Luong Sach Theo Gia Ban");
-            System.out.println("0. Thoat");
+            System.err.print("\n╔══════════════════════════════════════════╗\n");
+            System.out.println("║       MENU : Thong Ke Sach               ║ ");
+            System.out.println("║   1. Thong Ke Theo The Loai              ║ ");
+            System.out.println("║   2. Thong Ke Theo Ma Tac Gia            ║ ");
+            System.out.println("║   3. Thong Ke Theo Ma Nha Xuat Ban       ║ ");
+            System.out.println("║   3. Thong Ke Theo Gia Sach (Min-Max)    ║ ");
+            System.out.println("║   0. Thoat                               ║ ");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 
@@ -445,11 +472,11 @@ public class dsSach implements CRUD {
                     }
                     arrSach[arrSach.length - 1] = sach;
                     System.err.print("\n╔══════════════════════════════════════════\n");
-                    System.err.printf("║ Mã Sách %s Đã Thêm \n", maSach);
+                    System.err.printf("║ Ma Sach %s Đa Them \n", maSach);
                     System.err.print("╚══════════════════════════════════════════");
                 } else {
                     System.err.print("\n╔══════════════════════════════════════════\n");
-                    System.err.printf("║ Mã Sách %s Đã Có \n", maSach);
+                    System.err.printf("║ Ma Sach %s Đa Co \n", maSach);
                     System.err.print("╚══════════════════════════════════════════");
                 }
             }
