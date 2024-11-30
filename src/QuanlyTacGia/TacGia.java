@@ -71,7 +71,7 @@ public class TacGia {
         System.out.printf("║      MA TAC GIA: %s          \n",MaTacGia);
         System.out.println("╠══════════════════════════════════════════");
         System.out.printf("║ TEN TAC GIA: %s                              \n",TenTacGia);
-        System.out.printf("║ NAM SINH   : %s             \n",NamSinhTG);
+        System.out.printf("║ NAM SINH   : %s             \n",NamSinhTG.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         System.err.printf("║ QUE QUAN   : %s                      \n",QueQuan);
         System.out.println("╚══════════════════════════════════════════");
     }
