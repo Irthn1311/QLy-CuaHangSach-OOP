@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 package QuanLyPhieuNhapHang_NEW;
 
 import java.util.Scanner;
+=======
+    import java.util.Scanner;
+>>>>>>> f84906c71aef9774bd79bb5162c468238d481b54
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

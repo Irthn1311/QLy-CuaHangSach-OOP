@@ -198,7 +198,14 @@ public class DanhSachNXB implements CRUD {
     }
     @Override
     public void docFile() {
+<<<<<<< HEAD
+        
+        File file = new File("nxb.txt");
+        System.out.print("\nFile: "+file.exists());
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+=======
         try (BufferedReader br = new BufferedReader(new FileReader("data/nhaxuatban.txt"))){
+>>>>>>> c0d606522f01a7cf38db0ccd2ad096a3a3e7beac
             String line;
             while ((line = br.readLine()) != null){
                 String[] info = line.split("\\|");
@@ -235,6 +242,17 @@ public class DanhSachNXB implements CRUD {
     }
 
     @Override
+<<<<<<< HEAD
+    public void ghiFile() {
+        File file = new File("nxb.txt");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            for (int i = 0; i < size; i++) {
+                if (NXB[i] != null) {
+                    bw.write(NXB[i].getMaNXB() + "," + NXB[i].getTenNXB() + "," +
+                             NXB[i].getDiaChiNXB() + "," + NXB[i].getSdtNXB() + "," +
+                             NXB[i].getEmail());
+                    bw.newLine();
+=======
     public void ghiFile(){
         try {
             PrintWriter pw = new PrintWriter(new PrintWriter("data/nhaxuatban.txt"));
@@ -246,6 +264,7 @@ public class DanhSachNXB implements CRUD {
                                 + nxb.getSdtNXB() + " | " 
                                 + nxb.getEmail();
                     pw.println(line);
+>>>>>>> c0d606522f01a7cf38db0ccd2ad096a3a3e7beac
                 }
             }
             System.err.print("\nNhap Thong Tin Vao Tu File Thanh Cong\n");

@@ -5,27 +5,26 @@ import java.util.Scanner;
 public class ChiTietPhieuNhapHang {
     private String ma_CTPNH;       
     private String masACH_pnhsach;  
-    private int soLuong;            
-    private double donGia;         
-    private double thanhTien;     
+    private int soLuong_Nhap;     //nhap       
+    private double donGia_Nhap;       //nhap  
+    private double thanhTien_Nhap;    //nhap,, 
 
 
-    public ChiTietPhieuNhapHang(String ma_CTPNH, String masACH_pnhsach, int soLuong, double donGia) {
+    public ChiTietPhieuNhapHang(String ma_CTPNH, String masACH_pnhsach, int soLuong_Nhap, double donGia_Nhap) {
         this.ma_CTPNH = ma_CTPNH;
         this.masACH_pnhsach = masACH_pnhsach;
-        this.soLuong = soLuong;
-        this.donGia = donGia;
-        this.thanhTien = soLuong * donGia;
+        this.soLuong_Nhap = soLuong_Nhap;
+        this.donGia_Nhap= donGia_Nhap;
+        this.thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;
     }
 
 
     public ChiTietPhieuNhapHang() {
-   
         this.ma_CTPNH = "";
         this.masACH_pnhsach = "";
-        this.soLuong = 0;
-        this.donGia = 0.0;
-        this.thanhTien = 0.0;
+        this.soLuong_Nhap = 0;
+        this.donGia_Nhap= 0.0;
+        this.thanhTien_Nhap = 0.0;
     }
 
 
@@ -47,28 +46,28 @@ public class ChiTietPhieuNhapHang {
     }
 
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getSoLuong_Nhap() {
+        return soLuong_Nhap;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-        this.thanhTien = soLuong * donGia;  
+    public void setSoLuong_Nhap(int soLuong_Nhap) {
+        this.soLuong_Nhap = soLuong_Nhap;
+        this.thanhTien_Nhap = soLuong_Nhap* donGia_Nhap;  
     }
 
 
-    public double getDonGia() {
-        return donGia;
+    public double getDonGia_Nhap() {
+        return donGia_Nhap;
     }
 
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
-        this.thanhTien = soLuong * donGia;  
+    public void setDonGia_Nhap(double donGia_Nhap) {
+        this.donGia_Nhap = donGia_Nhap;
+        this.thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;  
     }
 
 
     public double getThanhTien() {
-        return thanhTien;
+        return thanhTien_Nhap;
     }
 
     @SuppressWarnings("resource")
@@ -82,21 +81,20 @@ public class ChiTietPhieuNhapHang {
         masACH_pnhsach = sc.nextLine();
 
         System.out.print("Nhap so luong: ");
-        soLuong = sc.nextInt();
+        soLuong_Nhap= sc.nextInt();
 
         System.out.print("Nhap don gia: ");
-        donGia = sc.nextDouble();
-        thanhTien = soLuong * donGia;
+        donGia_Nhap = sc.nextDouble();
+        thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;
     }
 
     public void xuat() {
-        System.out.println("ChiTietPhieuNhapHang{" +
-                "ma_CTPNH='" + ma_CTPNH + '\'' +
-                ", masACH_pnhsach='" + masACH_pnhsach + '\'' +
-                ", soLuong=" + soLuong +
-                ", donGia=" + donGia +
-                ", thanhTien=" + thanhTien +
-                '}');
+      System.out.print("\n====================");
+      System.out.print("\nMa chi tiet phieu nhap hang: "+ma_CTPNH+
+                        "\nMa sach:  "+masACH_pnhsach+
+                        "\nso luong nhap: "+soLuong_Nhap+
+                        "\nDon gia nhap: "+donGia_Nhap+
+                        "\nThanh tien nhap: "+thanhTien_Nhap);
     }
 
     @Override
@@ -104,9 +102,9 @@ public class ChiTietPhieuNhapHang {
         return "ChiTietPhieuNhapHang{" +
                 "ma_CTPNH='" + ma_CTPNH + '\'' +
                 ", masACH_pnhsach='" + masACH_pnhsach + '\'' +
-                ", soLuong=" + soLuong +
-                ", donGia=" + donGia +
-                ", thanhTien=" + thanhTien +
+                ", soLuong=" + soLuong_Nhap +
+                ", donGia=" + donGia_Nhap +
+                ", thanhTien=" + thanhTien_Nhap +
                 '}';
     }
 }

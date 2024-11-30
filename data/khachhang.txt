@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+KH004 | Tran | Minh Tu | 15-05-1995 | Nam | 0123456789 | Binh Thanh
+KH005 | Pham | Thanh An | 20-07-1989 | Nu | 0937456123 | Go Vap
+KH006 | Nguyen | Anh Kien | 25-10-1992 | Nam | 0946123456 | Thu Duc
+KH007 | Le | Bao Ngoc | 01-01-1985 | Nu | 0987456321 | Tan Binh
+KH008 | Mai | Minh Tu | 19-09-1980 | Nam | 0912345678 |Ha Noi
+KH009 | Vu | Thu Hoa | 14-11-1990 | Nu | 0901234567 | Tan Phu
+KH010 | Dao | Kim Lan | 10-10-2000 | Nu | 0987654321 | Cu Chi
+KH011 | Bui | Thanh Hien | 01-12-1995 | Nam | 0123123456 | Hoc Mon
+KH012 | Hoang | Minh Long | 05-05-1988 | Nam | 0934567890 | Ba Diem
+KH013 | Duong | Bao Son | 12-03-1993 | Nam | 0912345678 | Dong Thap
+=======
 KH001|Le|Phan|02-03-2000|Nam|0111111111|Quan 1
 KH002|Nghiem|Vu Hoang Long|02-03-1999|Nam|022222222222|Tan Phu
 KH003|Nguyen|Thao Linh|07-10-2000|Nu|03333333333|Quan 2
@@ -8,3 +20,4 @@ KH007|Nguyen|Thuy Linh|25-04-2002|Nu|0356677655|Quan 1
 KH008|Tran|Anh Thu|12-03-2001|Nu|04964566384|Quan 9
 KH009|Tran|Thanh Dinh|11-08-2009|Nam|0654345623|Quan 11
 KH010|Le|Phi Vu|23-05-1993|Nam|0545676543|Quan 2
+>>>>>>> c0d606522f01a7cf38db0ccd2ad096a3a3e7beac
