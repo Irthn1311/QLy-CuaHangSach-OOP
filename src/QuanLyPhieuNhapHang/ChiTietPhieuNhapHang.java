@@ -3,108 +3,69 @@ package QuanLyPhieuNhapHang;
 import java.util.Scanner;
 
 public class ChiTietPhieuNhapHang {
+    Scanner sc = new Scanner(System.in);
     private String ma_CTPNH;       
-    private String masACH_pnhsach;  
-    private int soLuong_Nhap;     //nhap       
-    private double donGia_Nhap;       //nhap  
-    private double thanhTien_Nhap;    //nhap,, 
+    private String maSach;  
+    private int soLuong;            
+    private double donGia;         
+    private double thanhTien;     
 
 
-    public ChiTietPhieuNhapHang(String ma_CTPNH, String masACH_pnhsach, int soLuong_Nhap, double donGia_Nhap) {
+    public ChiTietPhieuNhapHang(String ma_CTPNH, String maSach, int soLuong, double donGia) {
         this.ma_CTPNH = ma_CTPNH;
-        this.masACH_pnhsach = masACH_pnhsach;
-        this.soLuong_Nhap = soLuong_Nhap;
-        this.donGia_Nhap= donGia_Nhap;
-        this.thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;
+        this.maSach = maSach;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.thanhTien = soLuong * donGia;
     }
 
 
     public ChiTietPhieuNhapHang() {
+   
         this.ma_CTPNH = "";
-        this.masACH_pnhsach = "";
-        this.soLuong_Nhap = 0;
-        this.donGia_Nhap= 0.0;
-        this.thanhTien_Nhap = 0.0;
+        this.maSach = "";
+        this.soLuong = 0;
+        this.donGia = 0.0;
+        this.thanhTien = 0.0;
     }
 
 
-    public String getMa_CTPNH() {
-        return ma_CTPNH;
-    }
+    public String getMa_CTPNH() {return ma_CTPNH; }
+    public String getMaSach() { return maSach;}
+    public int getSoLuong() {return soLuong; }
+    public double getDonGia() {return donGia;}
+    public double getThanhTien() { return thanhTien;}
 
-    public void setMa_CTPNH(String ma_CTPNH) {
-        this.ma_CTPNH = ma_CTPNH;
-    }
+    public void setMa_CTPNH(String ma_CTPNH) {this.ma_CTPNH = ma_CTPNH;}
+    public void setmaSach(String maSach) {this.maSach = maSach;}
+    public void setSoLuong(int soLuong) {this.soLuong = soLuong;this.thanhTien = soLuong * donGia;  }
+    public void setDonGia(double donGia) {this.donGia = donGia;this.thanhTien = soLuong * donGia;  }
+    
 
+    public void nhap(boolean skipMaPNH) {
+        
+        if(skipMaPNH){
+            System.out.print("Nhap ma CTPNH: ");
+            ma_CTPNH = sc.nextLine();
+        }
+        System.out.print("Nhap Ma Sach: ");
+        maSach = sc.nextLine();
 
-    public String getMasACH_pnhsach() {
-        return masACH_pnhsach;
-    }
+        System.out.print("Nhap So Luong: ");
+        soLuong = sc.nextInt();
+        sc.nextLine();
 
-    public void setMasACH_pnhsach(String masACH_pnhsach) {
-        this.masACH_pnhsach = masACH_pnhsach;
-    }
-
-
-    public int getSoLuong_Nhap() {
-        return soLuong_Nhap;
-    }
-
-    public void setSoLuong_Nhap(int soLuong_Nhap) {
-        this.soLuong_Nhap = soLuong_Nhap;
-        this.thanhTien_Nhap = soLuong_Nhap* donGia_Nhap;  
-    }
-
-
-    public double getDonGia_Nhap() {
-        return donGia_Nhap;
-    }
-
-    public void setDonGia_Nhap(double donGia_Nhap) {
-        this.donGia_Nhap = donGia_Nhap;
-        this.thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;  
-    }
-
-
-    public double getThanhTien() {
-        return thanhTien_Nhap;
-    }
-
-    @SuppressWarnings("resource")
-    public void nhap() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Nhap ma CTPNH: ");
-        ma_CTPNH = sc.nextLine();
-
-        System.out.print("Nhap ten sach: ");
-        masACH_pnhsach = sc.nextLine();
-
-        System.out.print("Nhap so luong: ");
-        soLuong_Nhap= sc.nextInt();
-
-        System.out.print("Nhap don gia: ");
-        donGia_Nhap = sc.nextDouble();
-        thanhTien_Nhap = soLuong_Nhap * donGia_Nhap;
+        System.out.print("Nhap Don Gia: ");
+        donGia = sc.nextDouble();
+        sc.nextLine();
+        thanhTien = soLuong * donGia;
     }
 
     public void xuat() {
-      System.out.print("\n====================");
-      System.out.print("\nMa chi tiet phieu nhap hang: "+ma_CTPNH+
-                        "\nMa sach:  "+masACH_pnhsach+
-                        "\nso luong nhap: "+soLuong_Nhap+
-                        "\nDon gia nhap: "+donGia_Nhap+
-                        "\nThanh tien nhap: "+thanhTien_Nhap);
+        System.err.print("\n----------------------------------------------------------------------------------------------------------------\n");
+        System.err.printf("| Ma CTPNH: %-10s| Ma Sach: %-10s | So Luong: %-5d | Don Gia: %-10.2f | Thanh Tien: %16.2f ", ma_CTPNH, maSach, soLuong, donGia,thanhTien);
+    
     }
 
-    @Override
-    public String toString() {
-        return "ChiTietPhieuNhapHang{" +
-                "ma_CTPNH='" + ma_CTPNH + '\'' +
-                ", masACH_pnhsach='" + masACH_pnhsach + '\'' +
-                ", soLuong=" + soLuong_Nhap +
-                ", donGia=" + donGia_Nhap +
-                ", thanhTien=" + thanhTien_Nhap +
-                '}';
-    }
+
 }

@@ -3,7 +3,8 @@ import QuanLyNhanVien.QuanLyNhanVien;
 import QuanLyKhachHang.QuanLyKhachHang;
 import QuanlyTacGia.QuanLyTacGia;
 import QuanLyNXB.QuanLyNhaXuatBan;
-import QuanLyPhieuNhapHang_NEW.QuanLyPhieuNhapHang;
+import QuanLyPhieuNhapHang.QuanLyPhieuNhapHang;
+import QuanLyHoaDon.QuanLyHoaDon;
 
 import java.util.Scanner;
 public class Main{
@@ -14,6 +15,8 @@ public class Main{
         QuanLyTacGia qlTG = new QuanLyTacGia();
         QuanLyNhaXuatBan qlNXB = new QuanLyNhaXuatBan();
         QuanLyPhieuNhapHang qlPNH = new QuanLyPhieuNhapHang();
+        QuanLyHoaDon qlHD = new QuanLyHoaDon();
+
         int choice;
         Scanner sc = new Scanner(System.in);
         do {
@@ -23,6 +26,7 @@ public class Main{
             System.out.print("\n4.Quan Ly Tac Gia");
             System.out.print("\n5.Quan Ly Nha Xuat Ban");
             System.out.print("\n6.Quan Ly Phieu Nhap Hang");
+            System.out.print("\n7.Quan Ly Hoa Don");
             System.out.print("\n0.Ket thuc chuong trinh");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
@@ -45,6 +49,9 @@ public class Main{
                     break;
                 case 6:
                     qlPNH.menu();
+                    break;
+                case 7:
+                    qlHD.menu();
                     break;
                 case 0:
                     System.out.print("\nThoat");

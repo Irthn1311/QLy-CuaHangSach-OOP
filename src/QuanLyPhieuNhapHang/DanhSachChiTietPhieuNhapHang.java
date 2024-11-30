@@ -1,4 +1,4 @@
-package QuanLyPhieuNhapHang_NEW;
+package QuanLyPhieuNhapHang;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
