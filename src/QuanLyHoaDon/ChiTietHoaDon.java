@@ -3,72 +3,69 @@ package QuanLyHoaDon;
 import java.util.Scanner;
 
 public class ChiTietHoaDon {
-    private String maHD;
-    private String maSach;
-    private int soLuong;
-    private double donGia;
-    private double thanhTien;
-
     Scanner sc = new Scanner(System.in);
+    private String MaCTHD;       
+    private String maSach;  
+    private int soLuong;            
+    private double donGia;         
+    private double thanhTien;     
 
-    public ChiTietHoaDon()
-    {
-        maHD = "";
-        maSach = "";
-        soLuong = 0;
-        donGia = 0.0;
-        thanhTien = 0.0;
-    }
-
-    public ChiTietHoaDon(String maHD, String maSach, int soLuong, double donGia)
-    {
-        this.maHD = maHD;
+    public ChiTietHoaDon(String MaCTHD, String maSach, int soLuong, double donGia) {
+        this.MaCTHD = MaCTHD;
         this.maSach = maSach;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = this.donGia * this.soLuong;
+        this.thanhTien = soLuong * donGia;
     }
 
-    public void Nhap()
-    {
-        System.out.println("================Bat dau nhap chi tiet hoa don.================");
-        System.out.print("Nhap ma hoa don: ");
-        maHD = sc.nextLine();
-        System.out.print("Nhap ma sach: ");
+    public ChiTietHoaDon() {
+        this.MaCTHD = "";
+        this.maSach = "";
+        this.soLuong = 0;
+        this.donGia = 0.0;
+        this.thanhTien = 0.0;
+    }
+
+    public String getMaCTHD() {return MaCTHD; }
+    public String getMaSach() { return maSach;}
+    public int getSoLuong() {return soLuong; }
+    public double getDonGia() {return donGia;}
+    public double getThanhTien() { return thanhTien;}
+
+    public void setMaCTHD(String MaCTHD) {this.MaCTHD = MaCTHD;}
+    public void setmaSach(String maSach) {this.maSach = maSach;}
+    public void setSoLuong(int soLuong) {this.soLuong = soLuong;this.thanhTien = soLuong * donGia;  }
+    public void setDonGia(double donGia) {this.donGia = donGia;this.thanhTien = soLuong * donGia;  }
+    
+
+    public void nhap(boolean skipMaPNH) {
+        
+        if(skipMaPNH){
+            System.out.print("Nhap ma CTPNH: ");
+            MaCTHD = sc.nextLine();
+        }
+        System.out.print("Nhap Ma Sach: ");
         maSach = sc.nextLine();
-        System.out.print("Nhap so luong: ");
+
+        System.out.print("Nhap So Luong: ");
         soLuong = sc.nextInt();
-        System.out.print("Nhap don gia: ");
+        sc.nextLine();
+
+        System.out.print("Nhap Don Gia: ");
         donGia = sc.nextDouble();
         sc.nextLine();
         thanhTien = soLuong * donGia;
     }
 
-    public void Xuat()
-    {
-        System.out.println("Ma hoa don: " + maHD);
-        System.out.println("Ma sach: " + maSach);
-        System.out.println("So luong: " + soLuong);
-        System.out.println("Don gia: " + donGia);
-        System.out.println("Thanh tien: " + thanhTien);
+    public void xuat() {
+        System.out.println("╔════════════════════════════════════════════╗");
+        System.out.printf("║    MA CHI TIET HOA DON: %-9s          ║\n",MaCTHD);
+        System.out.println("╠════════════════════════════════════════════╣");
+        System.out.printf("║ MA SACH: %-5s                             ║\n",maSach);
+        System.out.printf("║ SO LUONG: %-3d       DON GIA: %-6.2f        ║\n",soLuong,donGia);
+        System.out.printf("║ THANH TIEN: %-8.2f                       ║\n",thanhTien);
+        System.out.println("╚════════════════════════════════════════════╝");
     }
 
-    public void setmaHD(String maHD) {this.maHD = maHD;}
 
-    public String getmaHD() {return this.maHD;}
-
-    public void setmaSach(String maSach) {this.maSach = maSach;}
-
-    public String getmaSach() {return this.maSach;}
-
-    public void setsoLuong(int soLuong){this.soLuong = soLuong;}
-
-    public int getsoLuong() {return this.soLuong;}
-
-    public void setdonGia(double donGia){this.donGia = donGia;}
-
-    public double getdonGia() {return this.donGia;}
-
-    public double getthanhTien() {return this.soLuong * this.donGia;}
 }
-

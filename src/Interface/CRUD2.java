@@ -1,3 +1,4 @@
+package Interface;
 public interface CRUD2 {
     
     void docFile();

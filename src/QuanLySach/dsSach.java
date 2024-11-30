@@ -10,10 +10,10 @@ import java.io.PrintWriter;
 import Interface.CRUD;
 
 public class dsSach implements CRUD {
-    Sach[] arrSach = new Sach[10];
+    public static Sach[] arrSach = new Sach[10];
     Scanner sc=new Scanner(System.in);
 
-    private int viTriMaSach(String maSach){
+    public static int viTriMaSach(String maSach){
         for(int i = 0; i < arrSach.length; i++){
             if (arrSach[i] != null && arrSach[i].getMaSach().equalsIgnoreCase(maSach)){
                 return i;

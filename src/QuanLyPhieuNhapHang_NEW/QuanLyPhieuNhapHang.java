@@ -1,3 +1,5 @@
+package QuanLyPhieuNhapHang_NEW;
+
 import java.util.Scanner;
 
 public class QuanLyPhieuNhapHang {

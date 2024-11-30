@@ -1,3 +1,7 @@
+package QuanLyHoaDon;
+
+import Interface.CRUD2;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -7,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.text.DecimalFormat;
-public class DanhSachHoaDon implements CRUD2{
+public class DanhSachHoaDon implements CRUD2 {
     Scanner sc=new Scanner(System.in);
     private HoaDon[] dsHD;
     private int size;
@@ -21,10 +25,10 @@ public class DanhSachHoaDon implements CRUD2{
     // Kiểm tra mã phiếu trùng lặp
     private boolean KiemTraMaHDTonTai(String maHD_New){
         for(HoaDon HD: dsHD){
-                if(HD!=null && HD.getmaHD().equals(maHD_New) ){
+            if(HD!=null && HD.getmaHD().equals(maHD_New) ){
                 return true;  // Mã phiếu đã tồn tại
-                }
-        } 
+            }
+        }
         return false; // Mã phiếu chưa tồn tại  
     }
 
@@ -44,7 +48,7 @@ public class DanhSachHoaDon implements CRUD2{
             if (HD!=null) {
                 HD.xuat();
             }
-            
+
         }
     }
 
@@ -54,15 +58,15 @@ public class DanhSachHoaDon implements CRUD2{
             HoaDon HD_new= new HoaDon();
             HD_new.nhap();
 
-             // Kiểm tra mã phiếu trùng lặp
-             if(KiemTraMaHDTonTai(HD_new.getmaHD())){
+            // Kiểm tra mã phiếu trùng lặp
+            if(KiemTraMaHDTonTai(HD_new.getmaHD())){
                 System.out.println("\nMa Hoa Don Da Ton Tai. Vui Long Nhap Lai!");
-             }else{
+            }else{
                 // Mã phiếu hợp lệ, thêm vào danh sách phiếu
                 dsHD=Arrays.copyOf(dsHD, size+1);
                 dsHD[size] = HD_new;
                 size++;
-             
+
                 // Nhập danh sách chi tiết cho phiếu này
                 System.out.print("Nhap So Luong Chi Tiet Cho Phieu: ");
                 int soChiTiet = sc.nextInt();
@@ -72,7 +76,7 @@ public class DanhSachHoaDon implements CRUD2{
                     dsChiTietHD.themChiTietVaoHD(HD_new.getmaHD());
                 }
                 break;
-             }
+            }
         }
     }
 
@@ -89,15 +93,15 @@ public class DanhSachHoaDon implements CRUD2{
                 HD.xuat();
                 System.out.println("\nChi Tiet Phieu Nhap Hang " + HD.getmaHD() + " :");
                 dsChiTietHD.inChiTietTheoMaHD(HD.getmaHD());
-            } 
+            }
         }
     }
 
     public int timViTriMaHD(String maHD){
         for (int i = 0; i < size; i++) {
             if (dsHD[i] !=null) {
-                 if (dsHD[i].getmaHD().equals(maHD )) // So sánh trực tiếp kiểu int
-                return i;
+                if (dsHD[i].getmaHD().equals(maHD )) // So sánh trực tiếp kiểu int
+                    return i;
             }
         }
         return -1;
@@ -183,7 +187,7 @@ public class DanhSachHoaDon implements CRUD2{
                     find=true;
                 }
             }
-            if (!find) 
+            if (!find)
                 System.out.println("Khong Co Hoa Don Theo Ngay: " + ngayTK);
         } catch (Exception e) {
             System.err.println("Ngay Nhap Hoa Don Khong Hop Le. Vui Long Nhap Theo Dinh Dang(dd-MM-yyyy).");
@@ -214,7 +218,7 @@ public class DanhSachHoaDon implements CRUD2{
             }
         } catch (Exception e) {
             System.err.println("Thang Tao Hoa Don Khong Hop Le. Vui Long Nhap Theo Dinh Dang(MM-yyyy).");
-        } 
+        }
     }
 
     public void thongKeTheoNam(){
@@ -224,7 +228,7 @@ public class DanhSachHoaDon implements CRUD2{
         try {
             int year=Integer.parseInt(namTk);
             System.out.println("Danh Sach Hoa Don Thong Ke Theo Thang " + namTk + ":");
-            
+
             boolean find=false;
             for(HoaDon HD : dsHD){
                 if(HD != null){
@@ -233,7 +237,7 @@ public class DanhSachHoaDon implements CRUD2{
                         HD.xuat();
                         find=true;
                     }
-                } 
+                }
             }
             if (!find) {
                 System.out.println("Khong Co Hoa Don Nhap Hang Theo Nam: " + namTk);
@@ -272,41 +276,47 @@ public class DanhSachHoaDon implements CRUD2{
                     }
                 }
             }
-           
+
         }
-         // Sử dụng DecimalFormat để thay đổi dấu phân cách
-         DecimalFormat moneyfFormat = new DecimalFormat("#,###.###");
-         System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
-         System.err.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
-         System.err.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
-         System.err.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
-         System.err.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
+        // Sử dụng DecimalFormat để thay đổi dấu phân cách
+        DecimalFormat moneyfFormat = new DecimalFormat("#,###.###");
+        System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
+        System.err.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
+        System.err.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
+        System.err.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
+        System.err.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
     }
 
     public void thongKe(){
-        System.err.print("\n1. Thong Ke Theo Ngay");
-        System.err.print("\n2. Thong Ke Theo Thang");
-        System.err.print("\n3. Thong Ke Theo Nam");
-        System.err.print("\n4. Thong Ke Theo Quy");
-        System.out.print("\nNhap Lua Chon Thong Ke:");
-        int choice =sc.nextInt();
-        sc.nextLine();
-        switch (choice) {
-            case 1:
-                thongKeTheoNgay();
-                break;
-            case 2:
-                thongKeTheoThang();
-                break;
-            case 3:
-                thongKeTheoNam();
-                break;
-            case 4:
-                thongKeTheoQuyvaNam();
-                break;
-            default:
-                System.err.print("Nhap Sai Vui Long Nhap Lai!!");
-                break;
+       while (true)
+       {
+           System.err.print("\n0. Thoat");
+           System.err.print("\n1. Thong Ke Theo Ngay");
+           System.err.print("\n2. Thong Ke Theo Thang");
+           System.err.print("\n3. Thong Ke Theo Nam");
+           System.err.print("\n4. Thong Ke Theo Quy\n");
+           System.out.print("\nNhap Lua Chon Thong Ke:");
+           int choice =sc.nextInt();
+           sc.nextLine();
+           switch (choice) {
+               case 0:
+                   return;
+               case 1:
+                   thongKeTheoNgay();
+                   break;
+               case 2:
+                   thongKeTheoThang();
+                   break;
+               case 3:
+                   thongKeTheoNam();
+                   break;
+               case 4:
+                   thongKeTheoQuyvaNam();
+                   break;
+               default:
+                   System.err.print("Nhap Sai Vui Long Nhap Lai!!");
+                   break;
+           }
         }
 
     }
@@ -341,7 +351,7 @@ public class DanhSachHoaDon implements CRUD2{
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
-                }    
+                }
                 if (empty) {
                     System.out.println("\nFILE EMPTY WITH NOTHING");
                 }
@@ -356,13 +366,16 @@ public class DanhSachHoaDon implements CRUD2{
         try {
             PrintWriter pw=new PrintWriter("HoaDon_Output.txt");
             for(HoaDon HD: dsHD){
-                String line= "Ma Hoa Don: "+HD.getmaHD()+ " | Ma Khach Hang: " + HD.getmaKH() + " | Ma Nhan Vien: " + HD.getmaNV() + " | Ngay Tao HD: " +HD.getngayTaoHD()+ " | Tong Tien: " 
+                if(HD !=null){
+                    String line= "Ma Hoa Don: "+HD.getmaHD()+ " | Ma Khach Hang: " + HD.getmaKH() + " | Ma Nhan Vien: " + HD.getmaNV() + " | Ngay Tao HD: " +HD.getngayTaoHD()+ " | Tong Tien: "
                             +HD.gettongTien()+" | Tien Nhan: " + HD.gettienNhan() + " | Tien Thoi: " + HD.gettienThoi();
-                pw.println(line);
-                pw.flush();
+                    pw.println(line);
+                    pw.flush();
+                }
+
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
-            
+
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();

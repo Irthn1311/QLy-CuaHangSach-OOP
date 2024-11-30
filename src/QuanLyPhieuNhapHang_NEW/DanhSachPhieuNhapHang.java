@@ -1,3 +1,5 @@
+package QuanLyPhieuNhapHang_NEW;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -8,7 +10,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
-public class DanhSachPhieuNhapHang implements CRUD2{
+public class DanhSachPhieuNhapHang {
     Scanner sc=new Scanner(System.in);
     private PhieuNhapHang[] dsPNH;
     private int size;
@@ -309,7 +311,7 @@ public class DanhSachPhieuNhapHang implements CRUD2{
         }
 
     }
-    @Override
+
     public void docFile(){
         File readf = new File("PhieuNhapHang_Input.txt");
         try{
@@ -348,7 +350,6 @@ public class DanhSachPhieuNhapHang implements CRUD2{
         }
     }
 
-    @Override
     public void ghiFile(){
         try {
             PrintWriter pw=new PrintWriter("PhieuNhapHang_Output.txt");

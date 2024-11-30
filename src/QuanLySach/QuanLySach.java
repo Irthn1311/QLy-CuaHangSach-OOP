@@ -7,13 +7,13 @@ public class QuanLySach {
     public void menu() {
         int choice;
         do {
-            System.out.print("\n1.Xem Danh Sach Sach");
-            System.out.print("\n2.Them Sach");
-            System.out.print("\n3.Sua Sach");
-            System.out.print("\n4.Xoa Sach");
-            System.out.print("\n5.Tim Sach");
-            System.out.print("\n6.Thong Ke Sach");
-            System.out.print("\n7.Doc Du Lieu File");
+            System.out.print("\n1.Doc Du Lieu Tu File");
+            System.out.print("\n2.Xem Danh Sach Sach");
+            System.out.print("\n3.Them Sach");
+            System.out.print("\n4.Sua Sach");
+            System.out.print("\n5.Xoa Sach");
+            System.out.print("\n6.Tim Sach");
+            System.out.print("\n7.Thong Ke Sach");
             System.err.print("\n8.Ghi Du Lieu Vao File");
             System.out.print("\n0.Thoat");
             System.out.print("\nLua Chon Cua Ban: ");
@@ -21,25 +21,25 @@ public class QuanLySach {
             sc.nextLine(); // Clear the buffer after nextInt()
             switch (choice) {
                 case 1:
-                    quanlysach.xem();
+                    quanlysach.docFile();
                     break;
                 case 2:
-                    quanlysach.them();
+                    quanlysach.xem();
                     break;
                 case 3:
-                    quanlysach.sua();
+                    quanlysach.them();
                     break;
                 case 4:
-                    quanlysach.xoa();
+                    quanlysach.sua();
                     break;
                 case 5:
-                    quanlysach.timkiem();
+                    quanlysach.xoa();
                     break;
                 case 6:
-                    quanlysach.thongke();
+                    quanlysach.timkiem();
                     break;
                 case 7:
-                    quanlysach.docFile();
+                    quanlysach.thongke();
                     break;
                 case 8:
                     quanlysach.ghiFile();

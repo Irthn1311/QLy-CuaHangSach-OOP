@@ -11,40 +11,40 @@ public class QuanLyKhachHang {
             System.out.print("\n╔══════════════════════════════════════════╗\n");
             System.err.print("║        MENU : Quan ly Khach Hang         ║\n");
             System.out.print("╠══════════════════════════════════════════╣\n");
-            System.out.print("║  1.Xem Danh Sach Khach Hang              ║\n");
-            System.out.print("║  2.Them Khach Hang                       ║\n");
-            System.out.print("║  3.Sua Khach Hang                        ║\n");
-            System.out.print("║  4.Xoa Khach Hang                        ║\n");
-            System.out.print("║  5.Tim Khach Hang                        ║\n");
-            System.out.print("║  6.Thong Ke Khach Hang                   ║\n");
-            System.out.print("║  7.Doc Du Lieu File                      ║\n");
-            System.err.print("║  8.Ghi Du Lieu Vao File                  ║\n");
-            System.out.print("║  0.Thoat                                 ║\n");
+            System.out.print("║  1. Doc Du Lieu File                     ║\n");
+            System.out.print("║  2. Xem Danh Sach Khach Hang             ║\n");
+            System.out.print("║  3. Them Khach Hang                      ║\n");
+            System.out.print("║  4. Sua Khach Hang                       ║\n");
+            System.out.print("║  5. Xoa Khach Hang                       ║\n");
+            System.out.print("║  6. Tim Khach Hang                       ║\n");
+            System.out.print("║  7. Thong Ke Khach Hang                  ║\n");
+            System.err.print("║  8. Ghi Du Lieu Vao File                 ║\n");
+            System.out.print("║  0. Thoat                                ║\n");
             System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 
             switch (choice) {
                 case 1:
-                    quanlyKhachHang.xem();
+                    quanlyKhachHang.docFile();
                     break;
                 case 2:
-                    quanlyKhachHang.them();
+                    quanlyKhachHang.xem();
                     break;
                 case 3:
-                    quanlyKhachHang.sua();
+                    quanlyKhachHang.them();
                     break;
                 case 4:
-                    quanlyKhachHang.xoa();
+                    quanlyKhachHang.sua();
                     break;
                 case 5:
-                    quanlyKhachHang.timkiem();
+                    quanlyKhachHang.xoa();
                     break;
                 case 6:
-                    quanlyKhachHang.thongke();
+                    quanlyKhachHang.timkiem();
                     break;
                 case 7:
-                    quanlyKhachHang.docFile();
+                    quanlyKhachHang.thongke();
                     break;
                 case 8:
                     quanlyKhachHang.ghiFile();
