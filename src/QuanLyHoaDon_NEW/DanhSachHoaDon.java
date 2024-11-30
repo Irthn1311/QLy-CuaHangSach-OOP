@@ -356,10 +356,13 @@ public class DanhSachHoaDon implements CRUD2{
         try {
             PrintWriter pw=new PrintWriter("HoaDon_Output.txt");
             for(HoaDon HD: dsHD){
-                String line= "Ma Hoa Don: "+HD.getmaHD()+ " | Ma Khach Hang: " + HD.getmaKH() + " | Ma Nhan Vien: " + HD.getmaNV() + " | Ngay Tao HD: " +HD.getngayTaoHD()+ " | Tong Tien: " 
+                if(HD !=null){
+                    String line= "Ma Hoa Don: "+HD.getmaHD()+ " | Ma Khach Hang: " + HD.getmaKH() + " | Ma Nhan Vien: " + HD.getmaNV() + " | Ngay Tao HD: " +HD.getngayTaoHD()+ " | Tong Tien: " 
                             +HD.gettongTien()+" | Tien Nhan: " + HD.gettienNhan() + " | Tien Thoi: " + HD.gettienThoi();
-                pw.println(line);
-                pw.flush();
+                    pw.println(line);
+                    pw.flush();
+                }
+                
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
             

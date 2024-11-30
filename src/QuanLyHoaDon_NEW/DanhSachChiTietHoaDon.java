@@ -259,10 +259,13 @@ public class DanhSachChiTietHoaDon implements CRUD2{
         try {
             PrintWriter pw=new PrintWriter("ChiTietHoaDon_Output.txt");
             for(ChiTietHoaDon CTHD: dsChiTiet){
-                String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: " 
+                if(CTHD != null){
+                    String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: " 
                             +CTHD.getThanhTien();
-                pw.println(line);
-                pw.flush();
+                    pw.println(line);
+                    pw.flush();
+                }
+                
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG ");
             

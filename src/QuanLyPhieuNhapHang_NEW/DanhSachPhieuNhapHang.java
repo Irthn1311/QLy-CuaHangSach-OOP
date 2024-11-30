@@ -353,10 +353,13 @@ public class DanhSachPhieuNhapHang implements CRUD2{
         try {
             PrintWriter pw=new PrintWriter("PhieuNhapHang_Output.txt");
             for(PhieuNhapHang PNH: dsPNH){
-                String line= "Ma PNH: "+PNH.getMaPNH()+ " | Ngay Nhap: " + PNH.getNgayNhap() + " | Ma NXB: " + PNH.getMaPNH() + " | Ma Nhan Vien: " +PNH.getMaNV()+ " | Tong Tien: " 
+                if(PNH !=null ){
+                     String line= "Ma PNH: "+PNH.getMaPNH()+ " | Ngay Nhap: " + PNH.getNgayNhap() + " | Ma NXB: " + PNH.getMaPNH() + " | Ma Nhan Vien: " +PNH.getMaNV()+ " | Tong Tien: " 
                             +PNH.getTongTien();
-                pw.println(line);
-                pw.flush();
+                    pw.println(line);
+                    pw.flush();
+                }
+               
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG: ");
             
