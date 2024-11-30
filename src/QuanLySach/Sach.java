@@ -58,7 +58,7 @@ public class Sach {
         System.out.print("Nhap Ma Tac Gia: ");
         maTacGia = sc.nextLine();
 
-        System.out.print("Nhap ma Nha Xuat Ban: ");
+        System.out.print("Nhap Ma Nha Xuat Ban: ");
         maNXB = sc.nextLine();
 
         System.out.print("Nhap Don Gia: ");
@@ -72,9 +72,13 @@ public class Sach {
     }
 
     public void xuat() {
-        System.out.print("\n-------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("| Ma Sach: %-5s | Ten Sach: %-16s | Ma Tac Gia: %-10s | Ma NXB: %-10s",maSach,tenSach,maTacGia,maNXB);
-        System.out.printf("| The Loai: %-10s | Don Gia: %-13.2f | So Luong Ton: %-16d",theLoai,donGiaBan,soLuongSachHienCo);
+        System.out.println("╔══════════════════════════════════════════");
+        System.out.printf("║          MA SACH: %s          \n",maSach);
+        System.out.println("╠══════════════════════════════════════════");
+        System.out.printf("║ Ten Sach        : %s                              \n",tenSach);
+        System.out.printf("║ Ma Tac Gia      : %s                   \n",maTacGia);
+        System.err.printf("║ Ma Nha Xuat Ban : %s                      \n",maNXB);
+        System.err.printf("║ Don Gia: %.2f            So Luong: %d          \n",donGiaBan,soLuongSachHienCo);
     }
 
     public void suaSach() {
@@ -82,13 +86,14 @@ public class Sach {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("\nChon thong tin can sua:");
-            System.out.println("1. Ten Sach");
-            System.out.println("2. Ma Tac Gia");
-            System.out.println("3. Ma Nha Xuat Ban");
-            System.out.println("4. Don Gia Ban");
-            System.out.println("5. So Luong Ton Kho");
-            System.out.println("0. Thoat");
+            System.out.print("╔══════════════════════════════════════════╗\n");
+            System.out.print("║  1. Sua Ten Sach                         ║\n");
+            System.out.print("║  2. Sua Ma Tac Gia                       ║\n");
+            System.out.print("║  3. Sua Ma Nha Xuat Ban                  ║\n");
+            System.out.print("║  4. Sua Don Gia                          ║\n");
+            System.out.print("║  5. Sua So Luong Ton Kho                 ║\n");
+            System.out.print("║  0. Thoat                                ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("Lua chon cua ban: ");
             choice = sc.nextInt();
             sc.nextLine(); // Xoa bo dem

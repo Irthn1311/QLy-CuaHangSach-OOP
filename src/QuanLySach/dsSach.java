@@ -16,8 +16,8 @@ public class dsSach implements CRUD {
     public dsSach(){
         arrSach = new Sach[3];
         arrSach[0]= new Sach("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87);
-        arrSach[0]= new SachThamKhao("S002","Nha Gia Kim","TG002","NXB002","Van Hoc, Tieu Thuyet Truyen Cam Hung",95.00,99,"Tieu Thuyet",18);
-        arrSach[0]= new SachChuyenNganh("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87,"Triet Hoc");
+        arrSach[1]= new SachThamKhao("S002","Nha Gia Kim","TG002","NXB002","Van Hoc, Tieu Thuyet Truyen Cam Hung",95.00,99,"Tieu Thuyet",18);
+        arrSach[2]= new SachChuyenNganh("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87,"Triet Hoc");
     }
 
     public Sach[] getDsSach(){
@@ -51,6 +51,7 @@ public class dsSach implements CRUD {
             for (Sach s: arrSach){
                 if (s != null){
                     s.xuat();
+                    System.out.println("╚══════════════════════════════════════════");    
                 }
             }
         }
@@ -114,7 +115,7 @@ public class dsSach implements CRUD {
         System.out.print("Nhap Ma Sach Can Sua: ");
         String maSach = sc.nextLine();
         int vt = viTriMaSach(maSach);
-        if (vt == -1){
+        if (vt != -1){
             System.out.print("\n╔══════════════════════════════════════════╗\n");
             System.err.printf("║     MENU : Chinh Sua Sach %6s         ║\n",maSach.toUpperCase());
             arrSach[vt].suaSach();
@@ -150,7 +151,7 @@ public class dsSach implements CRUD {
             System.out.println("║       MENU : Tim Kiem Sach               ║ ");
             System.out.println("║   1. Tim Kiem Theo Ma Sach               ║ ");
             System.out.println("║   2. Tim Kiem Theo Ten Sach              ║ ");
-            System.out.println("║   3. Tim Kiem Theo Ma Tac Gia               ║ ");
+            System.out.println("║   3. Tim Kiem Theo Ma Tac Gia            ║ ");
             System.out.println("║   4. Tim Kiem Theo Gia Sach (Min-Max)    ║ ");
             System.out.println("║   0. Thoat                               ║ ");
             System.out.print("╚══════════════════════════════════════════╝\n");
@@ -186,6 +187,7 @@ public class dsSach implements CRUD {
         int vt = viTriMaSach(maSach);
         if (vt != -1) {
             arrSach[vt].xuat();
+            System.out.println("╚══════════════════════════════════════════"); 
             
         }else{
             System.err.print("\n╔══════════════════════════════════════════\n");
@@ -203,6 +205,7 @@ public class dsSach implements CRUD {
             if (sach != null && sach.getTenSach().toLowerCase().contains(tenSach.toLowerCase())) {
                 found = true;
                 sach.xuat();
+                System.out.println("╚══════════════════════════════════════════"); 
                 break;
             }
         }
@@ -222,6 +225,7 @@ public class dsSach implements CRUD {
             if (sach != null && sach.getMaTacGia().toLowerCase().contains(maTacGia.toLowerCase())){
                 found = true;
                 sach.xuat();
+                System.out.println("╚══════════════════════════════════════════"); 
             }
         }
 
@@ -273,7 +277,7 @@ public class dsSach implements CRUD {
             System.out.println("║   1. Thong Ke Theo The Loai              ║ ");
             System.out.println("║   2. Thong Ke Theo Ma Tac Gia            ║ ");
             System.out.println("║   3. Thong Ke Theo Ma Nha Xuat Ban       ║ ");
-            System.out.println("║   3. Thong Ke Theo Gia Sach (Min-Max)    ║ ");
+            System.out.println("║   4. Thong Ke Theo Gia Sach (Min-Max)    ║ ");
             System.out.println("║   0. Thoat                               ║ ");
             System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");

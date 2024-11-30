@@ -7,15 +7,19 @@ public class QuanLySach {
     public void menu() {
         int choice;
         do {
-            System.out.print("\n1.Doc Du Lieu Tu File");
-            System.out.print("\n2.Xem Danh Sach Sach");
-            System.out.print("\n3.Them Sach");
-            System.out.print("\n4.Sua Sach");
-            System.out.print("\n5.Xoa Sach");
-            System.out.print("\n6.Tim Sach");
-            System.out.print("\n7.Thong Ke Sach");
-            System.err.print("\n8.Ghi Du Lieu Vao File");
-            System.out.print("\n0.Thoat");
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.print("║        MENU : Quan ly Sach               ║\n");
+            System.out.print("╠══════════════════════════════════════════╣\n");
+            System.out.print("║  1. Doc Du Lieu File                     ║\n");
+            System.out.print("║  2. Xem Danh Sach Sach                   ║\n");
+            System.out.print("║  3. Them Sach                            ║\n");
+            System.out.print("║  4. Sua Sach                             ║\n");
+            System.out.print("║  5. Xoa Sach                             ║\n");
+            System.out.print("║  6. Tim Sach                             ║\n");
+            System.out.print("║  7. Thong Ke Sach                        ║\n");
+            System.err.print("║  8. Ghi Du Lieu Vao File                 ║\n");
+            System.out.print("║  0. Thoat                                ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); // Clear the buffer after nextInt()
