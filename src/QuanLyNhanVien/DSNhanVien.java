@@ -52,7 +52,7 @@ public class DSNhanVien implements CRUD {
     @Override
     public void them(){
         NhanVien nv=new NhanVien();
-        nv.nhapNV(false);
+        nv.nhapNV();
         if(!kiemTraTonTai(nv.getMaNV())){
             arrNV = Arrays.copyOf(arrNV, arrNV.length + 1);
             arrNV[arrNV.length - 1] = nv;

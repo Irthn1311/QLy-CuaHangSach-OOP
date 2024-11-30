@@ -71,12 +71,12 @@ public class NhanVien {
     public void setDiaChiNV(String DiaChiNV) { this.diaChiNV = DiaChiNV; }
     public void setLuongNV(Double LuongNV) { this.luongNV = LuongNV; }
 
-    public void nhapNV(boolean skipMaNV){
+    public void nhapNV(){
 
-        if(!skipMaNV){
-            System.out.print("Nhap Ma Nhan Vien: ");
-            this.maNV = sc.nextLine();
-        }
+        
+        System.out.print("Nhap Ma Nhan Vien: ");
+        this.maNV = sc.nextLine();
+        
         
         System.out.print("\nNhap Ho Nhan Vien: ");
         this.hoNV = sc.nextLine();

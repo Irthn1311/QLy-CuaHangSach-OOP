@@ -52,6 +52,7 @@ public class TacGia {
         while (!CheckDate) {
             System.out.printf("Nhap Nam Sinh Tac Gia (dd-mm-yyyy): ");
             String NgaySinhTG=sc.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             try{
                 this.NamSinhTG=LocalDate.parse(NgaySinhTG,formatter);
                 CheckDate=true;
