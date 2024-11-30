@@ -1,3 +1,5 @@
+package QuanLyHoaDon_NEW;
+
 import java.util.Scanner;
 
 public class ChiTietHoaDon {
@@ -56,15 +58,13 @@ public class ChiTietHoaDon {
     }
 
     public void xuat() {
-   
-        
-        System.out.println("╔══════════════════════════════════════════");
-        System.out.printf("║    MA CHI TIET HOA DON: %-7s          \n",MaCTHD);
-        System.out.println("╠══════════════════════════════════════════");
-        System.out.printf("║ MA SACH: %-1s                              \n",maSach);
-        System.out.printf("║ SO LUONG: %d       DON GIA: %.2f        \n",soLuong,donGia);
-        System.err.printf("║ THANH TIEN: %.2f                       \n",thanhTien);
-        System.out.println("╚══════════════════════════════════════════");
+        System.out.println("╔════════════════════════════════════════════╗");
+        System.out.printf("║    MA CHI TIET HOA DON: %-9s          ║\n",MaCTHD);
+        System.out.println("╠════════════════════════════════════════════╣");
+        System.out.printf("║ MA SACH: %-5s                             ║\n",maSach);
+        System.out.printf("║ SO LUONG: %-3d       DON GIA: %-6.2f        ║\n",soLuong,donGia);
+        System.out.printf("║ THANH TIEN: %-8.2f                       ║\n",thanhTien);
+        System.out.println("╚════════════════════════════════════════════╝");
     }
 
 

@@ -1,10 +1,14 @@
+package QuanLyHoaDon_NEW;
+
+import Interface.CRUD2;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DanhSachChiTietHoaDon implements CRUD2{
+public class DanhSachChiTietHoaDon implements CRUD2 {
     Scanner sc = new Scanner(System.in);
     private ChiTietHoaDon[] dsChiTiet = new ChiTietHoaDon[0];
     private int size = 0;
@@ -67,9 +71,9 @@ public class DanhSachChiTietHoaDon implements CRUD2{
         dsChiTiet = Arrays.copyOf(dsChiTiet, size + 1);
         dsChiTiet[size] = chiTiet;
         size++;
-        
+
         updateTongTien(MaPNH);
-        
+
         System.out.println("Da Them Chi Tiet Vao Hoa Don Co Ma:"+MaPNH);
     }
 
@@ -102,12 +106,12 @@ public class DanhSachChiTietHoaDon implements CRUD2{
                 System.out.println("Ma Sach Da Ton Tai Trong Hoa Don. Vui Long Nhap Lai\n");
                 return; // Dừng thêm chi tiết
             }
-            
+
             dsChiTiet = Arrays.copyOf(dsChiTiet, size + 1);
             dsChiTiet[size] = chiTiet;
             size++;
             updateTongTien(MaPNH);
-        
+
             System.out.println("Da Them Chi Tiet Vao Hoa Don Co Ma:"+MaPNH);
         }else{
             System.out.println("Khong Tim Thay Hoa Don Voi Ma: " + MaPNH);
@@ -119,7 +123,7 @@ public class DanhSachChiTietHoaDon implements CRUD2{
             System.out.println("Chua Co Chi Tiet Nao.");
             return;
         }
-        System.err.print("Danh Sach Chi Tiet Cac Hoa Don");
+        System.out.println("Danh Sach Chi Tiet Cac Hoa Don");
         // In các chi tiết hóa đơn
         for(ChiTietHoaDon CTHD: dsChiTiet){
             if(CTHD!=null){
@@ -175,13 +179,13 @@ public class DanhSachChiTietHoaDon implements CRUD2{
         System.out.print("Nhap Ma Hoa Don Can Xoa San Pham: ");
         String MaHD = sc.nextLine();
 
-         // Kiểm tra mã hóa đơn có tồn tại không
-         boolean findHD = false;
-         for (ChiTietHoaDon chiTiet : dsChiTiet) {
-             if (chiTiet !=null && chiTiet.getMaCTHD().equals(MaHD)) {
-                 findHD = true;
-                 break;
-             }
+        // Kiểm tra mã hóa đơn có tồn tại không
+        boolean findHD = false;
+        for (ChiTietHoaDon chiTiet : dsChiTiet) {
+            if (chiTiet !=null && chiTiet.getMaCTHD().equals(MaHD)) {
+                findHD = true;
+                break;
+            }
         }
         if (!findHD) {
             System.out.println("Khong Tim Thay Phieu Voi Ma: " + MaHD);
@@ -234,7 +238,7 @@ public class DanhSachChiTietHoaDon implements CRUD2{
                         String maSach=info[1].trim();
                         int soluong=Integer.parseInt(info[2].trim());
                         Double dongia=Double.parseDouble(info[3].trim());
-        
+
                         if(size==dsChiTiet.length){
                             dsChiTiet=Arrays.copyOf(dsChiTiet, size+1);
                         }
@@ -244,7 +248,7 @@ public class DanhSachChiTietHoaDon implements CRUD2{
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
-                }    
+                }
                 if (empty) {
                     System.out.println("\nFILE EMPTY WITH NOTHING");
                 }
@@ -260,19 +264,19 @@ public class DanhSachChiTietHoaDon implements CRUD2{
             PrintWriter pw=new PrintWriter("ChiTietHoaDon_Output.txt");
             for(ChiTietHoaDon CTHD: dsChiTiet){
                 if(CTHD != null){
-                    String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: " 
+                    String line= "Ma CTPNH: "+CTHD.getMaCTHD()+ " | Ma Sach: " + CTHD.getDonGia() + " | So Luong: " + CTHD.getSoLuong() + " | Ma Nhan Vien: " +CTHD.getDonGia()+ " | Tong Tien: "
                             +CTHD.getThanhTien();
                     pw.println(line);
                     pw.flush();
                 }
-                
+
             }
             System.out.print("\nNHAP THONG TIN VAO FILE THANH CONG ");
-            
+
             pw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
 }
