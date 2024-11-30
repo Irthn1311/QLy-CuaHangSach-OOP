@@ -1,5 +1,6 @@
 package QuanLyPhieuNhapHang;
-
+import QuanLyNXB.NhaXuatBan;
+import QuanLySach.Sach;
 import java.io.*;
 import java.util.Scanner;
 import Interface.CRUD;
@@ -85,6 +86,11 @@ public class DanhSachCTPNH implements CRUD {
                 break;
             }
         }
+        System.out.print("\n============SuaPNH================");
+        System.out.print("\n1.Sua lai ma phieu nhap hang");
+        System.out.print("\n2.Sua so luong nhap");
+        System.out.print("\n3.Sua ");
+        System.out.print("\n===================================");
         if (!found) {
             System.out.println("Khong tim thay Phieu Nhap Hang voi ma: " + maCTPNH);
         }
@@ -143,15 +149,8 @@ public class DanhSachCTPNH implements CRUD {
     }
 @Override
     public void docFile() {
-        System.out.print("Nhap ten file de doc: ");
-        String filename = sc.nextLine();
-
-        File file = new File(filename);
-        if (!file.exists()) {
-            System.out.println("Loi: File khong ton tai! Vui long kiem tra lai ten file.");
-            return; 
-        }
-
+       File file=new File("ctpnh.txt");
+       System.out.print("\nFile: "+file.exists());
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -164,8 +163,8 @@ public class DanhSachCTPNH implements CRUD {
                 ChiTietPhieuNhapHang newItem = new ChiTietPhieuNhapHang();
                 newItem.setMa_CTPNH(parts[0].trim());  
                 newItem.setMasACH_pnhsach(parts[1].trim());   
-                newItem.setSoLuong(Integer.parseInt(parts[2].trim())); 
-                newItem.setDonGia(Double.parseDouble(parts[3].trim())); 
+                newItem.setSoLuong_Nhap(Integer.parseInt(parts[2].trim())); 
+                newItem.setDonGia_Nhap(Double.parseDouble(parts[3].trim())); 
                 listPNH[size] = newItem;
                 size++; 
             }

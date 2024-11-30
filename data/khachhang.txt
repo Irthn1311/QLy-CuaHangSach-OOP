@@ -1,0 +1,10 @@
+KH004 | Tran | Minh Tu | 15-05-1995 | Nam | 0123456789 | Binh Thanh
+KH005 | Pham | Thanh An | 20-07-1989 | Nu | 0937456123 | Go Vap
+KH006 | Nguyen | Anh Kien | 25-10-1992 | Nam | 0946123456 | Thu Duc
+KH007 | Le | Bao Ngoc | 01-01-1985 | Nu | 0987456321 | Tan Binh
+KH008 | Mai | Minh Tu | 19-09-1980 | Nam | 0912345678 |Ha Noi
+KH009 | Vu | Thu Hoa | 14-11-1990 | Nu | 0901234567 | Tan Phu
+KH010 | Dao | Kim Lan | 10-10-2000 | Nu | 0987654321 | Cu Chi
+KH011 | Bui | Thanh Hien | 01-12-1995 | Nam | 0123123456 | Hoc Mon
+KH012 | Hoang | Minh Long | 05-05-1988 | Nam | 0934567890 | Ba Diem
+KH013 | Duong | Bao Son | 12-03-1993 | Nam | 0912345678 | Dong Thap

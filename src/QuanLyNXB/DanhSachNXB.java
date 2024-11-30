@@ -217,8 +217,7 @@ public class DanhSachNXB implements CRUD {
     @Override
     public void docFile() {
         
-        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
-                        "xb.txt");
+        File file = new File("nxb.txt");
         System.out.print("\nFile: "+file.exists());
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -243,8 +242,7 @@ public class DanhSachNXB implements CRUD {
 
     @Override
     public void ghiFile() {
-        File file = new File("C:\\Users\\ACER\\OneDrive\\文档\\POOP\\QLy-CuaHangSach-OOP\\data\\n" + //
-                        "xb.txt");
+        File file = new File("nxb.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < size; i++) {
                 if (NXB[i] != null) {
