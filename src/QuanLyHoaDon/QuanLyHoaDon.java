@@ -1,4 +1,4 @@
-package QuanLyHoaDon_NEW;
+package QuanLyHoaDon;
 
 import java.util.Scanner;
 
