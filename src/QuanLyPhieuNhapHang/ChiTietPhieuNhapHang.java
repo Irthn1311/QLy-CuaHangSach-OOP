@@ -1,4 +1,4 @@
-package QuanLyPhieuNhapHang;
+//package QuanLyPhieuNhapHang;
 
 import java.util.Scanner;
 
@@ -62,9 +62,14 @@ public class ChiTietPhieuNhapHang {
     }
 
     public void xuat() {
-        System.err.print("\n----------------------------------------------------------------------------------------------------------------\n");
-        System.err.printf("| Ma CTPNH: %-10s| Ma Sach: %-10s | So Luong: %-5d | Don Gia: %-10.2f | Thanh Tien: %16.2f ", ma_CTPNH, maSach, soLuong, donGia,thanhTien);
-    
+        System.out.println("\n╔════════════════════════════════════════════");
+        System.out.printf("║    MA CHI TIET PNH : %-9s          \n",ma_CTPNH);
+        System.out.println("╠════════════════════════════════════════════");
+        System.out.printf("║ MA SACH   : %-5s                             \n",maSach);
+        System.out.printf("║ SO LUONG  : %-3d       DON GIA: %-6.2f        \n",soLuong,donGia);
+        System.out.printf("║ THANH TIEN: %-8.2f                       \n",thanhTien);
+        System.out.println("╚════════════════════════════════════════════");
+
     }
 
 

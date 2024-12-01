@@ -1,4 +1,4 @@
-package QuanLyPhieuNhapHang;
+//package QuanLyPhieuNhapHang;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -120,9 +120,13 @@ public class DanhSachPhieuNhapHang {
             }
             dsPNH=Arrays.copyOf(dsPNH, size-1);
             size--;
-            System.out.println("Da Xoa Phieu Voi Ma PNH: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Da Xoa Phieu Voi Ma PNH: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
         }else{
-            System.out.println("Khong Tim Thay Ma PNH: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma PNH: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -134,7 +138,9 @@ public class DanhSachPhieuNhapHang {
         if(vt!=-1){
             dsPNH[vt].xuatPNH();
         }else{
-            System.out.println("Khong Tim Thay PNH voi Ma: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma PNH: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -157,14 +163,20 @@ public class DanhSachPhieuNhapHang {
                 String ngayNhap = sc.nextLine();
                 dsPNH[vt].setNgayNhap(ngayNhap);
                 if(dateError.equals(dsPNH[vt].getNgayNhap())){
-                    System.err.print("Ngay nhap khong hop le. Dinh dang phai la (dd-MM-yyyy).");
+                    System.out.print("Ngay nhap khong hop le. Dinh dang phai la (dd-MM-yyyy).");
                 }else{
                     condition=true;
                 }
             }
             System.out.println("Da Sua Thanh Cong Ma PNH: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Da Sua Thanh Cong Ma PNH: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
         }else{
-            System.out.println("Khong Tim Thay Ma PNH: " + MaPNH);
+
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma PNH: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -182,10 +194,13 @@ public class DanhSachPhieuNhapHang {
                     find=true;
                 }
             }
-            if (!find) 
-                System.out.println("Khong Co Phieu Nhap Hang Theo Ngay: " + ngayTK);
+            if (!find) {
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Phieu Nhap Hang Theo Ngay: %s\n" ,ngayTK);
+                System.out.print("╚══════════════════════════════════════════");
+             }   
         } catch (Exception e) {
-            System.err.println("Ngay Nhap Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(dd-MM-yyyy).");
+            System.out.println("Ngay Nhap Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(dd-MM-yyyy).");
         }
     }
 
@@ -210,10 +225,12 @@ public class DanhSachPhieuNhapHang {
                 
             }
             if (!find) {
-                System.out.println("Khong Co Phieu Nhap Hang Theo Thang: " + thangTK);
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Phieu Nhap Hang Theo Thang: %s\n" ,thangTK);
+                System.out.print("╚══════════════════════════════════════════");
             }
         } catch (Exception e) {
-            System.err.println("Thang Nhan Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(MM-yyyy).");
+            System.out.println("Thang Nhan Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(MM-yyyy).");
         } 
     }
 
@@ -236,11 +253,13 @@ public class DanhSachPhieuNhapHang {
                 } 
             }
             if (!find) {
-                System.out.println("Khong Co Phieu Nhap Hang Theo Nam: " + namTk);
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Phieu Nhap Hang Theo Nam: %s\n" ,namTk);
+                System.out.print("╚══════════════════════════════════════════");
             }
 
         } catch (Exception e) {
-            System.err.println("Nam Nhan Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(yyyy).");
+            System.out.println("Nam Nhan Hang Khong Hop Le. Vui Long Nhap Theo Dinh Dang(yyyy).");
         }
     }
 
@@ -277,19 +296,31 @@ public class DanhSachPhieuNhapHang {
 
         // Sử dụng DecimalFormat để thay đổi dấu phân cách
         DecimalFormat moneyfFormat = new DecimalFormat("#,###.###");
-        System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
-        System.err.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
-        System.err.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
-        System.err.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
-        System.err.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
+        // System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
+        // System.out.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
+        // System.out.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
+        // System.out.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
+        // System.out.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
+        System.out.print("\n╔══════════════════════════════════════════\n");
+        System.out.printf("║              Thong Ke Nam %d        \n",namTK);
+        System.out.print("╠═══════╦════════════════════════════════════\n");
+        System.out.println("║ Quy 1 ║ "+ moneyfFormat.format(tongTienQuy1)+ " VND");
+        System.out.println("║ Quy 2 ║ "+ moneyfFormat.format(tongTienQuy2)+ " VND");
+        System.out.println("║ Quy 3 ║ "+ moneyfFormat.format(tongTienQuy3)+ " VND");
+        System.out.println("║ Quy 4 ║ "+ moneyfFormat.format(tongTienQuy4)+ " VND") ;
+        System.out.print("╚═══════╩════════════════════════════════════\n");
     }
 
     public void thongKe(){
-        System.err.print("\n1. Thong Ke Theo Ngay");
-        System.err.print("\n2. Thong Ke Theo Thang");
-        System.err.print("\n3. Thong Ke Theo Nam");
-        System.err.print("\n4. Thong Ke Theo Quy");
-        System.out.print("\nNhap Lua Chon Thong Ke:");
+        System.out.print("\n╔══════════════════════════════════════════╗\n");
+        System.out.println("║       MENU : Thong Phieu Nhap Hang       ║ ");
+        System.out.println("║   1. Thong Ke Theo Ngay                  ║ ");
+        System.out.println("║   2. Thong Ke Theo Thang                 ║ ");
+        System.out.println("║   3. Thong Ke Theo Nam                   ║ ");
+        System.out.println("║   4. Thong Ke Theo Quy                   ║ ");
+        System.out.println("║   0. Thoat                               ║ ");
+        System.out.print("╚══════════════════════════════════════════╝\n");
+        System.out.print("\nLua Chon Cua Ban: ");
         int choice =sc.nextInt();
         sc.nextLine();
         switch (choice) {
@@ -306,7 +337,7 @@ public class DanhSachPhieuNhapHang {
                 thongKeTheoQuyvaNam();
                 break;
             default:
-                System.err.print("Nhap Sai Vui Long Nhap Lai!!");
+                System.out.print("Nhap Sai Vui Long Nhap Lai!!");
                 break;
         }
 
@@ -331,12 +362,22 @@ public class DanhSachPhieuNhapHang {
                         String maNXB=info[2].trim();
                         String maNV=info[3].trim();
                         Double TongTien=Double.parseDouble(info[4].trim());
-        
-                        if(size==dsPNH.length){
-                            dsPNH=Arrays.copyOf(dsPNH, size+1);
+                        
+                        if(!KiemTraMaPNHTonTai(maPNH)){
+                            if(size==dsPNH.length){
+                                dsPNH=Arrays.copyOf(dsPNH, size+1);
+                            }
+                            dsPNH[size]=new PhieuNhapHang(maPNH,ngayNhap,maNXB,maNV,TongTien);
+                            size++;
+                            System.out.print("\n╔══════════════════════════════════════════\n");
+                            System.out.printf("║ Ma PNH %s Da Them \n", maPNH);
+                            System.out.print("╚══════════════════════════════════════════");
+                        }else {
+                            System.out.print("\n╔══════════════════════════════════════════\n");
+                            System.out.printf("║ Ma PNH %s Da Co \n", maPNH);
+                            System.out.print("╚══════════════════════════════════════════");
                         }
-                        dsPNH[size]=new PhieuNhapHang(maPNH,ngayNhap,maNXB,maNV,TongTien);
-                        size++;
+                        
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }

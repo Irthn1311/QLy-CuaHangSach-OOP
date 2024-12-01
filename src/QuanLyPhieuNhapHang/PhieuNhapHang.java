@@ -1,4 +1,4 @@
-package QuanLyPhieuNhapHang;
+//package QuanLyPhieuNhapHang;
 
 import java.util.Scanner;
 import java.time.DateTimeException;
@@ -81,9 +81,15 @@ public class PhieuNhapHang {
 
    
     public void xuatPNH() {
-        System.err.print("\n----------------------------------------------------------------------------------------------------------------\n");
-        System.err.printf("| Ma PNH: %-6s| Ngay Nhap: %-10s | Ma NXB: %-6s | Ma NV: %-6s | Tong Tien: %14.2f ", maPNH, ngayNhap.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), maNXB, maNV,tongTien);
-    
+        
+        System.err.print("\n╔══════════════════════════════╦═══════════════════════\n");
+        System.err.printf("║     PNH NGAY: %-7s     ║       MA PNH: %-7s \n",ngayNhap.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),maPNH );
+        System.err.print("╠══════════════════════════════╩═══════════════════════\n");
+        System.err.printf("║ MA NHA XUAT BAN   : %-7s                               \n",maNXB);
+        System.err.printf("║ TONG TIEN         : %.2f VND             \n",tongTien);
+        System.err.printf("╠══════════════════════════════════════════════════════\n");
+        System.err.printf("║ MA NHAN VIEN      : %-7s                                \n",maNV);
+        System.err.print("╚══════════════════════════════════════════════════════\n");
 
     }
 
