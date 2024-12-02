@@ -14,16 +14,9 @@ public class dsSach implements CRUD {
     Scanner sc=new Scanner(System.in);
 
     public dsSach(){
-        arrSach = new Sach[3];
-        arrSach[0]= new Sach("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87);
-        arrSach[1]= new SachThamKhao("S002","Nha Gia Kim","TG002","NXB002","Van Hoc, Tieu Thuyet Truyen Cam Hung",95.00,99,"Tieu Thuyet",18);
-        arrSach[2]= new SachChuyenNganh("S001","Dac Nhan Tam","TG001","NXB001","Ky Nang Song, Phat Trien Ban Than",76.00,87,"Triet Hoc");
+        arrSach = new Sach[10];
     }
-
-    public Sach[] getDsSach(){
-        return arrSach;
-    }
-
+    
     private int viTriMaSach(String maSach){
         for(int i = 0; i < arrSach.length; i++){
             if (arrSach[i] != null && arrSach[i].getMaSach().equalsIgnoreCase(maSach)){

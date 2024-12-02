@@ -1,5 +1,5 @@
-S001|Toan Roi Rac|Nguyen Hoa|NXB Thanh Nien|Chuyen Nganh|49000.0|2000|Cong Nghe Thong Tin||
-S002|Dac Nhan Tam|Dale Carnegie|NXB Dan Tri|Sach Tu Luc|54180.0|4000|||
+S001|Dac Nhan Tam|TG001|NXB001|Ky Nang Song, Phat Trien Ban Than|76.0|87|||
+S002|Nha Gia Kim|TG002|NXB002|Van Hoc, Tieu Thuyet Truyen Cam Hung|95.0|99|||
 S003|Tuoi Tre Dang Gia Bao Nhieu|Rosie Nguyen|NXB Hoi Nha Van|Ky Nang Song|89500.0|2000|||
 S004|Co so du lieu|TG001|NXB005|Chuyen Nganh|30000.0|4000|Cong Nghe Thong Tin||
 S005|Ly Thuyet Do Thi|Nguyen Hoa|NXB Thanh Nien|Chuyen Nganh|39000.0|6000|Cong Nghe Thong Tin||

@@ -1,59 +1,98 @@
 package QuanLySach;
 
 import java.util.Scanner;
-public class Sach {
-    private String maSach;
-    private String tenSach;
+public class Sach extends SanPham {
     private String maTacGia;
     private String maNXB;
     private String theLoai;
-    private Double donGiaBan;
     private int soLuongSachHienCo;
 
     public Sach() {
-        maSach = "";
-        tenSach = "";
-        maTacGia = "";
-        maNXB = "";
-        theLoai = "";
-        donGiaBan = 0.0;
-        soLuongSachHienCo = 0;
+        super("", "", 0.0);
+        this.maTacGia = "";
+        this.maNXB = "";
+        this.theLoai = "";
+        this.soLuongSachHienCo = 0;
     }
 
-    public Sach(String maSach, String tenSach, String maTacGia, String maNXB, String theLoai, double donGiaBan, int soLuongSachHienCo) {
-        this.maSach = maSach;
-        this.tenSach = tenSach;
+    public Sach(String maSP, String tenSP, String maTacGia, String maNXB, String theLoai, double giaBan, int soLuongSachHienCo) {
+        super(maSP, tenSP, giaBan);
         this.maTacGia = maTacGia;
         this.maNXB = maNXB;
         this.theLoai = theLoai;
-        this.donGiaBan = donGiaBan;
         this.soLuongSachHienCo = soLuongSachHienCo;
     }
 
-    public String getMaSach() {return maSach;}
-    public String getTenSach() {return tenSach;}
-    public String getMaTacGia() {return maTacGia;}
-    public String getMaNXB() {return maNXB;} 
-    public String getTheLoai() {return theLoai;}
-    public double getDonGiaBan() {return donGiaBan;}
-    public int getSoLuongSachHienCo() {return soLuongSachHienCo;}
+    @Override
+    public double tinhGia() {
+        return giaBan * soLuongSachHienCo;
+    }
 
-    public void setMaSach(String maSach) {this.maSach = maSach;}    
-    public void setTenSach(String tenSach) {this.tenSach = tenSach;}
-    public void setMaTacGia(String maTacGia) {this.maTacGia = maTacGia;}
-    public void setMaNXB(String maNXB) {this.maNXB = maNXB;}
-    public void setTheLoai(String theLoai) {this.theLoai = theLoai;}
-    public void setDonGiaBan(double donGiaBan) {this.donGiaBan = donGiaBan;}
-    public void setSoLuongSachHienCo(int soLuongSachHienCo) {this.soLuongSachHienCo = soLuongSachHienCo;}
 
+    public String getMaSach() {
+        return this.getMaSP();
+    }
+    
+    public void setMaSach(String maSach) {
+        this.setMaSP(maSach);
+    }
+
+    public String getTenSach() {
+        return this.getTenSP();
+    }
+
+    public void setTenSach(String tenSach) {
+        this.setTenSP(tenSach);
+    }
+
+    public double getDonGiaBan() {
+        return this.getGiaBan();
+    }
+
+    public void setDonGiaBan(double donGiaBan) {
+        this.setGiaBan(donGiaBan);
+    }
+
+    // Các phương thức getter và setter
+    public String getMaTacGia() {
+        return maTacGia;
+    }
+
+    public void setMaTacGia(String maTacGia) {
+        this.maTacGia = maTacGia;
+    }
+
+    public String getMaNXB() {
+        return maNXB;
+    }
+
+    public void setMaNXB(String maNXB) {
+        this.maNXB = maNXB;
+    }
+
+    public String getTheLoai() {
+        return theLoai;
+    }
+
+    public void setTheLoai(String theLoai) {
+        this.theLoai = theLoai;
+    }
+
+    public int getSoLuongSachHienCo() {
+        return soLuongSachHienCo;
+    }
+
+    public void setSoLuongSachHienCo(int soLuongSachHienCo) {
+        this.soLuongSachHienCo = soLuongSachHienCo;
+    }
     @SuppressWarnings("resource")
     public void nhap() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap Ma Sach: ");
-        maSach = sc.nextLine();
+        maSP = sc.nextLine();
 
         System.out.print("Nhap Ten Sach: ");
-        tenSach = sc.nextLine();
+        tenSP = sc.nextLine();
 
         System.out.print("Nhap Ma Tac Gia: ");
         maTacGia = sc.nextLine();
@@ -62,7 +101,7 @@ public class Sach {
         maNXB = sc.nextLine();
 
         System.out.print("Nhap Don Gia: ");
-        donGiaBan = sc.nextDouble();
+        giaBan = sc.nextDouble();
         sc.nextLine();
 
         System.out.print("Nhap So Luong Ton Kho: ");
@@ -73,12 +112,12 @@ public class Sach {
 
     public void xuat() {
         System.out.println("╔══════════════════════════════════════════");
-        System.out.printf("║          MA SACH: %s          \n",maSach);
+        System.out.printf("║          MA SACH: %s          \n",maSP);
         System.out.println("╠══════════════════════════════════════════");
-        System.out.printf("║ Ten Sach        : %s                              \n",tenSach);
+        System.out.printf("║ Ten Sach        : %s                              \n",tenSP);
         System.out.printf("║ Ma Tac Gia      : %s                   \n",maTacGia);
         System.err.printf("║ Ma Nha Xuat Ban : %s                      \n",maNXB);
-        System.err.printf("║ Don Gia: %.2f            So Luong: %d          \n",donGiaBan,soLuongSachHienCo);
+        System.err.printf("║ Don Gia: %.2f            So Luong: %d          \n",giaBan,soLuongSachHienCo);
     }
 
     public void suaSach() {
@@ -102,7 +141,7 @@ public class Sach {
                 case 1:
                     System.out.println("Ten hien tai cua sach la: " + getTenSach());
                     System.out.print("Nhap Ten Sach Moi: ");
-                    tenSach = sc.nextLine();
+                    tenSP = sc.nextLine();
                     break;
                 case 2:
                     System.out.println("Ma Tac Gia Hien Tai Cua Sach La: " + getMaTacGia());
@@ -117,7 +156,7 @@ public class Sach {
                 case 4:
                     System.out.println("Don Gia Ban Hien Tai Cua Sach La: " + getDonGiaBan());
                     System.out.print("Nhap Don Gia Moi: ");
-                    donGiaBan = sc.nextDouble();
+                    giaBan = sc.nextDouble();
                     sc.nextLine(); // Xoa bo dem
                     break;
                 case 5:

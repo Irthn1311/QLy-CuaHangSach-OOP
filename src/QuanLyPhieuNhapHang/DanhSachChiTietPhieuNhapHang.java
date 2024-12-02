@@ -1,4 +1,6 @@
-//package QuanLyPhieuNhapHang;
+package QuanLyPhieuNhapHang;
+
+import Interface.CRUD2;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

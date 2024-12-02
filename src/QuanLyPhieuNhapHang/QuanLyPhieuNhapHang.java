@@ -1,4 +1,4 @@
-//package QuanLyPhieuNhapHang;
+package QuanLyPhieuNhapHang;
 
 import java.util.Scanner;
 
