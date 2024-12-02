@@ -1,4 +1,4 @@
-package QuanLyHoaDon;
+// package QuanLyHoaDon;
 
 
 import java.time.DateTimeException;
@@ -88,16 +88,16 @@ public class HoaDon {
     }
 
     public void xuat(){
-        System.err.print("\n\n╔══════════════════════════════╦═══════════════════════╗\n");
-        System.err.printf("║ HOA DON NGAY: %-7s     ║   MA HOA DON: %-7s ║\n",ngayTaoHD.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),maHD );
-        System.err.print("╠══════════════════════════════╩═══════════════════════╣\n");
-        System.err.printf("║ MA KHACH HANG: %-7s                               ║\n",maKH);
-        System.err.printf("║ TIEN NHAN TU KHACH: %-10.2f       VND             ║\n",tienNhan);
-        System.err.printf("║ TONG TIEN DON HANG: %-10.2f       VND             ║\n",tongTien);
-        System.err.printf("║ TIEN PHAI THOI CHO KHACH: %-10.2f VND             ║\n",tienNhan-tongTien);
-        System.err.printf("╠══════════════════════════════════════════════════════╣\n");
-        System.err.printf("║ MA NHAN VIEN: %-7s                                ║\n",maNV);
-        System.err.print("╚══════════════════════════════════════════════════════╝\n");
+        System.err.print("\n\n╔══════════════════════════════╦═══════════════════════\n");
+        System.err.printf("║ HOA DON NGAY: %-7s     ║   MA HOA DON: %-7s \n",ngayTaoHD.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),maHD );
+        System.err.print("╠══════════════════════════════╩═══════════════════════\n");
+        System.err.printf("║ MA KHACH HANG            : %-7s                               \n",maKH);
+        System.err.printf("║ TIEN NHAN TU KHACH       : %-10.2f       VND             \n",tienNhan);
+        System.err.printf("║ TONG TIEN DON HANG       : %-10.2f       VND             \n",tongTien);
+        System.err.printf("║ TIEN PHAI THOI CHO KHACH : %-10.2f       VND             \n",tienNhan-tongTien);
+        System.err.printf("╠══════════════════════════════════════════════════════\n");
+        System.err.printf("║ MA NHAN VIEN: %-7s                                \n",maNV);
+        System.err.print("╚══════════════════════════════════════════════════════\n");
     }
 
 } 

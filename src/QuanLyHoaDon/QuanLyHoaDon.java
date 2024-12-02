@@ -1,22 +1,27 @@
-package QuanLyHoaDon;
+//package QuanLyPhieuNhapHang;
 
 import java.util.Scanner;
 
 public class QuanLyHoaDon {
     Scanner sc=new Scanner(System.in);
-    DanhSachHoaDon quanlyHoaDon= new DanhSachHoaDon();
-    DanhSachChiTietHoaDon quanlyChiTietHoaDon= new DanhSachChiTietHoaDon(quanlyHoaDon);
+    DanhSachHoaDon quanlyPhieuHoaDon= new DanhSachHoaDon();
+    DanhSachChiTietHoaDon quanlyChiTietHoaDon= new DanhSachChiTietHoaDon(quanlyPhieuHoaDon);
     public void menu() {
         int choice;
         do {
-            System.out.print("\n1.Xem ");
-            System.out.print("\n2.Them ");
-            System.out.print("\n3.Sua ");
-            System.out.print("\n4.Xoa ");
-            System.out.print("\n5.Tim kiem Hoa Don Theo Ma");
-            System.out.print("\n6.Thong Ke Hoa Don");
-            System.out.print("\n7.Doc Va Ghi File Hoa Don Va Chi Tiet Hoa Don");
-            System.out.print("\n0.Thoat");
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.print("║      MENU : Quan ly HD Va Chi Tiet HD    ║\n");
+            System.out.print("╠══════════════════════════════════════════╣\n");
+            System.out.print("║  1. Xem HD Hoac Chi Tiet HD              ║\n");
+            System.out.print("║  2. Them HD Hoac Chi Tiet HD             ║\n");
+            System.out.print("║  3. Sua HD Hoac Chi Tiet HD              ║\n");
+            System.out.print("║  4. Xoa HD Hoac Chi Tiet HD              ║\n");
+            System.out.print("║  5. Tim Kiem HD Hoac Chi Tiet HD         ║\n");
+            System.out.print("║  6. Thong Ke HD Hoac Chi Tiet HD         ║\n");
+            System.out.print("║  7. Doc Ghi FILE HD                      ║\n");
+            System.err.print("║  8. Doc Ghi FILE Chi Tiet HD             ║\n");
+            System.out.print("║  0. Thoat                                ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine(); 
@@ -24,22 +29,26 @@ public class QuanLyHoaDon {
                 case 1:
                     int choice1;
                     do {
-                        System.out.print("\n1.Xem Danh Sach Hoa Don");
-                        System.out.print("\n2.Xem Danh Sach Chi Tiet Hoa Don");
-                        System.out.print("\n3.Xem Hoa Don va Chi Tiet Hoa Don");
-                        System.out.print("\n0.Thoat");
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║              MENU : XEM                  ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Xem Danh Sach HD                     ║\n");
+                        System.out.print("║  2. Xem Danh Sach Chi Tiet HD            ║\n");
+                        System.out.print("║  3. Xem HD Va Chi Tiet HD                ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
                         System.out.print("\nLua Chon Cua Ban: ");
                         choice1 = sc.nextInt();
                         sc.nextLine(); 
                         switch (choice1) {
                         case 1:
-                            quanlyHoaDon.xuatHoaDon();
+                            quanlyPhieuHoaDon.xuatHoaDon();
                             break;
                         case 2:
                             quanlyChiTietHoaDon.inDanhSachChiTietHD();
                             break;
                         case 3:
-                            quanlyHoaDon.xuatHDvaChiTietHD(quanlyChiTietHoaDon);
+                            quanlyPhieuHoaDon.xuatHDvaChiTietHD(quanlyChiTietHoaDon);
                             break;
                         case 0:
                             System.out.print("\nThoat");
@@ -54,15 +63,19 @@ public class QuanLyHoaDon {
                 case 2:
                     int choice2;
                     do {
-                        System.out.print("\n1.Them Hoa Don va Chi Tiet Hoa Don");
-                        System.out.print("\n2.Them Chi Tiet Hoa Don");
-                        System.out.print("\n0.Thoat");
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║              MENU : THEM                 ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Them HD Va Chi Tiet HD               ║\n");
+                        System.out.print("║  2. Them Chi Tiet HD                     ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
                         System.out.print("\nLua Chon Cua Ban: ");
                         choice2 = sc.nextInt();
                         sc.nextLine(); 
                         switch (choice2) {
                         case 1:
-                            quanlyHoaDon.nhapHDvaChiTietHD(quanlyChiTietHoaDon);
+                            quanlyPhieuHoaDon.nhapHDvaChiTietHD(quanlyChiTietHoaDon);
                             break;
                         case 2:
                             quanlyChiTietHoaDon.themChiTietVaoHD();
@@ -80,15 +93,19 @@ public class QuanLyHoaDon {
                 case 3:
                     int choice3;
                     do {
-                        System.out.print("\n1.Sua Hoa Don");
-                        System.out.print("\n2.Sua Chi Tiet Hoa Don");
-                        System.out.print("\n0.Thoat");
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║              MENU : SUA                  ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Sua Phieu Nhap Hang                  ║\n");
+                        System.out.print("║  2. Sua Chi Tiet HD                      ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
                         System.out.print("\nLua Chon Cua Ban: ");
                         choice3 = sc.nextInt();
                         sc.nextLine(); 
                         switch (choice3) {
                         case 1:
-                            quanlyHoaDon.suaHoaDon();
+                            quanlyPhieuHoaDon.suaHoaDon();
                             break;
                         case 2:
                             quanlyChiTietHoaDon.suaChiTietHD();
@@ -106,15 +123,19 @@ public class QuanLyHoaDon {
                 case 4:
                     int choice4;
                     do {
-                        System.out.print("\n1.Xoa Hoa Don");
-                        System.out.print("\n2.Xoa Chi Tiet Hoa Don");
-                        System.out.print("\n0.Thoat");
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║              MENU : XOA                  ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Xoa Phieu Nhap Hang                  ║\n");
+                        System.out.print("║  2. Xoa Chi Tiet HD                      ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
                         System.out.print("\nLua Chon Cua Ban: ");
                         choice4 = sc.nextInt();
                         sc.nextLine(); 
                         switch (choice4) {
                         case 1:
-                            quanlyHoaDon.xoaPhieuTheoMaHD();
+                            quanlyPhieuHoaDon.xoaPhieuTheoMaHD();
                             break;
                         case 2:
                             quanlyChiTietHoaDon.xoaChiTietHD();
@@ -130,34 +151,30 @@ public class QuanLyHoaDon {
                     } while (choice4!=0);
                     break;
                 case 5:
-                    quanlyHoaDon.timPhieuTheoMaHD();
+                    quanlyPhieuHoaDon.timPhieuTheoMaHD();
                     break;
                 case 6:
-                    quanlyHoaDon.thongKe();
+                    quanlyPhieuHoaDon.thongKe();
                     break;
                 case 7:
                     int choice5;
                     do {
-                        System.out.print("\n1.Doc Du Lieu Vao File Hoa Don");
-                        System.out.print("\n2.Ghi Du Lieu Vao File Hoa Don");
-                        System.out.print("\n3.Doc Du Lieu File Chi Tiet Hoa Don");
-                        System.out.print("\n4.Ghi Du Lieu Vao File Chi Tiet Hoa Don");
-                        System.out.print("\n0.Thoat");
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║          MENU : QUAN LY FILE HD          ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Doc Du Lieu Vao FILE HD              ║\n");
+                        System.out.print("║  2. Ghi Du Lieu Vao FILE HD              ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
                         System.out.print("\nLua Chon Cua Ban: ");
                         choice5 = sc.nextInt();
                         sc.nextLine(); 
                         switch (choice5) {
                         case 1:
-                            quanlyHoaDon.docFile();;
+                            quanlyPhieuHoaDon.docFile();;
                             break;
                         case 2:
-                            quanlyHoaDon.ghiFile();
-                            break;
-                        case 3:
-                            quanlyChiTietHoaDon.docFile();
-                            break;
-                        case 4:
-                            quanlyChiTietHoaDon.ghiFile();
+                            quanlyPhieuHoaDon.ghiFile();
                             break;
                         case 0:
                             System.out.print("\nThoat");
@@ -168,6 +185,36 @@ public class QuanLyHoaDon {
                         }
                         
                     } while (choice5!=0);
+                    break;
+                case 8:
+                    int choice6;
+                    do {
+                        System.out.print("\n╔══════════════════════════════════════════╗\n");
+                        System.err.print("║      MENU : QUAN LY FILE CHI TIET HD     ║\n");
+                        System.out.print("╠══════════════════════════════════════════╣\n");
+                        System.out.print("║  1. Doc Du Lieu Vao FILE Chi Tiet HD     ║\n");
+                        System.out.print("║  2. Ghi Du Lieu Vao FILE Chi Tiet HD     ║\n");
+                        System.out.print("║  0. Thoat                                ║\n");
+                        System.out.print("╚══════════════════════════════════════════╝\n");
+                        System.out.print("\nLua Chon Cua Ban: ");
+                        choice6 = sc.nextInt();
+                        sc.nextLine(); 
+                        switch (choice6) {
+                        case 1:
+                            quanlyChiTietHoaDon.docFile();
+                            break;
+                        case 2:
+                            quanlyChiTietHoaDon.ghiFile();
+                            break;
+                        case 0:
+                            System.out.print("\nThoat");
+                            break;
+                        default:
+                            System.out.print("\nNhap Sai Vui Long Nhap Lai");
+                            break;
+                        }
+                        
+                    } while (choice6!=0);
                     break;
                 case 0:
                     System.out.print("\nThoat");

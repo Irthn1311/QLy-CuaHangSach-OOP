@@ -1,6 +1,6 @@
-package QuanLyHoaDon;
+// package QuanLyHoaDon;
 
-import Interface.CRUD2;
+// import Interface.CRUD2;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -120,9 +120,13 @@ public class DanhSachHoaDon implements CRUD2 {
             }
             dsHD=Arrays.copyOf(dsHD, size-1);
             size--;
-            System.out.println("Da Xoa Hoa Don Voi Ma: " + MaHD);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Da Xoa Hoa Don Voi Ma : %s\n" ,MaHD);
+            System.out.print("╚══════════════════════════════════════════");
         }else{
-            System.out.println("Khong Tim Thay Ma Hoa Don: " + MaHD);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma Hoa Don: %s\n" ,MaHD);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -134,7 +138,9 @@ public class DanhSachHoaDon implements CRUD2 {
         if(vt!=-1){
             dsHD[vt].xuat();
         }else{
-            System.out.println("Khong Tim Thay Hoa Don Voi Ma: " + MaHD);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma Hoa Don: %s\n" ,MaHD);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -167,9 +173,13 @@ public class DanhSachHoaDon implements CRUD2 {
             sc.nextLine();
             dsHD[vt].settienNhan(tienNhan);
 
-            System.out.println("Da Sua Thanh Cong Ma PNH: " + MaHD);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Da Sua Thanh Cong Ma Hoa Don: %s\n" ,MaHD);
+            System.out.print("╚══════════════════════════════════════════");
         }else{
-            System.out.println("Khong Tim Thay Ma PNH: " + MaHD);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║      Khong Tim Thay Ma Hoa Don: %s\n" ,MaHD);
+            System.out.print("╚══════════════════════════════════════════");
         }
     }
 
@@ -187,8 +197,11 @@ public class DanhSachHoaDon implements CRUD2 {
                     find=true;
                 }
             }
-            if (!find)
-                System.out.println("Khong Co Hoa Don Theo Ngay: " + ngayTK);
+            if (!find){
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Hoa Don Theo Ngay: %s\n" ,ngayTK);
+                System.out.print("╚══════════════════════════════════════════");
+            }
         } catch (Exception e) {
             System.err.println("Ngay Nhap Hoa Don Khong Hop Le. Vui Long Nhap Theo Dinh Dang(dd-MM-yyyy).");
         }
@@ -214,7 +227,9 @@ public class DanhSachHoaDon implements CRUD2 {
                 }
             }
             if (!find) {
-                System.out.println("Khong Co Phieu Hoa Don Hang Theo Thang: " + thangTK);
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Hoa Don Theo Thang: %s\n" ,thangTK);
+                System.out.print("╚══════════════════════════════════════════");
             }
         } catch (Exception e) {
             System.err.println("Thang Tao Hoa Don Khong Hop Le. Vui Long Nhap Theo Dinh Dang(MM-yyyy).");
@@ -240,7 +255,9 @@ public class DanhSachHoaDon implements CRUD2 {
                 }
             }
             if (!find) {
-                System.out.println("Khong Co Hoa Don Nhap Hang Theo Nam: " + namTk);
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║ Khong Co Hoa Don Theo Nam: %s\n" ,namTk);
+                System.out.print("╚══════════════════════════════════════════");
             }
 
         } catch (Exception e) {
@@ -280,22 +297,32 @@ public class DanhSachHoaDon implements CRUD2 {
         }
         // Sử dụng DecimalFormat để thay đổi dấu phân cách
         DecimalFormat moneyfFormat = new DecimalFormat("#,###.###");
-        System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
-        System.err.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
-        System.err.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
-        System.err.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
-        System.err.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
+        // System.out.println("Thong Ke Tong Tien Theo Quy Trong Nam " + namTK + ":");
+        // System.err.print("Quy 1: "+ moneyfFormat.format(tongTienQuy1));
+        // System.err.print("Quy 2: "+ moneyfFormat.format(tongTienQuy2));
+        // System.err.print("Quy 3: "+ moneyfFormat.format(tongTienQuy3));
+        // System.err.print("Quy 4: "+ moneyfFormat.format(tongTienQuy4));
+        System.out.print("\n╔══════════════════════════════════════════\n");
+        System.out.printf("║              Thong Ke Nam %d        \n",namTK);
+        System.out.print("╠═══════╦════════════════════════════════════\n");
+        System.out.println("║ Quy 1 ║ "+ moneyfFormat.format(tongTienQuy1)+ " VND");
+        System.out.println("║ Quy 2 ║ "+ moneyfFormat.format(tongTienQuy2)+ " VND");
+        System.out.println("║ Quy 3 ║ "+ moneyfFormat.format(tongTienQuy3)+ " VND");
+        System.out.println("║ Quy 4 ║ "+ moneyfFormat.format(tongTienQuy4)+ " VND") ;
+        System.out.print("╚═══════╩════════════════════════════════════\n");
+
     }
 
     public void thongKe(){
-       while (true)
-       {
-           System.err.print("\n0. Thoat");
-           System.err.print("\n1. Thong Ke Theo Ngay");
-           System.err.print("\n2. Thong Ke Theo Thang");
-           System.err.print("\n3. Thong Ke Theo Nam");
-           System.err.print("\n4. Thong Ke Theo Quy\n");
-           System.out.print("\nNhap Lua Chon Thong Ke:");
+        System.out.print("\n╔══════════════════════════════════════════╗\n");
+        System.out.println("║       MENU : Thong Ke Hoa Don            ║ ");
+        System.out.println("║   1. Thong Ke Theo Ngay                  ║ ");
+        System.out.println("║   2. Thong Ke Theo Thang                 ║ ");
+        System.out.println("║   3. Thong Ke Theo Nam                   ║ ");
+        System.out.println("║   4. Thong Ke Theo Quy                   ║ ");
+        System.out.println("║   0. Thoat                               ║ ");
+        System.out.print("╚══════════════════════════════════════════╝\n");
+        System.out.print("\nLua Chon Cua Ban: ");
            int choice =sc.nextInt();
            sc.nextLine();
            switch (choice) {
@@ -319,7 +346,6 @@ public class DanhSachHoaDon implements CRUD2 {
            }
         }
 
-    }
 
     @Override
     public void docFile(){
@@ -343,11 +369,21 @@ public class DanhSachHoaDon implements CRUD2 {
                         Double TongTien=Double.parseDouble(info[4].trim());
                         Double tienNhan=Double.parseDouble(info[5].trim());
 
-                        if(size==dsHD.length){
-                            dsHD=Arrays.copyOf(dsHD, size+1);
+                        if(!KiemTraMaHDTonTai(maHD)){
+                            if(size==dsHD.length){
+                                dsHD=Arrays.copyOf(dsHD, size+1);
+                            }
+                             dsHD[size]=new HoaDon(maHD,maKH,maNV,ngayTao,TongTien,tienNhan);
+                            size++;
+                            System.out.print("\n╔══════════════════════════════════════════\n");
+                            System.out.printf("║ Ma Hoa Don %s Da Them \n", maHD);
+                            System.out.print("╚══════════════════════════════════════════");
+                        }else {
+                            System.out.print("\n╔══════════════════════════════════════════\n");
+                            System.out.printf("║ Ma PNH %s Da Co \n", maHD);
+                            System.out.print("╚══════════════════════════════════════════");
                         }
-                        dsHD[size]=new HoaDon(maHD,maKH,maNV,ngayTao,TongTien,tienNhan);
-                        size++;
+                       
                     }else{
                         System.out.println("Du Lieu Khong Hop Le: " + line);
                     }
