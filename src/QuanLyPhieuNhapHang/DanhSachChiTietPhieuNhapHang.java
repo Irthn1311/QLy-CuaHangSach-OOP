@@ -41,7 +41,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
     public void updateTongTien(String MaPNH){
         PhieuNhapHang phieu=timPNHTheoMa(MaPNH);
         if (phieu == null) {
-            System.out.println("Khong Tim Thay Phieu Nhap Hang Voi Ma: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Khong Tim Thay PNH Voi Ma: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
             return;
         }
 
@@ -54,7 +56,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
 
         // Cập nhật tổng tiền cho phiếu
         phieu.setTongTien(tongTienMoi);
-        System.out.println("Tong Tien Cua Ma PNH " + MaPNH + " Da Duoc Cap Nhat: " + tongTienMoi);
+        System.out.print("\n╔═════════════════════════════════════════════════════════════════════════\n");
+        System.out.printf("║     Tong Tien Cua Ma PNH: %s Da Duoc Cap Nhat: %.2f\n" ,MaPNH,tongTienMoi);
+        System.out.print("╚═════════════════════════════════════════════════════════════════════════");
     }
 
     // Hàm thêm chi tiết cho DanhSachPhieuNhapHang
@@ -64,7 +68,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
         chiTiet.setMa_CTPNH(MaPNH);
         // Kiểm tra mã sản phẩm trùng
         if (KiemTraSachTrung(MaPNH, chiTiet.getMaSach())) {
-            System.out.println("Ma Sach Da Ton Tai Trong PNH. Vui Long Nhap Lai.");
+            System.out.print("\n╔══════════════════════════════════════════════════\n");
+            System.out.printf("║  Ma Sach Da Ton Tai Trong PNH. Hay Nhap Lai\n");
+            System.out.print("╚══════════════════════════════════════════════════");
             return;
         }
 
@@ -74,7 +80,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
         
         updateTongTien(MaPNH);
         
-        System.out.println("Da Them Chi Tiet Vao PNH Co Ma:"+MaPNH);
+        System.out.print("\n╔══════════════════════════════════════════════════\n");
+        System.out.printf("║  Da Them Chi Tiet Vao PNH Co Ma: %s\n",MaPNH);
+        System.out.print("╚══════════════════════════════════════════════════");
     }
 
     // Hàm in chi tiết cho DanhSachPhieuNhapHang
@@ -88,7 +96,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
         }
 
         if (!kiemTraChiTiet) {
-            System.out.println("Khong Co Chi Tiet Nao Trong Phieu Nay.");
+            System.out.print("\n╔══════════════════════════════════════════════════\n");
+            System.out.printf("║  Khong Co Chi Tiet Nao Trong Phieu Nay\n");
+            System.out.print("╚══════════════════════════════════════════════════");
         }
     }
 
@@ -103,7 +113,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
             chiTiet.setMa_CTPNH(MaPNH);
             // Kiểm tra xem mã sản phẩm đã tồn tại trong chi tiết của phiếu này chưa
             if (KiemTraSachTrung(MaPNH, chiTiet.getMaSach())) {
-                System.out.println("Ma Sach Da Ton Tai Trong PNH. Vui Long Nhap Lai\n");
+                System.out.print("\n╔══════════════════════════════════════════════════\n");
+                System.out.printf("║  Ma Sach Da Ton Tai Trong PNH. Vui Long Nhap Lai\n");
+                System.out.print("╚══════════════════════════════════════════════════");
                 return; // Dừng thêm chi tiết
             }
             
@@ -112,9 +124,14 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
             size++;
             updateTongTien(MaPNH);
         
-            System.out.println("Da Them Chi Tiet Vao PNH Co Ma:"+MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════════════\n");
+            System.out.printf("║  Da Them Chi Tiet Vao PNH Co Ma: %s\n",MaPNH);
+            System.out.print("╚══════════════════════════════════════════════════");
         }else{
-            System.out.println("Khong Tim Thay Phieu Nhap Hang Voi Ma: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════════════\n");
+            System.out.printf("║  Khong Tim Thay Phieu Nhap Hang Voi Ma: %s\n",MaPNH);
+            System.out.print("╚══════════════════════════════════════════════════");
+            
         }
     }
 
@@ -146,7 +163,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
         }
 
         if (!findPNH) {
-            System.out.println("Khong Tim Thay Phieu Voi Ma: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Khong Tim Thay PNH Voi Ma: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
             return;
         }
 
@@ -166,6 +185,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
 
                 updateTongTien(MaPNH); // Cập nhật lại tổng tiền phiếu
                 System.out.println("Da Sua Chi Tiet Phieu Nhap Hang Nay.");
+                System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Da Sua Chi Tiet Phieu Nhap Hang Nay\n");
+            System.out.print("╚══════════════════════════════════════════");
                 findSach = true;
                 break;
             }
@@ -188,7 +210,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
              }
         }
         if (!findPNH) {
-            System.out.println("Khong Tim Thay Phieu Voi Ma: " + MaPNH);
+            System.out.print("\n╔══════════════════════════════════════════\n");
+            System.out.printf("║    Khong Tim Thay PNH Voi Ma: %s\n" ,MaPNH);
+            System.out.print("╚══════════════════════════════════════════");
             return;
         }
 
@@ -208,6 +232,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
                 size--;
                 updateTongTien(MaPNH); // Cập nhật lại tổng tiền phiếu
                 System.out.println("Da Cap Nhap Thong Tin PNH.");
+                System.out.print("\n╔══════════════════════════════════════════\n");
+                System.out.printf("║    Da Cap Nhap Thong Tin PNH\n" );
+                System.out.print("╚══════════════════════════════════════════");
                 findSach = true;
                 break;
             }
@@ -215,6 +242,9 @@ public class DanhSachChiTietPhieuNhapHang implements CRUD2{
         }
         if (!findSach) {
             System.out.println("Khong Tim Thay Sach Co Ma: " + maSach + " Trong PNH: " + MaPNH);
+            System.out.print("\n╔═══════════════════════════════════════════════════════\n");
+            System.out.printf("║  Khong Tim Thay Sach Co Ma: %s  Trong PNH: %s\n" ,maSach,MaPNH);
+            System.out.print("╚═══════════════════════════════════════════════════════");
         }
 
     }
