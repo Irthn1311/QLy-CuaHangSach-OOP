@@ -168,7 +168,7 @@ public class DanhSachPhieuNhapHang {
                     condition=true;
                 }
             }
-            System.out.println("Da Sua Thanh Cong Ma PNH: " + MaPNH);
+
             System.out.print("\n╔══════════════════════════════════════════\n");
             System.out.printf("║    Da Sua Thanh Cong Ma PNH: %s\n" ,MaPNH);
             System.out.print("╚══════════════════════════════════════════");
@@ -313,7 +313,7 @@ public class DanhSachPhieuNhapHang {
 
     public void thongKe(){
         System.out.print("\n╔══════════════════════════════════════════╗\n");
-        System.out.println("║       MENU : Thong Phieu Nhap Hang       ║ ");
+        System.out.println("║       MENU : Thong Ke Phieu Nhap Hang    ║ ");
         System.out.println("║   1. Thong Ke Theo Ngay                  ║ ");
         System.out.println("║   2. Thong Ke Theo Thang                 ║ ");
         System.out.println("║   3. Thong Ke Theo Nam                   ║ ");
