@@ -3,8 +3,8 @@ TG002 | Rosie Nguyen | 02-03-1987 | Quy Nhon
 TG003 | Nguyen Nhat Anh | 07-10-1986 | Ha Noi
 TG004 | J97 | 09-07-1997 | Ben Tre
 TG005 | Son Tung MTP | 05-07-1994 | Thai Binh
-TG005 | Ngo Bao Chau | 28-06-1972 | Ha Noi
-TG005 | Tran Duy Trac | 28-09-1999 | Quang Tri
-TG005 | Tran Xuan Bach | 05-10-1984 | Ha Noi
-TG005 | Dam Thanh Son | 12-03-1969 | Ha Noi
-TG005 | Nguyen Dinh  Duc | 11-10-1963 | Ha Noi
+TG006 | Ngo Bao Chau | 28-06-1972 | Ha Noi
+TG007 | Tran Duy Trac | 28-09-1999 | Quang Tri
+TG008 | Tran Xuan Bach | 05-10-1984 | Ha Noi
+TG009 | Dam Thanh Son | 12-03-1969 | Ha Noi
+TG010 | Nguyen Dinh  Duc | 11-10-1963 | Ha Noi
