@@ -408,10 +408,6 @@ public class dsSach implements CRUD {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split("\\|");
-                if (data.length < 7) {
-                    System.out.println("Invalid data format: " + line);
-                    continue;
-                }
     
                 Sach sach;
                 String maSach = data[0];
