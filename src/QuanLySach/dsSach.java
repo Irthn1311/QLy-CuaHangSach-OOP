@@ -383,22 +383,22 @@ public class dsSach implements CRUD {
 
     public void thongkeGiaTien(){
         System.out.print("\nNhap Moc Gia Tien Can Thong Ke: ");
-                    double x = sc.nextDouble();
-                    sc.nextLine();
-                    int countOver = 0;
-                    int countUnder = 0;
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if(arrSach[i] !=null){
-                            if (arrSach[i].getDonGiaBan() > x) {
-                                countOver++;
-                            }
-                            if (arrSach[i].getDonGiaBan() < x) {
-                                countUnder++;
-                            }
-                        }    
-                    }
-                    System.out.println("\nSo Luong Sach Co Gia Tren " + x + ": " + countOver);
-                    System.out.println("So Luong Sach Co Gia Duoi " + x + ": " + countUnder);
+        double x = sc.nextDouble();
+        sc.nextLine();
+        int countOver = 0;
+        int countUnder = 0;
+        for (int i = 0; i < arrSach.length; i++) {
+            if(arrSach[i] !=null){
+                if (arrSach[i].getDonGiaBan() > x) {
+                    countOver++;
+                }
+                if (arrSach[i].getDonGiaBan() < x) {
+                    countUnder++;
+                }
+            }    
+        }
+        System.out.println("\nSo Luong Sach Co Gia Tren " + x + ": " + countOver);
+        System.out.println("So Luong Sach Co Gia Duoi " + x + ": " + countUnder);
     }
     
 
