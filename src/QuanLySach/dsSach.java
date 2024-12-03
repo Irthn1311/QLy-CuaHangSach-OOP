@@ -465,9 +465,9 @@ public class dsSach implements CRUD {
                         arrSach = Arrays.copyOf(arrSach, arrSach.length + 1);
                     }
                     arrSach[arrSach.length - 1] = sach;
-                    System.err.print("\n╔══════════════════════════════════════════\n");
-                    System.err.printf("║ Ma Sach %s Đa Them \n", maSach);
-                    System.err.print("╚══════════════════════════════════════════");
+                    System.out.print("\n╔══════════════════════════════════════════\n");
+                    System.out.printf("║ Ma Sach %s Đa Them \n", maSach);
+                    System.out.print("╚══════════════════════════════════════════");
                 } else {
                     System.err.print("\n╔══════════════════════════════════════════\n");
                     System.err.printf("║ Ma Sach %s Đa Co \n", maSach);
