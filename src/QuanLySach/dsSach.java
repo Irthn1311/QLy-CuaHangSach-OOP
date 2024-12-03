@@ -302,29 +302,29 @@ public class dsSach implements CRUD {
 
     public void thongkeTheLoai() {
         String[] theloai= new String[100];
-                    int[] soluongTL=new int[100];
-                    int visitTL=0;
-                    for(int i=0;i<arrSach.length;i++){
-                        if (arrSach[i]!=null){
-                            boolean find=false;
-                            for (int j=0;j<visitTL;j++){
-                                if(arrSach[i].getTheLoai().equalsIgnoreCase(theloai[j])){
-                                    soluongTL[j]++;
-                                    find=true;
-                                    break;
-                                }
-                            }
-                            if(!find){
-                                theloai[visitTL]=arrSach[i].getTheLoai();
-                                soluongTL[visitTL]=1;
-                                visitTL++;
-                            }
-                        }
+        int[] soluongTL=new int[100];
+        int visitTL=0;
+        for(int i=0;i<arrSach.length;i++){
+            if (arrSach[i]!=null){
+                boolean find=false;
+                for (int j=0;j<visitTL;j++){
+                    if(arrSach[i].getTheLoai().equalsIgnoreCase(theloai[j])){
+                        soluongTL[j]++;
+                        find=true;
+                        break;
                     }
-                    System.out.println("\nThong Ke So Luong Sach Theo The Loai:");
-                    for (int i = 0; i < visitTL; i++) {
-                        System.out.println(theloai[i] + ": " + soluongTL[i]);
-                    }
+                }
+                if(!find){
+                    theloai[visitTL]=arrSach[i].getTheLoai();
+                    soluongTL[visitTL]=1;
+                    visitTL++;
+                }
+            }
+        }
+        System.out.println("\nThong Ke So Luong Sach Theo The Loai:");
+        for (int i = 0; i < visitTL; i++) {
+            System.out.println(theloai[i] + ": " + soluongTL[i]);
+        }
     }
 
     public void thongkeTacGia() {
