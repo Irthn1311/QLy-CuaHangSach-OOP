@@ -481,33 +481,33 @@ public class dsSach implements CRUD {
     
     @Override
     public void ghiFile() {
-    try {
-        PrintWriter pw = new PrintWriter("data/sach.txt");
-        for (Sach sach : arrSach) {
-            if (sach != null) {
-                String line = sach.getMaSach() + "|" 
-                            + sach.getTenSach() + "|" 
-                            + sach.getMaTacGia() + "|" 
-                            + sach.getMaNXB() + "|" 
-                            + sach.getTheLoai() + "|" 
-                            + sach.getDonGiaBan() + "|" 
-                            + sach.getSoLuongSachHienCo() + "|";
+        try {
+            PrintWriter pw = new PrintWriter("data/sach.txt");
+            for (Sach sach : arrSach) {
+                if (sach != null) {
+                    String line = sach.getMaSach() + "|" 
+                                + sach.getTenSach() + "|" 
+                                + sach.getMaTacGia() + "|" 
+                                + sach.getMaNXB() + "|" 
+                                + sach.getTheLoai() + "|" 
+                                + sach.getDonGiaBan() + "|" 
+                                + sach.getSoLuongSachHienCo() + "|";
 
-                if (sach instanceof SachChuyenNganh) {
-                    line += ((SachChuyenNganh) sach).getMonChuyenNganh() + "||";
-                } else if (sach instanceof SachThamKhao) {
-                    line += "|" + ((SachThamKhao) sach).getLinhVuc() + "|" + ((SachThamKhao) sach).getDoTuoi();
-                } else {
-                    line += "||";
+                    if (sach instanceof SachChuyenNganh) {
+                        line += ((SachChuyenNganh) sach).getMonChuyenNganh() + "||";
+                    } else if (sach instanceof SachThamKhao) {
+                        line += "|" + ((SachThamKhao) sach).getLinhVuc() + "|" + ((SachThamKhao) sach).getDoTuoi();
+                    } else {
+                        line += "||";
+                    }
+
+                    pw.println(line);
                 }
-
-                pw.println(line);
             }
+            System.out.println("Ghi thong tin vao file thanh cong.");
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Ghi thong tin vao file thanh cong.");
-        pw.close();
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 }
