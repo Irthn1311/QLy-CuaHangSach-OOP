@@ -28,6 +28,10 @@ public class Sach extends SanPham {
         return giaBan * soLuongSachHienCo;
     }
 
+    public void testTinhGia() {
+        double gia = this.tinhGia();
+        System.out.println("Tong gia tri cua sach: " + gia);
+    }
 
     public String getMaSach() {
         return this.getMaSP();
@@ -116,8 +120,9 @@ public class Sach extends SanPham {
         System.out.println("╠══════════════════════════════════════════");
         System.out.printf("║ Ten Sach        : %s                              \n",tenSP);
         System.out.printf("║ Ma Tac Gia      : %s                   \n",maTacGia);
-        System.err.printf("║ Ma Nha Xuat Ban : %s                      \n",maNXB);
-        System.err.printf("║ Don Gia: %.2f            So Luong: %d          \n",giaBan,soLuongSachHienCo);
+        System.out.printf("║ Ma Nha Xuat Ban : %s                      \n",maNXB);
+        System.out.printf("║ Don Gia: %.2f            So Luong: %d          \n",giaBan,soLuongSachHienCo);
+        System.out.printf("║ Tong gia tri cua sach: %.2f \n", this.tinhGia());
     }
 
     public void suaSach() {
