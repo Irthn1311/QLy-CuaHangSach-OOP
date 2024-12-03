@@ -122,7 +122,7 @@ public class Sach extends SanPham {
         System.out.printf("║ Ma Tac Gia      : %s                   \n",maTacGia);
         System.out.printf("║ Ma Nha Xuat Ban : %s                      \n",maNXB);
         System.out.printf("║ Don Gia: %.2f            So Luong: %d          \n",giaBan,soLuongSachHienCo);
-        System.out.printf("║ Tong gia tri cua sach: %.2f \n", this.tinhGia());
+        System.out.printf("║ Tong gia tri trong kho: %.2f \n", this.tinhGia());
     }
 
     public void suaSach() {
