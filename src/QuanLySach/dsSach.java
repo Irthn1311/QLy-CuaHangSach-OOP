@@ -329,56 +329,56 @@ public class dsSach implements CRUD {
 
     public void thongkeTacGia() {
         String[] tacgia = new String[100];
-                    int[] soluongTG = new int[100];
-                    int visitTG = 0;
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if(arrSach[i] !=null){
-                            boolean find = false;
-                            for (int j = 0; j < visitTG; j++) {
-                                if (arrSach[i]!=null && arrSach[i].getMaTacGia().equalsIgnoreCase(tacgia[j])) {
-                                    soluongTG[j]++;
-                                    find = true;
-                                    break;
-                                }
-                            }
-                            if (!find) {
-                                tacgia[visitTG] = arrSach[i].getMaTacGia();
-                                soluongTG[visitTG] = 1;
-                                visitTG++;
-                            }
-                        }
+        int[] soluongTG = new int[100];
+        int visitTG = 0;
+        for (int i = 0; i < arrSach.length; i++) {
+            if(arrSach[i] !=null){
+                boolean find = false;
+                for (int j = 0; j < visitTG; j++) {
+                    if (arrSach[i]!=null && arrSach[i].getMaTacGia().equalsIgnoreCase(tacgia[j])) {
+                        soluongTG[j]++;
+                        find = true;
+                        break;
                     }
-                    System.out.println("\nThong Ke So Luong Sach Theo Tac Gia:");
-                    for (int i = 0; i < visitTG; i++) {
-                        System.out.println(tacgia[i] + ": " + soluongTG[i]);
-                    }
+                }
+                if (!find) {
+                    tacgia[visitTG] = arrSach[i].getMaTacGia();
+                    soluongTG[visitTG] = 1;
+                    visitTG++;
+                }
+            }
+        }
+        System.out.println("\nThong Ke So Luong Sach Theo Tac Gia:");
+        for (int i = 0; i < visitTG; i++) {
+            System.out.println(tacgia[i] + ": " + soluongTG[i]);
+        }
     }
 
     public void thongkeNXB() {
         String[] nxb = new String[100];
-                    int[] soLuongNXB = new int[100];
-                    int visitNXB = 0;
-                    for (int i = 0; i < arrSach.length; i++) {
-                        if(arrSach[i]!=null){
-                            boolean find = false;
-                            for (int j = 0; j < visitNXB; j++) {
-                                if (arrSach[i]!=null && arrSach[i].getMaNXB().equalsIgnoreCase(nxb[j])) {
-                                    soLuongNXB[j]++;
-                                    find = true;
-                                    break;
-                                }
-                            }
-                            if (!find) {
-                                nxb[visitNXB] = arrSach[i].getMaNXB();
-                                soLuongNXB[visitNXB] = 1;
-                                visitNXB++;
-                            }
-                        }
+        int[] soLuongNXB = new int[100];
+        int visitNXB = 0;
+        for (int i = 0; i < arrSach.length; i++) {
+            if(arrSach[i]!=null){
+                boolean find = false;
+                for (int j = 0; j < visitNXB; j++) {
+                    if (arrSach[i]!=null && arrSach[i].getMaNXB().equalsIgnoreCase(nxb[j])) {
+                        soLuongNXB[j]++;
+                        find = true;
+                        break;
                     }
-                    System.out.println("\nThong Ke So Luong Sach Theo Nha Xuat Ban:");
-                    for (int i = 0; i < visitNXB; i++) {
-                        System.out.println(nxb[i] + ": " + soLuongNXB[i]);
-                    }
+                }
+                if (!find) {
+                    nxb[visitNXB] = arrSach[i].getMaNXB();
+                    soLuongNXB[visitNXB] = 1;
+                    visitNXB++;
+                }
+            }
+        }
+        System.out.println("\nThong Ke So Luong Sach Theo Nha Xuat Ban:");
+        for (int i = 0; i < visitNXB; i++) {
+            System.out.println(nxb[i] + ": " + soLuongNXB[i]);
+        }
     }
 
     public void thongkeGiaTien(){
