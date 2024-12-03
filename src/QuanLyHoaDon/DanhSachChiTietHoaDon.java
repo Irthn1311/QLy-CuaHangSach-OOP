@@ -1,6 +1,8 @@
 package QuanLyHoaDon;
 
 import Interface.CRUD2;
+import QuanLySach.Sach;
+import QuanLySach.dsSach;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,9 +15,11 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
     private ChiTietHoaDon[] dsChiTiet = new ChiTietHoaDon[0];
     private int size = 0;
     private DanhSachHoaDon danhSachHoaDon;
+    private dsSach danhSachSach;
 
     public DanhSachChiTietHoaDon(DanhSachHoaDon danhSachHoaDon) {
         this.danhSachHoaDon = danhSachHoaDon;
+        this.danhSachSach = new dsSach();
     }
 
     // Hàm tìm hóa đơn theo mã
@@ -66,6 +70,18 @@ public class DanhSachChiTietHoaDon implements CRUD2 {
         ChiTietHoaDon chiTiet = new ChiTietHoaDon();
         chiTiet.nhap(false);
         chiTiet.setMaCTHD(MaPNH);
+
+        // Lấy đơn giá từ class Sach
+        int viTri = danhSachSach.viTriMaSach(chiTiet.getMaSach());
+        if (viTri != -1) {
+            Sach sach = danhSachSach.arrSach[viTri];
+            chiTiet.setDonGia(sach.getDonGiaBan());
+        } else {
+            System.out.print("\n╔══════════════════════════════════════════════════\n");
+            System.out.printf("║  Khong Tim Thay Sach Voi Ma: %s\n", chiTiet.getMaSach());
+            System.out.print("╚══════════════════════════════════════════════════");
+            return;
+        }
         // Kiểm tra mã sản phẩm trùng
         if (KiemTraSachTrung(MaPNH, chiTiet.getMaSach())) {
             System.out.print("\n╔══════════════════════════════════════════════════\n");

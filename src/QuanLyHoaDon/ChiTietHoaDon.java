@@ -51,9 +51,9 @@ public class ChiTietHoaDon {
         soLuong = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("Nhap Don Gia: ");
-        donGia = sc.nextDouble();
-        sc.nextLine();
+        // System.out.print("Nhap Don Gia: ");
+        // donGia = sc.nextDouble();
+        // sc.nextLine();
         thanhTien = soLuong * donGia;
     }
 
