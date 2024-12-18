@@ -20,14 +20,18 @@ public class Main{
         int choice;
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.print("\n1.Quan Ly Sach");
-            System.out.print("\n2.Quan Ly Nhan Vien");
-            System.out.print("\n3.Quan Ly Khach Hang");
-            System.out.print("\n4.Quan Ly Tac Gia");
-            System.out.print("\n5.Quan Ly Nha Xuat Ban");
-            System.out.print("\n6.Quan Ly Phieu Nhap Hang");
-            System.out.print("\n7.Quan Ly Hoa Don");
-            System.out.print("\n0.Ket thuc chuong trinh");
+            System.out.print("\n╔══════════════════════════════════════════╗\n");
+            System.err.print("║               MENU : Tong                ║\n");
+            System.out.print("╠══════════════════════════════════════════╣\n");
+            System.out.print("║  1. Quan Ly Sach                         ║\n");
+            System.out.print("║  2. Quan Ly Nhan Vien                    ║\n");
+            System.out.print("║  3. Quan Ly Khach Hang                   ║\n");
+            System.out.print("║  4. Quan Ly Tac Gia                      ║\n");
+            System.out.print("║  5. Quan Ly Nha Xuat Ban                 ║\n");
+            System.out.print("║  6. Quan Ly Phieu Nhap Hang              ║\n");
+            System.out.print("║  7. Quan Ly Hoa Don                      ║\n");
+            System.out.print("║  0. Ket thuc chuong trinh                ║\n");
+            System.out.print("╚══════════════════════════════════════════╝\n");
             System.out.print("\nLua Chon Cua Ban: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -57,7 +61,9 @@ public class Main{
                     System.out.print("\nThoat");
                     break;
                 default:
-                    System.out.print("\nNhap Lai");
+                System.err.print("\n╔══════════════════════════════════════════\n");
+                System.err.printf("║ Nhap Lai             \n");
+                System.err.print("╚══════════════════════════════════════════");
                     break;
             }
         } while (choice != 0);
