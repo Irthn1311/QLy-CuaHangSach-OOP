@@ -130,7 +130,7 @@ public class Sach extends SanPham {
         Scanner sc = new Scanner(System.in);
         int choice;
         do {
-            System.out.print("╔══════════════════════════════════════════╗\n");
+            System.out.print("╠══════════════════════════════════════════╣\n");
             System.out.print("║  1. Sua Ten Sach                         ║\n");
             System.out.print("║  2. Sua Ma Tac Gia                       ║\n");
             System.out.print("║  3. Sua Ma Nha Xuat Ban                  ║\n");
